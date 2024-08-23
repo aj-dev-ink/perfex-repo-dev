@@ -1,0 +1,16 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+
+ERROR - 2024-08-24 00:07:24 --> Could not find the language line "Lead"
+ERROR - 2024-08-24 00:07:24 --> Could not find the language line "Contact"
+ERROR - 2024-08-24 00:07:58 --> Could not find the language line "Lead"
+ERROR - 2024-08-24 00:07:58 --> Could not find the language line "Contact"
+ERROR - 2024-08-24 00:15:16 --> Could not find the language line "Lead"
+ERROR - 2024-08-24 00:15:16 --> Could not find the language line "Contact"
+ERROR - 2024-08-24 00:15:16 --> Could not find the language line "Immediate"
+ERROR - 2024-08-24 00:15:16 --> Could not find the language line "Delayed Action"
+ERROR - 2024-08-24 00:23:32 --> Could not find the language line "Lead"
+ERROR - 2024-08-24 00:23:32 --> Could not find the language line "Contact"
+ERROR - 2024-08-24 00:23:32 --> Could not find the language line "Immediate"
+ERROR - 2024-08-24 00:23:32 --> Could not find the language line "Delayed Action"
+ERROR - 2024-08-24 00:23:32 --> Could not find the language line "All Deals"
+ERROR - 2024-08-24 00:23:32 --> Could not find the language line "Based on conditions"
