@@ -8,6 +8,9 @@ class Workflow_condition_model extends App_Model
     public static $enumStageType = array('Pipeline stage'=>1);
     public static $enumValueType = array('New Value'=>1);
     public static $enumOperatorType = array('Equal To'=>1, 'Not Equal To'=>2, 'Less Than'=>3, 'Greater Than'=>4  );
+    public static $enumCompareValueType = array('Negotiation'=>1 );
+
+    
 
 
     public function __construct()

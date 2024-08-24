@@ -182,11 +182,18 @@
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
-
+                                                            
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="exampleSelect" name="example_select">
-                                                                    <option value="-">Negotiation</option>    
-                                                                </select>  
+                                                                <select class="form-control" id="compareValueSelect" name="compare_value_type_id">
+                                                                    <option value="-">Select</option>
+                                                                    <?php foreach( $compareValueTypes as $label=>$value ) { ?>
+                                                                        <option value="<?php echo $value;?>"
+                                                                                <?php if( isset( $workflowCondition ) && $value == $workflowCondition->compare_value_type_id ) echo 'selected';?>
+                                                                            >
+                                                                            <?php echo $label; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                </select>
                                                             </div>
                                                             <div class="col-md-1 text-right" style="position:relative; top:7px;">
                                                                 <a href="#" class="!tw-px-0 tw-group !tw-text-white" data-toggle="dropdown">
@@ -213,15 +220,12 @@
                                                     
                                                     <div class="section2">
                                                         <div class="row graySection">
-                                                            <div class="col-md-1 text-center" style="position:relative; top:7px;">
-                                                                1
-                                                            </div>
-                                                            <div class="col-md-2">
+                                                            <div class="col-md-3">
                                                                 <select class="form-control" id="exampleSelect" name="example_select">
                                                                     <option value="sendEmail">Send Email</option>
                                                                 </select>  
                                                             </div>
-                                                            <div class="col-md-2">
+                                                            <div class="col-md-3">
                                                                 <button class="btn btn-info save-and-add-contact customer-form-submiter">Send Email</button>
                                                             </div>
                                                         </div>

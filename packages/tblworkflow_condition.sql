@@ -5,5 +5,5 @@ CREATE TABLE tblworkflow_condition (
     stage_type_id SMALLINT,
     value_type_id SMALLINT,
     operator_type_id SMALLINT,
-    compare_value SMALLINT 
+    compare_value_type_id SMALLINT 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
