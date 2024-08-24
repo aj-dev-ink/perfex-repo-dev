@@ -125,7 +125,7 @@
                                                     </div>
                                                     <?  /////////////////DONE TILL CONDITIONS ?>
 
-                                                    <div class="section2">
+                                                    <div class="section2" id="sectionToToggle">
                                                         <div class="row graySection">
                                                             <div class="col-md-1 text-center" style="position:relative; top:7px;">
                                                                 1
