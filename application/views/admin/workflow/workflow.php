@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <?php init_head(); ?>
-/*kunal*/
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div id="wrapper">
     <div class="content">
         <div class="row">
@@ -214,6 +214,23 @@
     </div>
 </div>
 
+/*Jquery code for Set COndition*/
+<script>
+    $(document).ready(function(){
+        $('#sectionToToggle').hide();
+
+        // Handle the radio button change event
+        $('input[name="is_condition_based"]').change(function(){
+            if ($('#all_deals').is(':checked')) {
+                // If Option 1 is selected, hide the section
+                $('#sectionToToggle').hide();
+            } else if ($('#is_condition_based').is(':checked')) {
+                // If Option 2 is selected, show the section
+                $('#sectionToToggle').show();
+            }
+        });
+    });
+</script>
 </body>
 
 </html>
