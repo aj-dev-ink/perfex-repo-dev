@@ -124,31 +124,65 @@
                                                         </div>
                                                     </div>
                                                     <?  /////////////////DONE TILL CONDITIONS ?>
+
                                                     <div class="section2">
                                                         <div class="row graySection">
                                                             <div class="col-md-1 text-center" style="position:relative; top:7px;">
                                                                 1
                                                             </div>
+
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="exampleSelect" name="example_select">
-                                                                    <option value="Opportunity-pipeline">Opportunity pipeline</option>
-                                                                </select>  
+                                                                <select class="form-control" id="conditionSelect" name="condition_type_id">
+                                                                    <option value="-">Select</option>
+                                                                    <?php foreach( $conditionTypes as $label=>$value ) { ?>
+                                                                        <option value="<?php echo $value;?>"
+                                                                                <?php if( isset( $workflowCondition ) && $value == $workflowCondition->action_type_id ) echo 'selected';?>
+                                                                            >
+                                                                            <?php echo $label; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                </select>
                                                             </div>
+
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="exampleSelect" name="example_select">
-                                                                    <option value="Pipeline-stage">Pipeline stage</option> 
-                                                                </select>  
+                                                                <select class="form-control" id="stageSelect" name="stage_type_id">
+                                                                    <option value="-">Select</option>
+                                                                    <?php foreach( $stageTypes as $label=>$value ) { ?>
+                                                                        <option value="<?php echo $value;?>"
+                                                                                <?php if( isset( $workflowCondition ) && $value == $workflowCondition->stage_type_id ) echo 'selected';?>
+                                                                            >
+                                                                            <?php echo $label; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                </select>
                                                             </div>
+
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="exampleSelect" name="example_select">
-                                                                    <option value="-">New Value</option> 
-                                                                </select>  
+                                                                <select class="form-control" id="valueSelect" name="value_type_id">
+                                                                    <option value="-">Select</option>
+                                                                    <?php foreach( $valueTypes as $label=>$value ) { ?>
+                                                                        <option value="<?php echo $value;?>"
+                                                                                <?php if( isset( $workflowCondition ) && $value == $workflowCondition->value_type_id ) echo 'selected';?>
+                                                                            >
+                                                                            <?php echo $label; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                </select>
                                                             </div>
+
                                                             <div class="col-md-2">
-                                                                <select class="form-control" id="exampleSelect" name="example_select">
-                                                                    <option value="-">Equal</option>    
-                                                                </select>  
+                                                                <select class="form-control" id="operatorSelect" name="operator_type_id">
+                                                                    <option value="-">Select</option>
+                                                                    <?php foreach( $operatorTypes as $label=>$value ) { ?>
+                                                                        <option value="<?php echo $value;?>"
+                                                                                <?php if( isset( $workflowCondition ) && $value == $workflowCondition->operator_type_id ) echo 'selected';?>
+                                                                            >
+                                                                            <?php echo $label; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                </select>
                                                             </div>
+
                                                             <div class="col-md-2">
                                                                 <select class="form-control" id="exampleSelect" name="example_select">
                                                                     <option value="-">Negotiation</option>    

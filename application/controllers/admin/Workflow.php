@@ -9,6 +9,7 @@ class Workflow extends AdminController
         parent::__construct();
 
         $this->load->model('workflow_model');
+        $this->load->model('Workflow_condition_model');
     }
 
     public function create($id=null)
@@ -29,10 +30,15 @@ class Workflow extends AdminController
 
         if( isset( $workflow ) ) {
             $data['workflow'] = $workflow;
+            $data['arrWorkflowConditions'] = $workflow;//load workflow cons here
         }
         $data['entityTypes'] = Workflow_model::$enumEntityType;
         $data['actionTypes'] = Workflow_model::$enumActionType;
         
+        $data['conditionTypes'] = Workflow_condition_model::$enumConditionType;
+        $data['stageTypes'] = Workflow_condition_model::$enumStageType;
+        $data['valueTypes'] = Workflow_condition_model::$enumValueType;
+        $data['operatorTypes'] = Workflow_condition_model::$enumOperatorType;
 
         $this->load->view('admin/workflow/workflow', $data);
     }

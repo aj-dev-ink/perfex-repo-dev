@@ -19,7 +19,6 @@ class Workflow_model extends App_Model
     public function add($data) {
         $this->db->insert(db_prefix() . 'workflow', $data);
 
-        $this->db->insert(db_prefix() . 'leads', $data);
         $insert_id = $this->db->insert_id();
         if ($insert_id) {
             log_activity('New Workflow Added [ID: ' . $insert_id . ']');
@@ -28,7 +27,6 @@ class Workflow_model extends App_Model
         return false;
     }
 
-//herrrrrrrrrrrrrrrrrrrr
     public function get($id = '')
     {
         if (is_numeric($id)) {
@@ -42,7 +40,7 @@ class Workflow_model extends App_Model
     public function update($id, $data)
     {
         $this->db->where('id', $id);
-        $this->db->update(db_prefix() . 'tblworkflow', $data);
+        $this->db->update(db_prefix() . 'workflow', $data);
         return $this->db->affected_rows() > 0;
     }
 
@@ -54,7 +52,7 @@ class Workflow_model extends App_Model
     public function delete_workflow($id)
     {
         $this->db->where('id', $id);
-        $this->db->delete(db_prefix() . 'tblworkflow');
+        $this->db->delete(db_prefix() . 'workflow');
         return $this->db->affected_rows() > 0;
     }
 
@@ -70,8 +68,8 @@ class Workflow_model extends App_Model
             $this->db->where('entity_type_id', $entity_type_id);
         }
 
-        // Fetch the records from the tblworkflow table based on the conditions
-        return $this->db->get(db_prefix() . 'tblworkflow')->result_array();
+        // Fetch the records from the workflow table based on the conditions
+        return $this->db->get(db_prefix() . 'workflow')->result_array();
     }
 
 }
