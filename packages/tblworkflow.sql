@@ -5,6 +5,7 @@ CREATE TABLE tblworkflow (
     entity_type_id SMALLINT,
     action_type_id SMALLINT,
     is_trigger_now BOOLEAN DEFAULT TRUE,
-    is_condition_based BOOLEAN DEFAULT TRUE
+    is_condition_based BOOLEAN DEFAULT TRUE,
+    trigger_type_id SMALLINT
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

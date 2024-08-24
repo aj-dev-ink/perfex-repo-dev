@@ -5,7 +5,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Workflow_model extends App_Model
 {
     public static $enumEntityType = array('Lead'=>1, 'Contact'=>2);
-    public static $enumActionType = array('When a deal is updated'=>1, 'When deal is closed. '=>2);
+    public static $enumActionType = array('When a deal is updated'=>1, 'When deal is closed.'=>2);
+    public static $enumTriggerType = array('Edit Field'=>1, 'Send Email'=>2);
     
     public function __construct()
     {

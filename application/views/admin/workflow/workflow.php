@@ -221,9 +221,16 @@
                                                     <div class="section2">
                                                         <div class="row graySection">
                                                             <div class="col-md-3">
-                                                                <select class="form-control" id="exampleSelect" name="example_select">
-                                                                    <option value="sendEmail">Send Email</option>
-                                                                </select>  
+                                                                <select class="form-control" id="triggerSelect" name="trigger_type_id">
+                                                                    <option value="-">Select</option>
+                                                                    <?php foreach( $triggerTypes as $label=>$value ) { ?>
+                                                                        <option value="<?php echo $value;?>"
+                                                                                <?php if( isset( $workflow ) && $value == $workflowAction->trigger_type_id ) echo 'selected';?>
+                                                                            >
+                                                                            <?php echo $label; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                </select>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <button class="btn btn-info save-and-add-contact customer-form-submiter">Send Email</button>

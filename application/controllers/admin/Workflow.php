@@ -34,7 +34,8 @@ class Workflow extends AdminController
         }
         $data['entityTypes'] = Workflow_model::$enumEntityType;
         $data['actionTypes'] = Workflow_model::$enumActionType;
-        
+        $data['triggerTypes'] = Workflow_model::$enumTriggerType;
+
         $data['conditionTypes'] = Workflow_condition_model::$enumConditionType;
         $data['stageTypes'] = Workflow_condition_model::$enumStageType;
         $data['valueTypes'] = Workflow_condition_model::$enumValueType;
