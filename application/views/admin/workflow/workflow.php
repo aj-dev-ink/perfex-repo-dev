@@ -233,9 +233,46 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <button class="btn btn-info save-and-add-contact customer-form-submiter">Send Email</button>
+                                                                <select class="form-control" id="entitySelect" name="entity_to_edit">
+                                                                    <option value="-">Select Entity</option>
+                                                                    <?php foreach( $entitytoEdit as $label=>$value ) { ?>
+                                                                        <option value="<?php echo $value;?>"
+                                                                                <?php if( isset( $workflow ) && $value == $workflowAction->entity_to_edit ) echo 'selected';?>
+                                                                            >
+                                                                            <?php echo $label; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                </select>
                                                             </div>
+                                                            <div class="col-md-3">
+                                                                <select class="form-control" id="entityField" name="entity_field">
+                                                                    <option value="-">Select Entity Field</option>
+                                                                    <?php foreach( $entityField as $label=>$value ) { ?>
+                                                                        <option value="<?php echo $value;?>"
+                                                                                <?php if( isset( $workflow ) && $value == $workflowAction->entity_field ) echo 'selected';?>
+                                                                            >
+                                                                            <?php echo $label; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <select class="form-control" id="triggerSelect" name="trigger_type_id">
+                                                                    <option value="-">Select Entity Field Values</option>
+                                                                    <?php foreach( $entityFieldValue as $label=>$value ) { ?>
+                                                                        <option value="<?php echo $value;?>"
+                                                                                <?php if( isset( $workflow ) && $value == $workflowAction->entity_field_value ) echo 'selected';?>
+                                                                            >
+                                                                            <?php echo $label; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <!-- <div class="col-md-3">
+                                                                <button class="btn btn-info save-and-add-contact customer-form-submiter">Send Email</button>
+                                                            </div> -->
                                                         </div>
+                                                    </div> 
                                                     </div>  
                                                 </div> 
                                             </div>
