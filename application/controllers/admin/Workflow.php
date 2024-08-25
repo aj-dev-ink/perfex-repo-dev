@@ -42,6 +42,10 @@ class Workflow extends AdminController
         $data['operatorTypes'] = Workflow_condition_model::$enumOperatorType;
         $data['compareValueTypes'] = Workflow_condition_model::$enumCompareValueType;
 
+        $data['entitytoEdit'] = Workflow_model::$enumEntitytoEdit;
+        $data['entityField'] = Workflow_model::$enumEntityField;
+        $data['entityFieldValue'] = Workflow_model::$enumEntityFieldValue;
+
         $this->load->view('admin/workflow/workflow', $data);
     }
 }
