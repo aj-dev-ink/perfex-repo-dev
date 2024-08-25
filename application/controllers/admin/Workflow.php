@@ -10,6 +10,8 @@ class Workflow extends AdminController
 
         $this->load->model('workflow_model');
         $this->load->model('Workflow_condition_model');
+        $this->load->model('Workflow_edit_field_model');
+        
     }
 
     public function create($id=null)
@@ -24,6 +26,7 @@ class Workflow extends AdminController
         };
         
         if ($this->input->post()) {
+            //out($this->input->post());
             $insert_id = $this->workflow_model->add( $this->input->post() );
             //return to list workflow here
         }
@@ -31,7 +34,9 @@ class Workflow extends AdminController
         if( isset( $workflow ) ) {
             $data['workflow'] = $workflow;
             $data['arrWorkflowConditions'] = $workflow;//load workflow cons here
+            $data['workflowEditField'] = $workflow;//load workflow cons here
         }
+
         $data['entityTypes'] = Workflow_model::$enumEntityType;
         $data['actionTypes'] = Workflow_model::$enumActionType;
         $data['triggerTypes'] = Workflow_model::$enumTriggerType;
@@ -42,9 +47,9 @@ class Workflow extends AdminController
         $data['operatorTypes'] = Workflow_condition_model::$enumOperatorType;
         $data['compareValueTypes'] = Workflow_condition_model::$enumCompareValueType;
 
-        $data['entitytoEdit'] = Workflow_model::$enumEntitytoEdit;
-        $data['entityField'] = Workflow_model::$enumEntityField;
-        $data['entityFieldValue'] = Workflow_model::$enumEntityFieldValue;
+        $data['entitytoEdit'] = Workflow_edit_field_model::$enumEntitytoEdit;
+        $data['entityField'] = Workflow_edit_field_model::$enumEntityField;
+        $data['entityFieldValue'] = Workflow_edit_field_model::$enumEntityFieldValue;
 
         $this->load->view('admin/workflow/workflow', $data);
     }

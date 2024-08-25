@@ -18,8 +18,8 @@
                     <div class="col-md-12">
                         <div class="panel_s">
                             <div class="panel-body">
-                                <form action="<?php echo site_url('admin/workflow/create'); ?>" id="workflow-form" method="post" accept-charset="utf-8" novalidate="novalidate">
-                                    
+                                <!-- <form action="<?php echo site_url('admin/workflow/create'); ?>" id="workflow-form" method="post" accept-charset="utf-8" novalidate="novalidate"> -->
+                                <?php echo form_open('admin/workflow/create', ['class' => '', 'id' => 'workflow-form']); ?>
                                 <div class="form-group f_client_id">
                                     <?php $value = (isset($workflow) ? $workflow->name : ''); ?>
                                     <?php echo render_input('name', 'Name', $value); ?>
@@ -67,7 +67,7 @@
                                                         </i>
                                                     </label>
                                                     <div class="section2">
-                                                        <select class="form-control" id="actionTypeSelect" name="action_type_select" style="margin-bottom:10px;">
+                                                        <select class="form-control" id="actionTypeSelect" name="action_type_id" style="margin-bottom:10px;">
                                                             <option value="-">Select</option>
                                                             <?php foreach( $actionTypes as $label=>$value ) { ?>
                                                                 <option value="<?php echo $value;?>"
@@ -123,13 +123,12 @@
                                                             <label for="is_condition_based"> <?php echo _l('Based on conditions'); ?> </label>
                                                         </div>
                                                     </div>
-                                                    <?  /////////////////DONE TILL CONDITIONS ?>
 
                                                     <div class="section2" id="sectionToToggle">
                                                         <div id="sectionContainer">
                                                             <div class="row graySection" id="incrementalSection">
                                                                 <div class="col-md-3">
-                                                                    <select class="form-control" id="conditionSelect" name="condition_type_id">
+                                                                    <select class="form-control" id="conditionSelect" name="condition_type_id[]">
                                                                         <option value="-">Select</option>
                                                                         <?php foreach( $conditionTypes as $label=>$value ) { ?>
                                                                             <option value="<?php echo $value;?>"
@@ -142,7 +141,7 @@
                                                                 </div>
 
                                                                 <div class="col-md-2">
-                                                                    <select class="form-control" id="stageSelect" name="stage_type_id">
+                                                                    <select class="form-control" id="stageSelect" name="stage_type_id[]">
                                                                         <option value="-">Select</option>
                                                                         <?php foreach( $stageTypes as $label=>$value ) { ?>
                                                                             <option value="<?php echo $value;?>"
@@ -155,7 +154,7 @@
                                                                 </div>
 
                                                                 <div class="col-md-2">
-                                                                    <select class="form-control" id="valueSelect" name="value_type_id">
+                                                                    <select class="form-control" id="valueSelect" name="value_type_id[]">
                                                                         <option value="-">Select</option>
                                                                         <?php foreach( $valueTypes as $label=>$value ) { ?>
                                                                             <option value="<?php echo $value;?>"
@@ -168,7 +167,7 @@
                                                                 </div>
 
                                                                 <div class="col-md-2">
-                                                                    <select class="form-control" id="operatorSelect" name="operator_type_id">
+                                                                    <select class="form-control" id="operatorSelect" name="operator_type_id[]">
                                                                         <option value="-">Select</option>
                                                                         <?php foreach( $operatorTypes as $label=>$value ) { ?>
                                                                             <option value="<?php echo $value;?>"
@@ -181,7 +180,7 @@
                                                                 </div>
                                                                 
                                                                 <div class="col-md-2">
-                                                                    <select class="form-control" id="compareValueSelect" name="compare_value_type_id">
+                                                                    <select class="form-control" id="compareValueSelect" name="compare_value_type_id[]">
                                                                         <option value="-">Select</option>
                                                                         <?php foreach( $compareValueTypes as $label=>$value ) { ?>
                                                                             <option value="<?php echo $value;?>"
@@ -231,11 +230,11 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <select class="form-control" id="entitySelect" name="entity_to_edit">
+                                                                <select class="form-control" id="editTypeSelect" name="edit_type_id">
                                                                     <option value="-">Select Entity</option>
                                                                     <?php foreach( $entitytoEdit as $label=>$value ) { ?>
                                                                         <option value="<?php echo $value;?>"
-                                                                                <?php if( isset( $workflow ) && $value == $workflowAction->entity_to_edit ) echo 'selected';?>
+                                                                                <?php if( isset( $workflowEditField ) && $value == $workflowEditField->edit_type_id ) echo 'selected';?>
                                                                             >
                                                                             <?php echo $label; ?>
                                                                         </option>
@@ -243,11 +242,11 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <select class="form-control" id="entityField" name="entity_field">
+                                                                <select class="form-control" id="editFieldSelect" name="edit_field_id">
                                                                     <option value="-">Select Entity Field</option>
                                                                     <?php foreach( $entityField as $label=>$value ) { ?>
                                                                         <option value="<?php echo $value;?>"
-                                                                                <?php if( isset( $workflow ) && $value == $workflowAction->entity_field ) echo 'selected';?>
+                                                                                <?php if( isset( $workflowEditField ) && $value == $workflowEditField->edit_field_id ) echo 'selected';?>
                                                                             >
                                                                             <?php echo $label; ?>
                                                                         </option>
@@ -255,11 +254,11 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <select class="form-control" id="triggerSelect" name="trigger_type_id">
+                                                                <select class="form-control" id="editFieldValueSelect" name="field_value">
                                                                     <option value="-">Select Entity Field Values</option>
                                                                     <?php foreach( $entityFieldValue as $label=>$value ) { ?>
                                                                         <option value="<?php echo $value;?>"
-                                                                                <?php if( isset( $workflow ) && $value == $workflowAction->entity_field_value ) echo 'selected';?>
+                                                                                <?php if( isset( $workflowEditField ) && $value == $workflowEditField->field_value ) echo 'selected';?>
                                                                             >
                                                                             <?php echo $label; ?>
                                                                         </option>
@@ -283,7 +282,7 @@
 
                                     <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
-                            </form> 
+                            <?php echo form_close(); ?>
                         </div>
                     </div>
                 </div>
@@ -329,8 +328,8 @@
             // Update the id and name attributes in the cloned section
             $sectionToClone.attr('id', 'incrementalSection_' + sectionIndex);
             $sectionToClone.find('select').each(function() {
-                let nameAttr = $(this).attr('name');
-                $(this).attr('name', nameAttr + '_' + sectionIndex);
+                //let nameAttr = $(this).attr('name');
+                //$(this).attr('name', nameAttr + '_' + sectionIndex);
             });
 
             // Reset the select fields in the cloned section

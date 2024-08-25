@@ -3,5 +3,5 @@ CREATE TABLE tblworkflow_edit_field (
     workflow_id INT(11) NOT NULL,
     edit_type_id SMALLINT,
     edit_field_id SMALLINT,
-    field_value VARCHAR
+    field_value VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

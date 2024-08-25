@@ -573,7 +573,9 @@ if (!function_exists('dig')) {
      */
     function dig( $data )
     {
+        echo '<pre>';
         print_r( $data );
+        echo '</pre>';
     }
 }
 
@@ -584,5 +586,20 @@ if (!function_exists('out')) {
     function out( $data )
     {
         dig( $data );die;
+    }
+}
+
+if (!function_exists('setTableFields')) {
+    /**
+     * table data setter function
+     */
+    function setTableFields( $arrFields, $data ) {
+        $arrFieldsData = [];
+        foreach( $arrFields as $field ){
+            if( isset( $data[$field] ) ){
+                $arrFieldsData[$field] = $data[$field];
+            }
+        }
+        return $arrFieldsData;
     }
 }
