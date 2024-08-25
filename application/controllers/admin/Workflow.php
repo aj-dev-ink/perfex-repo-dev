@@ -14,6 +14,18 @@ class Workflow extends AdminController
         
     }
 
+    /* List all Workflow */
+    public function index()
+    {
+        if( staff_cant('view', 'workflow') ) {
+            ajax_access_denied();
+        }
+
+        $data['workflows'] = $this->workflow_model->get();
+        $data['title'] = _l('Workflows');
+        $this->load->view('admin/workflow/manage', $data);
+    }
+
     public function create($id=null)
     {
         if (staff_cant('create', 'workflow')) {
@@ -29,6 +41,12 @@ class Workflow extends AdminController
             //out($this->input->post());
             $insert_id = $this->workflow_model->add( $this->input->post() );
             //return to list workflow here
+
+            if( is_numeric( $insert_id ) ) {
+                set_alert('success', _l('added_successfully', _l('workflow')));
+            }
+            
+            redirect(admin_url('workflow'));
         }
 
         if( isset( $workflow ) ) {

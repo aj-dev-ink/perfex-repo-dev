@@ -24,6 +24,10 @@ class Workflow_model extends App_Model
         $this->db->insert(db_prefix() . 'workflow', $arrWorkflowData);
         $insert_id = $this->db->insert_id();
 
+        if( $insert_id ) {
+            log_activity('New Workflow Added [ID: ' . $insert_id . ']');
+        }
+
         //insert conditions
         if( isset( $arrWorkflowData['is_condition_based'] ) && $arrWorkflowData['is_condition_based'] ){
             $arrConInsertIds=[];
@@ -48,7 +52,6 @@ class Workflow_model extends App_Model
         }
 
         //insert Triggers based on type
-
         if( isset( $arrWorkflowData['trigger_type_id'] ) ){
             $triggerType = $arrWorkflowData['trigger_type_id'];
 
@@ -65,20 +68,7 @@ class Workflow_model extends App_Model
             }
         }
 
-        $arrWorkflowFields = ['name','description','entity_type_id','action_type_id','is_trigger_now','is_condition_based','trigger_type_id'];
-        $arrWorkflowData = [];
-        foreach( $arrWorkflowFields as $field ){
-            if( isset( $data[$field] ) ){
-                $arrWorkflowData[$field] = $data[$field];
-            }
-        }
-
-        $this->db->insert(db_prefix() . 'workflow', $arrWorkflowData);
-        $insert_id = $this->db->insert_id();
-
-
         if ($insert_id) {
-            log_activity('New Workflow Added [ID: ' . $insert_id . ']');
             return $insert_id;
         }
         return false;

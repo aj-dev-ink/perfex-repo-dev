@@ -580,7 +580,7 @@ function app_init_admin_sidebar_menu_items()
     if (staff_can('view',  'workflow')) {
         $CI->app_menu->add_sidebar_menu_item('workflow', [
             'name'     => _l('als_workflow'),
-            'href'     => admin_url('workflow/create'),
+            'href'     => admin_url('workflow'),
             'icon'     => 'fa-regular fa-folder-closed',
             'position' => 50,
             'badge'    => [],

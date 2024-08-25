@@ -278,7 +278,7 @@
                                 </div>
                                 
                                 <div class="btn-bottom-toolbar text-right">
-                                    <button type="submit" class="btn btn-default save-and-add-contact customer-form-submiter">cancel</button>
+                                    <button type="submit" class="btn btn-default save-and-add-contact customer-form-submiter">Cancel</button>
 
                                     <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
