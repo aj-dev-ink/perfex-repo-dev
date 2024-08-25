@@ -126,82 +126,80 @@
                                                     <?  /////////////////DONE TILL CONDITIONS ?>
 
                                                     <div class="section2" id="sectionToToggle">
-                                                        <div class="row graySection">
-                                                            <div class="col-md-1 text-center" style="position:relative; top:7px;">
-                                                                1
-                                                            </div>
+                                                        <div id="sectionContainer">
+                                                            <div class="row graySection" id="incrementalSection">
+                                                                <div class="col-md-3">
+                                                                    <select class="form-control" id="conditionSelect" name="condition_type_id">
+                                                                        <option value="-">Select</option>
+                                                                        <?php foreach( $conditionTypes as $label=>$value ) { ?>
+                                                                            <option value="<?php echo $value;?>"
+                                                                                    <?php if( isset( $workflowCondition ) && $value == $workflowCondition->action_type_id ) echo 'selected';?>
+                                                                                >
+                                                                                <?php echo $label; ?>
+                                                                            </option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
 
-                                                            <div class="col-md-2">
-                                                                <select class="form-control" id="conditionSelect" name="condition_type_id">
-                                                                    <option value="-">Select</option>
-                                                                    <?php foreach( $conditionTypes as $label=>$value ) { ?>
-                                                                        <option value="<?php echo $value;?>"
-                                                                                <?php if( isset( $workflowCondition ) && $value == $workflowCondition->action_type_id ) echo 'selected';?>
-                                                                            >
-                                                                            <?php echo $label; ?>
-                                                                        </option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
+                                                                <div class="col-md-2">
+                                                                    <select class="form-control" id="stageSelect" name="stage_type_id">
+                                                                        <option value="-">Select</option>
+                                                                        <?php foreach( $stageTypes as $label=>$value ) { ?>
+                                                                            <option value="<?php echo $value;?>"
+                                                                                    <?php if( isset( $workflowCondition ) && $value == $workflowCondition->stage_type_id ) echo 'selected';?>
+                                                                                >
+                                                                                <?php echo $label; ?>
+                                                                            </option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
 
-                                                            <div class="col-md-2">
-                                                                <select class="form-control" id="stageSelect" name="stage_type_id">
-                                                                    <option value="-">Select</option>
-                                                                    <?php foreach( $stageTypes as $label=>$value ) { ?>
-                                                                        <option value="<?php echo $value;?>"
-                                                                                <?php if( isset( $workflowCondition ) && $value == $workflowCondition->stage_type_id ) echo 'selected';?>
-                                                                            >
-                                                                            <?php echo $label; ?>
-                                                                        </option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
+                                                                <div class="col-md-2">
+                                                                    <select class="form-control" id="valueSelect" name="value_type_id">
+                                                                        <option value="-">Select</option>
+                                                                        <?php foreach( $valueTypes as $label=>$value ) { ?>
+                                                                            <option value="<?php echo $value;?>"
+                                                                                    <?php if( isset( $workflowCondition ) && $value == $workflowCondition->value_type_id ) echo 'selected';?>
+                                                                                >
+                                                                                <?php echo $label; ?>
+                                                                            </option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
 
-                                                            <div class="col-md-2">
-                                                                <select class="form-control" id="valueSelect" name="value_type_id">
-                                                                    <option value="-">Select</option>
-                                                                    <?php foreach( $valueTypes as $label=>$value ) { ?>
-                                                                        <option value="<?php echo $value;?>"
-                                                                                <?php if( isset( $workflowCondition ) && $value == $workflowCondition->value_type_id ) echo 'selected';?>
-                                                                            >
-                                                                            <?php echo $label; ?>
-                                                                        </option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-
-                                                            <div class="col-md-2">
-                                                                <select class="form-control" id="operatorSelect" name="operator_type_id">
-                                                                    <option value="-">Select</option>
-                                                                    <?php foreach( $operatorTypes as $label=>$value ) { ?>
-                                                                        <option value="<?php echo $value;?>"
-                                                                                <?php if( isset( $workflowCondition ) && $value == $workflowCondition->operator_type_id ) echo 'selected';?>
-                                                                            >
-                                                                            <?php echo $label; ?>
-                                                                        </option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                            
-                                                            <div class="col-md-2">
-                                                                <select class="form-control" id="compareValueSelect" name="compare_value_type_id">
-                                                                    <option value="-">Select</option>
-                                                                    <?php foreach( $compareValueTypes as $label=>$value ) { ?>
-                                                                        <option value="<?php echo $value;?>"
-                                                                                <?php if( isset( $workflowCondition ) && $value == $workflowCondition->compare_value_type_id ) echo 'selected';?>
-                                                                            >
-                                                                            <?php echo $label; ?>
-                                                                        </option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-md-1 text-right" style="position:relative; top:7px;">
-                                                                <a href="#" class="!tw-px-0 tw-group !tw-text-white" data-toggle="dropdown">
-                                                                    <span class="tw-rounded-full tw-bg-primary-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
-                                                                        <i class="fa-regular fa-plus fa-lg"></i>
-                                                                    </span>
-                                                                </a>
-                                                            </div>
+                                                                <div class="col-md-2">
+                                                                    <select class="form-control" id="operatorSelect" name="operator_type_id">
+                                                                        <option value="-">Select</option>
+                                                                        <?php foreach( $operatorTypes as $label=>$value ) { ?>
+                                                                            <option value="<?php echo $value;?>"
+                                                                                    <?php if( isset( $workflowCondition ) && $value == $workflowCondition->operator_type_id ) echo 'selected';?>
+                                                                                >
+                                                                                <?php echo $label; ?>
+                                                                            </option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                                
+                                                                <div class="col-md-2">
+                                                                    <select class="form-control" id="compareValueSelect" name="compare_value_type_id">
+                                                                        <option value="-">Select</option>
+                                                                        <?php foreach( $compareValueTypes as $label=>$value ) { ?>
+                                                                            <option value="<?php echo $value;?>"
+                                                                                    <?php if( isset( $workflowCondition ) && $value == $workflowCondition->compare_value_type_id ) echo 'selected';?>
+                                                                                >
+                                                                                <?php echo $label; ?>
+                                                                            </option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-1 text-right incrementalBtn">
+                                                                    <a class="add-section !tw-px-0 tw-group !tw-text-white" data-toggle="dropdown">
+                                                                        <span class="tw-rounded-full tw-bg-primary-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
+                                                                            <i class="fa-regular fa-plus fa-lg"></i>
+                                                                        </span>
+                                                                    </a>
+                                                                </div>
+                                                            </div> 
                                                         </div>    
                                                     </div>                             
                                                 </div>  
@@ -299,6 +297,7 @@
 /*Jquery code for Set COndition*/
 <script>
     $(document).ready(function(){
+        /* Function for hide and show condition section based on condition radio button */
         $('#sectionToToggle').hide();
 
         // Handle the radio button change event
@@ -310,6 +309,50 @@
                 // If Option 2 is selected, show the section
                 $('#sectionToToggle').show();
             }
+        });
+
+        /* Funtion for incremental section clicked on plus button */
+
+        let sectionIndex = 1; // Counter to track the number of sections
+
+        // Use event delegation to handle click events on dynamically added elements    
+        
+        $('#sectionContainer').on('click', '.add-section', function(e) {
+            e.preventDefault();
+
+            // Clone the section
+            let $sectionToClone = $('#incrementalSection').clone();
+
+            // Increment the section index
+            sectionIndex++;
+
+            // Update the id and name attributes in the cloned section
+            $sectionToClone.attr('id', 'incrementalSection_' + sectionIndex);
+            $sectionToClone.find('select').each(function() {
+                let nameAttr = $(this).attr('name');
+                $(this).attr('name', nameAttr + '_' + sectionIndex);
+            });
+
+            // Reset the select fields in the cloned section
+            $sectionToClone.find('select').prop('selectedIndex', 0);
+
+            // Append the "Remove Section" button to the cloned section
+            $sectionToClone.find('.col-md-1').prepend(`
+                <a class="remove-section-btn !tw-px-0 tw-group !tw-text-white mr-5" data-toggle="dropdown">
+                    <span class="tw-rounded-full tw-bg-danger-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M200-440v-80h560v80H200Z"/></svg>
+                    </span>
+                </a>
+            `);
+
+            // Append the cloned section to the container
+            $('#sectionContainer').append($sectionToClone);
+
+            // Event listener to remove a section when the Remove button is clicked
+            $('#sectionContainer').on('click', '.remove-section-btn', function() {
+                $(this).closest('.graySection').remove();
+            });
+
         });
     });
 </script>
