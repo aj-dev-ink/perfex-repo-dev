@@ -7,7 +7,22 @@ class Workflow_condition_model extends App_Model
     public static $enumConditionType = array('Opportunity Pipeline'=>1);
     public static $enumStageType = array('Pipeline stage'=>1);
     public static $enumValueType = array('New Value'=>1);
-    public static $enumOperatorType = array('Equal To'=>1, 'Not Equal To'=>2, 'Less Than'=>3, 'Greater Than'=>4  );
+    public static $enumOperatorType = array(
+        'Equal To'=>1,
+        'Not Equal To'=>2,
+        'Contains'=>3,
+        'Not contains'=>4,
+        'Is empty'=>5,
+        'Is not empty'=>6,
+        'Begins with'=>7,
+        'Is set'=>8,
+        'Is not set'=>9,
+        'In'=>10,
+        'Not in'=>11,
+        'And'=>12,
+        'Or'=>13
+     );
+
     public static $enumCompareValueType = array('Negotiation'=>1 );
 
     
