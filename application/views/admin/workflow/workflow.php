@@ -114,7 +114,7 @@
                                                             <input class="relative" type="radio" name="is_condition_based" id="all_deals" value="0" 
                                                                 <?php if( isset( $workflow ) && !$workflow->is_condition_based ) echo 'selected';?>
                                                             >
-                                                            <label for="all_deals"> <?php echo _l('All Deals'); ?> </label>
+                                                            <label for="all_deals"> <?php echo _l('All Entities'); ?> </label>
                                                         </div>
                                                         <div class="radio-inline">
                                                             <input class="relative" type="radio" name="is_condition_based" id="is_condition_based" value="1" 
