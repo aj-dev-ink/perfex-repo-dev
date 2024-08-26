@@ -22,6 +22,12 @@ class Workflow extends AdminController
         }
 
         $data['workflows'] = $this->workflow_model->get();
+
+        $data['entityTypes'] = array_flip( WF_ENTITY_TYPE );
+        $data['actionTypes'] = array_flip( WF_ACTION_TYPE );
+        $data['triggerTypes'] = array_flip( WF_TRIGGER_TYPE );
+
+
         $data['title'] = _l('Workflows');
         $this->load->view('admin/workflow/manage', $data);
     }
@@ -55,11 +61,15 @@ class Workflow extends AdminController
             $data['workflowEditField'] = $workflow;//load workflow cons here
         }
 
-        $data['entityTypes'] = Workflow_model::$enumEntityType;
-        $data['actionTypes'] = Workflow_model::$enumActionType;
-        $data['triggerTypes'] = Workflow_model::$enumTriggerType;
+        $data['entityTypes'] = WF_ENTITY_TYPE;
+        $data['actionTypes'] = WF_ACTION_TYPE;
+        $data['triggerTypes'] = WF_TRIGGER_TYPE;
 
-        $data['conditionTypes'] = Workflow_condition_model::$enumConditionType;
+        $data['actionTypeMap'] = WF_ACTION_MAP;
+        $data['conditionFieldMap'] = WF_FIELD_MAP;
+
+
+        
         $data['stageTypes'] = Workflow_condition_model::$enumStageType;
         $data['valueTypes'] = Workflow_condition_model::$enumValueType;
         $data['operatorTypes'] = Workflow_condition_model::$enumOperatorType;

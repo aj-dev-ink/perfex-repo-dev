@@ -69,13 +69,13 @@
                                                     <div class="section2">
                                                         <select class="form-control" id="actionTypeSelect" name="action_type_id" style="margin-bottom:10px;">
                                                             <option value="-">Select</option>
-                                                            <?php foreach( $actionTypes as $label=>$value ) { ?>
+                                                            <!-- <?php foreach( $actionTypes as $label=>$value ) { ?>
                                                                 <option value="<?php echo $value;?>"
                                                                         <?php if( isset( $workflow ) && $value == $workflow->action_type_id ) echo 'selected';?>
                                                                     >
                                                                     <?php echo $label; ?>
                                                                 </option>
-                                                            <?php } ?>
+                                                            <?php } ?> -->
                                                         </select>   
                                                         <div class="radio-inline">
                                                             <input class="relative" type="radio" name="is_trigger_now" id="immediate_trigger" value="1" 
@@ -130,13 +130,6 @@
                                                                 <div class="col-md-3">
                                                                     <select class="form-control" id="conditionSelect" name="condition_type_id[]">
                                                                         <option value="-">Select</option>
-                                                                        <?php foreach( $conditionTypes as $label=>$value ) { ?>
-                                                                            <option value="<?php echo $value;?>"
-                                                                                    <?php if( isset( $workflowCondition ) && $value == $workflowCondition->action_type_id ) echo 'selected';?>
-                                                                                >
-                                                                                <?php echo $label; ?>
-                                                                            </option>
-                                                                        <?php } ?>
                                                                     </select>
                                                                 </div>
 
@@ -310,6 +303,45 @@
             }
         });
 
+
+        const optionsFieldMap = <?php echo json_encode( $conditionFieldMap ); ?>;
+        const actionTypeMap = <?php echo json_encode( $actionTypeMap ); ?>;
+        
+        // Handle the radio button change event for event type
+        $('input[name="entity_type_id"]').change(function(){
+            
+            var selectedValue = $('input[name="entity_type_id"]:checked').val();
+
+            var optionsFM = optionsFieldMap[selectedValue];
+            var optionsAM = actionTypeMap[selectedValue];
+
+            //Update Action  DD
+            // Get the select box element by its ID
+            var $actionTypeSelect = $('#actionTypeSelect');
+            // Clear the existing options
+            $actionTypeSelect.empty();
+            // Populate the select box with new options
+            $actionTypeSelect.append($('<option></option>').attr('value', "-").text('Select'));
+            $.each(optionsAM, function(key, value) {
+                $actionTypeSelect.append($('<option></option>').attr('value', value).text(key));
+            });
+
+            
+            //Update Condition  DD
+            // Get the select box element by its ID
+            var $conditionSelect = $('#conditionSelect');
+            // Clear the existing options
+            $conditionSelect.empty();
+            // Populate the select box with new options
+            $conditionSelect.append($('<option></option>').attr('value', "-").text('Select'));
+            $.each(optionsFM, function(key, value) {
+                $conditionSelect.append($('<option></option>').attr('value', value).text(key));
+            });
+
+        });
+
+
+
         /* Funtion for incremental section clicked on plus button */
 
         let sectionIndex = 1; // Counter to track the number of sections
@@ -354,6 +386,8 @@
 
         });
     });
+
+
 </script>
 </body>
 

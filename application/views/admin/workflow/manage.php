@@ -20,15 +20,23 @@
                                     <th><?php echo _l('ID'); ?></th>
                                     <th><?php echo _l('Name'); ?></th>
                                     <th><?php echo _l('Description'); ?></th>
-
+                                    <th><?php echo _l('Entity'); ?></th>
+                                    <th><?php echo _l('Action Preference'); ?></th>
+                                    <th><?php echo _l('Trigger'); ?></th>
+                                    <th><?php echo _l('Action'); ?></th>
                                 </tr>
                             </thead>
+
                             <tbody>
                                 <?php foreach ($workflows as $workflow): ?>
                                 <tr>
                                     <td><?php echo $workflow['id']; ?></td>
                                     <td><?php echo $workflow['name']; ?></td>
                                     <td><?php echo $workflow['description']; ?></td>
+
+                                    <td><?php echo ( is_numeric( $workflow['entity_type_id'] ) && isset( $entityTypes[ $workflow['entity_type_id'] ] )  ? $entityTypes[ $workflow['entity_type_id'] ] :'-') ?></td>
+                                    <td><?php echo ( is_numeric( $workflow['action_type_id'] ) && isset( $actionTypes[ $workflow['action_type_id'] ] )  ? $actionTypes[ $workflow['action_type_id'] ] :'-') ?></td>
+                                    <td><?php echo ( is_numeric( $workflow['trigger_type_id'] ) && isset( $triggerTypes[ $workflow['trigger_type_id'] ] )  ? $triggerTypes[ $workflow['trigger_type_id'] ] :'-') ?></td>
                                     <td>
                                         <a href="<?php echo admin_url('workflow/create/' . $workflow['id']); ?>" class="btn btn-default btn-icon"><i class="fa fa-pencil"></i></a>
                                         <a href="#" class="btn btn-danger btn-icon _delete"><i class="fa fa-remove"></i></a>

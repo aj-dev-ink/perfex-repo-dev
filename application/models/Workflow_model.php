@@ -4,22 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Workflow_model extends App_Model
 {
-    public static $enumEntityType = array('Lead'=>1, 'Task'=>2, 'Call log'=>3, 'Meeting'=>4);
     
-    public static $enumActionType = array('When a lead is created'=>1, 'When a lead is updated.'=>2, 'Execute as an associated entity action'=>3, 'Marketplace app trigger'=>4);
-
-    public static $enumTriggerType = array(
-        'Edit Field'=>1,
-        'Send Email'=>2,
-        'Webhook'=>3,
-        'Reassign'=>4,
-        'Share'=>5,
-        'Convert'=>6,
-        'Create task'=>7,
-        'Send email'=>8,
-        'Marketplace actions'=>9
-    );
-
     public function __construct()
     {
         parent::__construct();
@@ -129,5 +114,5 @@ class Workflow_model extends App_Model
         // Fetch the records from the workflow table based on the conditions
         return $this->db->get(db_prefix() . 'workflow')->result_array();
     }
-
+    
 }

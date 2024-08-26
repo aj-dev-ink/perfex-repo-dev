@@ -584,3 +584,6 @@ if (defined('APP_MEMORY_LIMIT')) {
 $config['modules_locations'] = [
     APP_MODULES_PATH => '../../modules/',
 ];
+if (file_exists(APPPATH . 'config/workflow-constants.php')) {
+    require_once(APPPATH . 'config/workflow-constants.php');
+}
