@@ -50,15 +50,15 @@ class Workflow_model extends App_Model
         //insert Triggers based on type
         if( isset( $arrWorkflowData['trigger_type_id'] ) ){
             $triggerType = $arrWorkflowData['trigger_type_id'];
-
+            $enumTriggerType = WF_TRIGGER_TYPE;
             switch( $triggerType ) {
-                case Workflow_model::$enumTriggerType['Edit Field']:
+                case $enumTriggerType['Edit Field']:
                     //Insert to Edit fields
                     $arrEditFieldData = setTableFields( ['edit_type_id','edit_field_id','field_value'], $data );
                     $arrEditFieldData['workflow_id'] = $insert_id;
                     $triggerInserId = $this->Workflow_edit_field_model->add( $arrEditFieldData );
                     break;
-                case Workflow_model::$enumTriggerType['Send Email']:
+                case $enumTriggerType['Send Email']:
                     # code...
                     break;
             }
@@ -114,5 +114,5 @@ class Workflow_model extends App_Model
         // Fetch the records from the workflow table based on the conditions
         return $this->db->get(db_prefix() . 'workflow')->result_array();
     }
-    
+
 }
