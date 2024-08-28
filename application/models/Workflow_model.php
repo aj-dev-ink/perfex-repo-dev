@@ -96,23 +96,28 @@ class Workflow_model extends App_Model
     {
         $this->db->where('id', $id);
         $this->db->delete(db_prefix() . 'workflow');
-        return $this->db->affected_rows() > 0;
-    }
 
-    public function get_workflows_by_conditions( $entity_type_id = null, $action_type_id = null )
-    {
-        // Check if action_type_id is provided
-        if (!is_null($action_type_id)) {
-            $this->db->where('action_type_id', $action_type_id);
+        $isDeleted = $this->db->affected_rows() > 0;
+        if( $isDeleted ){
+            $this->db->where('workflow_id', $id);
+
+            $this->db->delete(db_prefix() . 'workflow_condition');
+            $this->db->delete(db_prefix() . 'workflow_edit_field_model');
+
+            log_activity('Workflow & related data Deleted [ID: ' . $id . ']');
         }
 
-        // Check if entity_type_id is provided
-        if (!is_null($entity_type_id)) {
-            $this->db->where('entity_type_id', $entity_type_id);
-        }
-
-        // Fetch the records from the workflow table based on the conditions
-        return $this->db->get(db_prefix() . 'workflow')->result_array();
+        return $isDeleted;
+        
     }
 
+    public function toggle_status($id,$newStatus) {
+        $this->db->where('id', $id);
+        $this->db->update( db_prefix() . 'workflow', ['is_active' => $newStatus]);
+        $affected = $this->db->affected_rows();
+        if( $affected ){
+            log_activity('Workflow & related data Deleted [ID: ' . $id . ']');
+        }
+        return $affected;
+    }
 }

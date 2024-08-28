@@ -285,7 +285,7 @@
         </div>
     </div>
 </div>
-
+<?php init_tail(); ?>
 /*Jquery code for Set COndition*/
 <script>
     $(document).ready(function(){
@@ -389,6 +389,3 @@
 
 
 </script>
-</body>
-
-</html>

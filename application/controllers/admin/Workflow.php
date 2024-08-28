@@ -81,4 +81,40 @@ class Workflow extends AdminController
 
         $this->load->view('admin/workflow/workflow', $data);
     }
+
+    /* Delete workflow from database */
+    public function delete($id)
+    {
+        if (!$id) {
+            redirect(admin_url('workflow'));
+        }
+        if (staff_cant('delete', 'workflow')) {
+            access_denied('Delete Workflow');
+        }
+
+        $response = $this->workflow_model->delete_workflow($id);
+        $respons = false;
+        if ($respons) {
+            set_alert('success', _l('deleted', _l('workflow')));
+        } else {
+            set_alert('warning', _l('problem_deleting', _l('workflow_lowercase')));
+        }
+        redirect(admin_url('workflow'));
+    }
+
+    public function toggleStatus() {
+        $id = $this->input->post('id');
+        $new_status = $this->input->post('status');
+    
+        if (is_numeric($id)) {
+            $result = $this->workflow_model->toggle_status($id,$new_status);
+            if ( $result ) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false]);
+            }
+        } else {
+            echo json_encode( ['success' => false] );
+        }
+    }
 }
