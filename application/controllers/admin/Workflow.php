@@ -93,8 +93,8 @@ class Workflow extends AdminController
         }
 
         $response = $this->workflow_model->delete_workflow($id);
-        $respons = false;
-        if ($respons) {
+
+        if ($response) {
             set_alert('success', _l('deleted', _l('workflow')));
         } else {
             set_alert('warning', _l('problem_deleting', _l('workflow_lowercase')));
