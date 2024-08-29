@@ -57,8 +57,8 @@
                                 <div class="formSection-sep-bottom">
                                     <div class="formSection-inner pt-15">
                                         <div class="row">
-                                            <div class="col-sm-6 col-12">
-                                                <div class="form-group" app-field-wrapper="Select action types">
+                                            <div class="col-sm-12 col-12">
+                                                <div app-field-wrapper="Select action types">
                                                     <span class="blue-circle mr-2">2</span>
                                                     <label for="description" class="control-label">Set action type and trigger preferences 
                                                         <i class="fa-regular fa-circle-question pull-right tw-mt-0.5 tw-ml-1"
@@ -66,7 +66,11 @@
                                                             data-title="<?php echo _l('customer_currency_change_notice'); ?>">
                                                         </i>
                                                     </label>
-                                                    <div class="section2">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5 col-12">
+                                                <div class="" app-field-wrapper="Select action types">
+                                                    <div class="section2 form-group">
                                                         <select class="form-control" id="actionTypeSelect" name="action_type_id" style="margin-bottom:10px;">
                                                             <option value="-">Select</option>
                                                             <!-- <?php foreach( $actionTypes as $label=>$value ) { ?>
@@ -77,13 +81,13 @@
                                                                 </option>
                                                             <?php } ?> -->
                                                         </select>   
-                                                        <div class="radio-inline">
+                                                        <div class="radio-inline pb-5">
                                                             <input class="relative" type="radio" name="is_trigger_now" id="immediate_trigger" value="1" 
                                                                 <?php if( isset( $workflow ) && $workflow->is_trigger_now ) echo 'selected';?>
                                                             >
                                                             <label for="immediate_trigger"> <?php echo _l('Immediate'); ?> </label>
                                                         </div>
-                                                        <div class="radio-inline">
+                                                        <div class="radio-inline pb-5">
                                                             <input class="relative" type="radio" name="is_trigger_now" id="dealyed_trigger" value="0" 
                                                                     <?php if( isset( $workflow ) && !$workflow->is_trigger_now ) echo 'selected';?>
                                                             >
@@ -92,6 +96,89 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <!-- Delayed Action Condition -->
+                                            <div class="section2" id="sectionToggleToDelayed">
+                                                    <div class="col-sm-12 col-12">
+                                                        <div id="sectionContainer" class="form-group">
+                                                        <div class="row graySection">
+                                                            <div class="col-md-2">
+                                                                <?php echo render_input('timeEnter', 'Time Preference', $value); ?>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <label for="name" class="control-label">&nbsp;</label>
+                                                                <select class="form-control" id="stageSelect" name="time_id[]">
+                                                                    <option value="-">Select</option>
+                                                                    <?php foreach( $delayedTimes as $label=>$value ) { ?>
+                                                                        <option value="<?php echo $value;?>"
+                                                                                <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->time_id ) echo 'selected';?>
+                                                                            >
+                                                                            <?php echo $label; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <label for="name" class="control-label">&nbsp;</label>
+                                                                <select class="form-control" id="valueSelect" name="action_type_id[]">
+                                                                    <option value="-">Select</option>
+                                                                    <?php foreach( $delayedActions as $label=>$value ) { ?>
+                                                                        <option value="<?php echo $value;?>"
+                                                                                <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->action_type_id ) echo 'selected';?>
+                                                                            >
+                                                                            <?php echo $label; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="name" class="control-label">Date Properties</label>
+                                                                <select class="form-control" id="operatorSelect" name="delayed_type_id[]">
+                                                                    <option value="-">Select</option>
+                                                                    <?php foreach( $delayedTypes as $label=>$value ) { ?>
+                                                                        <option value="<?php echo $value;?>"
+                                                                                <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->delayed_type_id ) echo 'selected';?>
+                                                                            >
+                                                                            <?php echo $label; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <label for="name" class="control-label">Repeat</label>
+                                                                <select class="form-control" id="operatorSelect" name="delayed_type_id[]">
+                                                                    <option value="-">Select</option>
+                                                                    <?php foreach( $delayedRepeats as $label=>$value ) { ?>
+                                                                        <option value="<?php echo $value;?>"
+                                                                                <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->delayed_type_id ) echo 'selected';?>
+                                                                            >
+                                                                            <?php echo $label; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                            <div class="col-md-4">
+                                                                <div><label for="name" class="control-label">Recurrence</label></div>
+                                                                <div class="radio-inline pb-5">
+                                                                    <input class="relative" type="radio" name="is_frequent" id="is_frequent" value="1" 
+                                                                        <?php if( isset( $workflow ) && $workflow->is_frequent ) echo 'selected';?>
+                                                                    >
+                                                                    <label for="is_frequent"> <?php echo _l('Frequency'); ?> </label>
+                                                                </div>
+                                                                <div class="radio-inline pb-5">
+                                                                    <input class="relative" type="radio" name="is_until_date" id="is_until_date" value="0" 
+                                                                            <?php if( isset( $workflow ) && !$workflow->is_until_date ) echo 'selected';?>
+                                                                    >
+                                                                    <label for="is_until_date"> <?php echo _l('Until Date'); ?> </label>
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                    </div>  
+                                                </div>    
+                                            </div>  
+                                            <!-- End -->
+
                                         </div>
                                     </div>
                                 </div>
@@ -175,9 +262,9 @@
                                                                 <div class="col-md-2">
                                                                     <select class="form-control" id="compareValueSelect" name="compare_value_type_id[]">
                                                                         <option value="-">Select</option>
-                                                                        <?php foreach( $compareValueTypes as $label=>$value ) { ?>
+                                                                        <?php foreach( $enumTimePreference2 as $label=>$value ) { ?>
                                                                             <option value="<?php echo $value;?>"
-                                                                                    <?php if( isset( $workflowCondition ) && $value == $workflowCondition->compare_value_type_id ) echo 'selected';?>
+                                                                                    <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->compare_value_type_id ) echo 'selected';?>
                                                                                 >
                                                                                 <?php echo $label; ?>
                                                                             </option>
@@ -302,6 +389,22 @@
                 $('#sectionToToggle').show();
             }
         });
+
+        /* Hide/show on clicked on Deleyed action radio */
+        $('#sectionToggleToDelayed').hide();
+
+        // Handle the radio button change event
+        $('input[name="is_trigger_now"]').change(function(){
+            if ($('#immediate_trigger').is(':checked')) {
+                // If Option 1 is selected, hide the section
+                $('#sectionToggleToDelayed').hide();
+            } else if ($('#dealyed_trigger').is(':checked')) {
+                // If Option 2 is selected, show the section
+                $('#sectionToggleToDelayed').show();
+            }
+        });
+
+
 
 
         const optionsFieldMap = <?php echo json_encode( $conditionFieldMap ); ?>;

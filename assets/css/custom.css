@@ -150,13 +150,6 @@
 .remove-section-btn, .add-section{
   cursor: pointer;
 }
-
 .fa-minus::before {
   content: "\f068"; 
-}
-
-.kunal{
-  font-size: 12px;
-  color: #007BFF;
-  position: relative;
 }

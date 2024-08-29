@@ -11,6 +11,7 @@ class Workflow extends AdminController
         $this->load->model('workflow_model');
         $this->load->model('Workflow_condition_model');
         $this->load->model('Workflow_edit_field_model');
+        $this->load->model('workflow_delayed_model');
         
     }
 
@@ -67,13 +68,16 @@ class Workflow extends AdminController
 
         $data['actionTypeMap'] = WF_ACTION_MAP;
         $data['conditionFieldMap'] = WF_FIELD_MAP;
-
-
-        
+      
         $data['stageTypes'] = Workflow_condition_model::$enumStageType;
         $data['valueTypes'] = Workflow_condition_model::$enumValueType;
         $data['operatorTypes'] = Workflow_condition_model::$enumOperatorType;
         $data['compareValueTypes'] = Workflow_condition_model::$enumCompareValueType;
+
+        $data['delayedTimes'] = Workflow_delayed_model::$enumDelayedTime;
+        $data['delayedActions'] = Workflow_delayed_model::$enumDelayedAction;
+        $data['delayedTypes'] = Workflow_delayed_model::$enumDelayedType;
+        $data['delayedRepeats'] = Workflow_delayed_model::$enumDelayedRepeat;
 
         $data['entitytoEdit'] = Workflow_edit_field_model::$enumEntitytoEdit;
         $data['entityField'] = Workflow_edit_field_model::$enumEntityField;
