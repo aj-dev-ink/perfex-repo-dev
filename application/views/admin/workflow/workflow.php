@@ -98,9 +98,9 @@
                                             </div>
 
                                             <!-- Delayed Action Condition -->
-                                            <div id="sectionToggleToDelayed">
+                                            <div class="section2" id="sectionToggleToDelayed">
                                                     <div class="col-sm-12 col-12">
-                                                        <div id="sectionContainer2" class="form-group">
+                                                        <div id="sectionContainerDelayed" class="form-group">
                                                         <div class="row graySection">
                                                             <div class="col-md-2">
                                                                 <?php echo render_input('timeEnter', 'Time Preference', ''); ?>
