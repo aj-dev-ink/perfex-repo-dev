@@ -11,7 +11,7 @@ class Workflow extends AdminController
         $this->load->model('workflow_model');
         $this->load->model('Workflow_condition_model');
         $this->load->model('Workflow_edit_field_model');
-        $this->load->model('workflow_delayed_model');
+        $this->load->model('Workflow_delay_model');
         
     }
 
@@ -60,6 +60,7 @@ class Workflow extends AdminController
             $data['workflow'] = $workflow;
             $data['arrWorkflowConditions'] = $workflow;//load workflow cons here
             $data['workflowEditField'] = $workflow;//load workflow cons here
+            $data['workflowDelay'] = $workflow;//load workflow cons here
         }
 
         $data['entityTypes'] = WF_ENTITY_TYPE;
@@ -74,10 +75,10 @@ class Workflow extends AdminController
         $data['operatorTypes'] = Workflow_condition_model::$enumOperatorType;
         $data['compareValueTypes'] = Workflow_condition_model::$enumCompareValueType;
 
-        $data['delayedTimes'] = Workflow_delayed_model::$enumDelayedTime;
-        $data['delayedActions'] = Workflow_delayed_model::$enumDelayedAction;
-        $data['delayedTypes'] = Workflow_delayed_model::$enumDelayedType;
-        $data['delayedRepeats'] = Workflow_delayed_model::$enumDelayedRepeat;
+        $data['durationTypes'] = WFD_DURATION_TYPE;
+        $data['isBeforeAfter'] = WFD_IS_BEFORE;
+        $data['prefPropertyTypes'] = WFD_PREF_PROPERTY;
+        $data['repeatTypes'] = WFD_REPEAT_TYPE;
 
         $data['entitytoEdit'] = Workflow_edit_field_model::$enumEntitytoEdit;
         $data['entityField'] = Workflow_edit_field_model::$enumEntityField;

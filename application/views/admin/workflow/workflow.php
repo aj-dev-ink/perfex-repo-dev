@@ -109,7 +109,7 @@
                                                                 <label for="name" class="control-label">&nbsp;</label>
                                                                 <select class="form-control" id="stageSelect" name="time_id[]">
                                                                     <option value="-">Select</option>
-                                                                    <?php foreach( $delayedTimes as $label=>$value ) { ?>
+                                                                    <?php foreach( $durationTypes as $label=>$value ) { ?>
                                                                         <option value="<?php echo $value;?>"
                                                                                 <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->time_id ) echo 'selected';?>
                                                                             >
@@ -122,7 +122,7 @@
                                                                 <label for="name" class="control-label">&nbsp;</label>
                                                                 <select class="form-control" id="valueSelect" name="action_type_id[]">
                                                                     <option value="-">Select</option>
-                                                                    <?php foreach( $delayedActions as $label=>$value ) { ?>
+                                                                    <?php foreach( $isBeforeAfter as $label=>$value ) { ?>
                                                                         <option value="<?php echo $value;?>"
                                                                                 <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->action_type_id ) echo 'selected';?>
                                                                             >
@@ -135,7 +135,7 @@
                                                                 <label for="name" class="control-label">Date Properties</label>
                                                                 <select class="form-control" id="operatorSelect" name="delayed_type_id[]">
                                                                     <option value="-">Select</option>
-                                                                    <?php foreach( $delayedTypes as $label=>$value ) { ?>
+                                                                    <?php foreach( $prefPropertyTypes as $label=>$value ) { ?>
                                                                         <option value="<?php echo $value;?>"
                                                                                 <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->delayed_type_id ) echo 'selected';?>
                                                                             >
@@ -148,7 +148,7 @@
                                                                 <label for="name" class="control-label">Repeat</label>
                                                                 <select class="form-control" id="operatorSelect" name="delayed_type_id[]">
                                                                     <option value="-">Select</option>
-                                                                    <?php foreach( $delayedRepeats as $label=>$value ) { ?>
+                                                                    <?php foreach( $repeatTypes as $label=>$value ) { ?>
                                                                         <option value="<?php echo $value;?>"
                                                                                 <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->delayed_type_id ) echo 'selected';?>
                                                                             >

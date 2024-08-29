@@ -1,3 +1,6 @@
+Workflow Screen
+    -- Validations
+
 Delayed Action
     -- UI
     -- Connect backend
@@ -6,15 +9,15 @@ Delayed Action
     -- update delete function
 
 Based on conditions
-    - what should be values in DD's
-    #1 : Selected entities fields
-    #2 :
-    #3 :
+    - what should be values in Drop Downs's
+    #1 : Selected entities fields or something else?
+    #2 : ?
+    #3 : ?
     #4 : Operators
-    #5 :
+    #5 : ?
 
 Set action to be performed
-    - UI fields for each Action
+    - UI fields for each trigger below
 
     'Edit Field'
     'Send Email'
