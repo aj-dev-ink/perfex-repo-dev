@@ -100,9 +100,9 @@ class Workflow_model extends App_Model
         $isDeleted = $this->db->affected_rows() > 0;
         if( $isDeleted ){
             $this->db->where('workflow_id', $id);
-
             $this->db->delete(db_prefix() . 'workflow_condition');
-            $this->db->delete(db_prefix() . 'workflow_edit_field_model');
+            $this->db->where('workflow_id', $id);
+            $this->db->delete(db_prefix() . 'workflow_edit_field');
 
             log_activity('Workflow & related data Deleted [ID: ' . $id . ']');
         }
