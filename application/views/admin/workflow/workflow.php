@@ -173,6 +173,13 @@
                                                                     <label for="is_until_date"> <?php echo _l('Until Date'); ?> </label>
                                                                 </div>
                                                             </div>
+                                                            
+                                                            <div class="col-md-3">
+                                                                <?php echo render_input('frequentCount', 'Count', ''); ?>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <?php echo render_input('chooseDate', 'Choose Date', ''); ?>
+                                                            </div>
                                                         </div> 
                                                     </div>  
                                                 </div>    
