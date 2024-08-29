@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <?php init_head(); ?>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <div id="wrapper">
     <div class="content">
         <div class="row">
@@ -98,12 +98,12 @@
                                             </div>
 
                                             <!-- Delayed Action Condition -->
-                                            <div class="section2" id="sectionToggleToDelayed">
+                                            <div id="sectionToggleToDelayed">
                                                     <div class="col-sm-12 col-12">
-                                                        <div id="sectionContainer" class="form-group">
+                                                        <div id="sectionContainer2" class="form-group">
                                                         <div class="row graySection">
                                                             <div class="col-md-2">
-                                                                <?php echo render_input('timeEnter', 'Time Preference', $value); ?>
+                                                                <?php echo render_input('timeEnter', 'Time Preference', ''); ?>
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <label for="name" class="control-label">&nbsp;</label>
@@ -464,6 +464,7 @@
         // Use event delegation to handle click events on dynamically added elements    
         
         $('#sectionContainer').on('click', '.add-section', function(e) {
+            
             e.preventDefault();
 
             // Clone the section
