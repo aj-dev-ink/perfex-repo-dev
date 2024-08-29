@@ -1,0 +1,31 @@
+Delayed Action
+    -- UI
+    -- Connect backend
+    -- Making Dependants
+    -- Save
+    -- update delete function
+
+Based on conditions
+    - what should be values in DD's
+    #1 : Selected entities fields
+    #2 :
+    #3 :
+    #4 : Operators
+    #5 :
+
+Set action to be performed
+    - UI fields for each Action
+
+    'Edit Field'
+    'Send Email'
+    'Webhook'
+    'Reassign'
+    'Share'
+    'Convert'
+    'Create task'
+    'Marketplace actions'
+
+Load each selected field & their function
+    create mapping array for field & functions
+Workflow Processing
+
