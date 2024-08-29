@@ -15,8 +15,7 @@
             'Share'=>5,
             'Convert'=>6,
             'Create task'=>7,
-            'Send email'=>8,
-            'Marketplace actions'=>9
+            'Marketplace actions'=>8
         )
     );
 

@@ -338,6 +338,18 @@
                 $conditionSelect.append($('<option></option>').attr('value', value).text(key));
             });
 
+
+            // update editTypeSelect DD for edit field section
+            // Get the select box element by its ID
+            var $editTypeSelect = $('#editTypeSelect');
+            // Clear the existing options
+            $editTypeSelect.empty();
+            // Populate the select box with new options
+            $editTypeSelect.append($('<option></option>').attr('value', "-").text('Select'));
+            $.each(optionsFM, function(key, value) {
+                $editTypeSelect.append($('<option></option>').attr('value', value).text(key));
+            });
+
         });
 
 
