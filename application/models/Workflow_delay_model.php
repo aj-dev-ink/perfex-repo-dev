@@ -14,7 +14,7 @@ class Workflow_delay_model extends App_Model
      * @param mixed $data workflow delay data condition $_POST data
      */
     public function add($data) {
-        $this->db->insert(db_prefix() . 'Workflow_delay', $data);
+        $this->db->insert(db_prefix() . 'workflow_delay', $data);
 
         $insert_id = $this->db->insert_id();
         if ($insert_id) {
@@ -28,16 +28,16 @@ class Workflow_delay_model extends App_Model
     {
         if (is_numeric($id)) {
             $this->db->where('id', $id);
-            return $this->db->get(db_prefix() . 'Workflow_delay')->row();
+            return $this->db->get(db_prefix() . 'workflow_delay')->row();
         }
 
-        return $this->db->get(db_prefix() . 'Workflow_delay')->result_array();
+        return $this->db->get(db_prefix() . 'workflow_delay')->result_array();
     }
 
     public function update($id, $data)
     {
         $this->db->where('id', $id);
-        $this->db->update(db_prefix() . 'Workflow_delay', $data);
+        $this->db->update(db_prefix() . 'workflow_delay', $data);
         return $this->db->affected_rows() > 0;
     }
 }

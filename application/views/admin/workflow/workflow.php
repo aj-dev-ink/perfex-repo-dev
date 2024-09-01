@@ -103,15 +103,15 @@
                                                         <div id="sectionContainerDelayed" class="form-group">
                                                         <div class="row graySection">
                                                             <div class="col-md-2">
-                                                                <?php echo render_input('timeEnter', 'Time Preference', ''); ?>
+                                                                <?php echo render_input('pref_count', 'Time Preference', ''); ?>
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <label for="name" class="control-label">&nbsp;</label>
-                                                                <select class="form-control" id="stageSelect" name="time_id[]">
+                                                                <select class="form-control" id="stageSelect" name="pref_duration">
                                                                     <option value="-">Select</option>
                                                                     <?php foreach( $durationTypes as $label=>$value ) { ?>
                                                                         <option value="<?php echo $value;?>"
-                                                                                <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->time_id ) echo 'selected';?>
+                                                                                <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->pref_duration ) echo 'selected';?>
                                                                             >
                                                                             <?php echo $label; ?>
                                                                         </option>
@@ -120,11 +120,11 @@
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <label for="name" class="control-label">&nbsp;</label>
-                                                                <select class="form-control" id="valueSelect" name="action_type_id[]">
+                                                                <select class="form-control" id="valueSelect" name="is_before">
                                                                     <option value="-">Select</option>
                                                                     <?php foreach( $isBeforeAfter as $label=>$value ) { ?>
                                                                         <option value="<?php echo $value;?>"
-                                                                                <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->action_type_id ) echo 'selected';?>
+                                                                                <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->is_before ) echo 'selected';?>
                                                                             >
                                                                             <?php echo $label; ?>
                                                                         </option>
@@ -133,11 +133,11 @@
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <label for="name" class="control-label">Date Properties</label>
-                                                                <select class="form-control" id="operatorSelect" name="delayed_type_id[]">
+                                                                <select class="form-control" id="operatorSelect" name="delay_date_type">
                                                                     <option value="-">Select</option>
                                                                     <?php foreach( $prefPropertyTypes as $label=>$value ) { ?>
                                                                         <option value="<?php echo $value;?>"
-                                                                                <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->delayed_type_id ) echo 'selected';?>
+                                                                                <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->delay_date_type ) echo 'selected';?>
                                                                             >
                                                                             <?php echo $label; ?>
                                                                         </option>
@@ -146,11 +146,11 @@
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <label for="name" class="control-label">Repeat</label>
-                                                                <select class="form-control" id="delayedActionRepeat" name="delayed_type_id[]">
+                                                                <select class="form-control" id="delayedActionRepeat" name="repeat_type">
                                                                     <option value="-">Select</option>
                                                                     <?php foreach( $repeatTypes as $label=>$value ) { ?>
                                                                         <option value="<?php echo $value;?>"
-                                                                                <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->delayed_type_id ) echo 'selected';?>
+                                                                                <?php if( isset( $workflowDelayed ) && $value == $workflowDelayed->repeat_type ) echo 'selected';?>
                                                                             >
                                                                             <?php echo $label; ?>
                                                                         </option>
@@ -162,23 +162,23 @@
                                                                 <div class="col-md-12">
                                                                     <div><label for="name" class="control-label">Recurrence</label></div>
                                                                     <div class="radio-inline pb-5">
-                                                                        <input class="relative" type="radio" name="recurrance" id="is_frequent" value="1" 
-                                                                            <?php if( isset( $workflow ) && $workflow->is_frequent ) echo 'selected';?>
+                                                                        <input class="relative" type="radio" name="is_recurance" id="is_frequent" value="1" 
+                                                                            <?php if( isset( $workflow ) && $workflow->is_recurance ) echo 'selected';?>
                                                                         >
                                                                         <label for="is_frequent"> <?php echo _l('Frequency'); ?> </label>
                                                                     </div>
                                                                     <div class="radio-inline pb-5">
-                                                                        <input class="relative" type="radio" name="recurrance" id="is_until_date" value="0" 
-                                                                                <?php if( isset( $workflow ) && !$workflow->is_until_date ) echo 'selected';?>
+                                                                        <input class="relative" type="radio" name="is_recurance" id="is_until_date" value="0" 
+                                                                                <?php if( isset( $workflow ) && !$workflow->is_recurance ) echo 'selected';?>
                                                                         >
                                                                         <label for="is_until_date"> <?php echo _l('Until Date'); ?> </label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3" id="recurranceCount" style="display:none; margin-top:5px;">
-                                                                    <?php echo render_input('frequentCount', 'Count', ''); ?>
+                                                                    <?php echo render_input('frequency', 'Count', ''); ?>
                                                                 </div>
                                                                 <div class="col-md-3" id="recurranceDate" style="display:none; margin-top:5px;">
-                                                                    <?php echo render_date_input('frequentDate', 'Choose Date', '');?>
+                                                                    <?php echo render_date_input('until_date', 'Choose Date', '');?>
                                                                 </div>
                                                             </div>
                                                         </div> 
@@ -381,8 +381,9 @@
     </div>
 </div>
 <?php init_tail(); ?>
-/*Jquery code for Set COndition*/
+
 <script>
+    /*Jquery code for Set COndition*/
     $(document).ready(function(){
         /* Function for hide and show condition section based on condition radio button */
         $('#sectionToToggle').hide();

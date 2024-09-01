@@ -20,7 +20,7 @@ class Workflow_edit_field_model extends App_Model
      * @param mixed $data Edit field trigger $_POST data
      */
     public function add($data) {
-        $this->db->insert(db_prefix() . 'Workflow_edit_field', $data);
+        $this->db->insert(db_prefix() . 'workflow_edit_field', $data);
 
         $insert_id = $this->db->insert_id();
         if ($insert_id) {
@@ -34,16 +34,16 @@ class Workflow_edit_field_model extends App_Model
     {
         if (is_numeric($id)) {
             $this->db->where('id', $id);
-            return $this->db->get(db_prefix() . 'Workflow_edit_field')->row();
+            return $this->db->get(db_prefix() . 'workflow_edit_field')->row();
         }
 
-        return $this->db->get(db_prefix() . 'Workflow_edit_field')->result_array();
+        return $this->db->get(db_prefix() . 'workflow_edit_field')->result_array();
     }
 
     public function update($id, $data)
     {
         $this->db->where('id', $id);
-        $this->db->update(db_prefix() . 'Workflow_edit_field', $data);
+        $this->db->update(db_prefix() . 'workflow_edit_field', $data);
         return $this->db->affected_rows() > 0;
     }
 
@@ -55,7 +55,7 @@ class Workflow_edit_field_model extends App_Model
     public function delete_Workflow_edit_field($id)
     {
         $this->db->where('id', $id);
-        $this->db->delete(db_prefix() . 'Workflow_edit_field');
+        $this->db->delete(db_prefix() . 'workflow_edit_field');
         return $this->db->affected_rows() > 0;
     }
 }
