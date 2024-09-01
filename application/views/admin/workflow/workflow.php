@@ -146,7 +146,7 @@
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <label for="name" class="control-label">Repeat</label>
-                                                                <select class="form-control" id="operatorSelect" name="delayed_type_id[]">
+                                                                <select class="form-control" id="delayedActionRepeat" name="delayed_type_id[]">
                                                                     <option value="-">Select</option>
                                                                     <?php foreach( $repeatTypes as $label=>$value ) { ?>
                                                                         <option value="<?php echo $value;?>"
@@ -158,27 +158,28 @@
                                                                 </select>
                                                             </div>
                                                             <div class="clearfix"></div>
-                                                            <div class="col-md-4">
-                                                                <div><label for="name" class="control-label">Recurrence</label></div>
-                                                                <div class="radio-inline pb-5">
-                                                                    <input class="relative" type="radio" name="is_frequent" id="is_frequent" value="1" 
-                                                                        <?php if( isset( $workflow ) && $workflow->is_frequent ) echo 'selected';?>
-                                                                    >
-                                                                    <label for="is_frequent"> <?php echo _l('Frequency'); ?> </label>
+                                                            <div id="doRepeat" style="display:none;">
+                                                                <div class="col-md-12">
+                                                                    <div><label for="name" class="control-label">Recurrence</label></div>
+                                                                    <div class="radio-inline pb-5">
+                                                                        <input class="relative" type="radio" name="recurrance" id="is_frequent" value="1" 
+                                                                            <?php if( isset( $workflow ) && $workflow->is_frequent ) echo 'selected';?>
+                                                                        >
+                                                                        <label for="is_frequent"> <?php echo _l('Frequency'); ?> </label>
+                                                                    </div>
+                                                                    <div class="radio-inline pb-5">
+                                                                        <input class="relative" type="radio" name="recurrance" id="is_until_date" value="0" 
+                                                                                <?php if( isset( $workflow ) && !$workflow->is_until_date ) echo 'selected';?>
+                                                                        >
+                                                                        <label for="is_until_date"> <?php echo _l('Until Date'); ?> </label>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="radio-inline pb-5">
-                                                                    <input class="relative" type="radio" name="is_until_date" id="is_until_date" value="0" 
-                                                                            <?php if( isset( $workflow ) && !$workflow->is_until_date ) echo 'selected';?>
-                                                                    >
-                                                                    <label for="is_until_date"> <?php echo _l('Until Date'); ?> </label>
+                                                                <div class="col-md-3" id="recurranceCount" style="display:none; margin-top:5px;">
+                                                                    <?php echo render_input('frequentCount', 'Count', ''); ?>
                                                                 </div>
-                                                            </div>
-                                                            
-                                                            <div class="col-md-3">
-                                                                <?php echo render_input('frequentCount', 'Count', ''); ?>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <?php echo render_input('chooseDate', 'Choose Date', ''); ?>
+                                                                <div class="col-md-3" id="recurranceDate" style="display:none; margin-top:5px;">
+                                                                    <?php echo render_date_input('frequentDate', 'Choose Date', '');?>
+                                                                </div>
                                                             </div>
                                                         </div> 
                                                     </div>  
@@ -412,6 +413,25 @@
         });
 
 
+        /* Hide and show onclick of Delayed Recurrance radio buttons */
+        $('#is_frequent').click(function() {
+            $('#recurranceCount').show();
+            $('#recurranceDate').hide();
+        });
+
+        $('#is_until_date').click(function() {
+            $('#recurranceCount').hide();
+            $('#recurranceDate').show();
+        });
+
+        /* Hide recurrance section when click on "Do not repeat" option */
+        $('#delayedActionRepeat').change(function() {
+            if ($(this).val() == '1') {
+                $('#doRepeat').hide();
+            } else {
+                $('#doRepeat').show();
+            }
+        });
 
 
         const optionsFieldMap = <?php echo json_encode( $conditionFieldMap ); ?>;
