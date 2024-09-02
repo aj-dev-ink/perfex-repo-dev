@@ -317,41 +317,48 @@
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
-                                                            <div class="col-md-3">
-                                                                <select class="form-control" id="editTypeSelect" name="edit_type_id">
-                                                                    <option value="-">Select Entity</option>
-                                                                    <?php foreach( $entitytoEdit as $label=>$value ) { ?>
-                                                                        <option value="<?php echo $value;?>"
-                                                                                <?php if( isset( $workflowEditField ) && $value == $workflowEditField->edit_type_id ) echo 'selected';?>
-                                                                            >
-                                                                            <?php echo $label; ?>
-                                                                        </option>
-                                                                    <?php } ?>
-                                                                </select>
+                                                            <div id="editFieldSec" style="display:none;">
+                                                                <div class="col-md-3">
+                                                                    <select class="form-control" id="editTypeSelect" name="edit_type_id">
+                                                                        <option value="-">Select Entity</option>
+                                                                        <?php foreach( $entitytoEdit as $label=>$value ) { ?>
+                                                                            <option value="<?php echo $value;?>"
+                                                                                    <?php if( isset( $workflowEditField ) && $value == $workflowEditField->edit_type_id ) echo 'selected';?>
+                                                                                >
+                                                                                <?php echo $label; ?>
+                                                                            </option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <select class="form-control" id="editFieldSelect" name="edit_field_id">
+                                                                        <option value="-">Select Entity Field</option>
+                                                                        <?php foreach( $entityField as $label=>$value ) { ?>
+                                                                            <option value="<?php echo $value;?>"
+                                                                                    <?php if( isset( $workflowEditField ) && $value == $workflowEditField->edit_field_id ) echo 'selected';?>
+                                                                                >
+                                                                                <?php echo $label; ?>
+                                                                            </option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <select class="form-control" id="editFieldValueSelect" name="field_value">
+                                                                        <option value="-">Select Entity Field Values</option>
+                                                                        <?php foreach( $entityFieldValue as $label=>$value ) { ?>
+                                                                            <option value="<?php echo $value;?>"
+                                                                                    <?php if( isset( $workflowEditField ) && $value == $workflowEditField->field_value ) echo 'selected';?>
+                                                                                >
+                                                                                <?php echo $label; ?>
+                                                                            </option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                </div>
                                                             </div>
-                                                            <div class="col-md-3">
-                                                                <select class="form-control" id="editFieldSelect" name="edit_field_id">
-                                                                    <option value="-">Select Entity Field</option>
-                                                                    <?php foreach( $entityField as $label=>$value ) { ?>
-                                                                        <option value="<?php echo $value;?>"
-                                                                                <?php if( isset( $workflowEditField ) && $value == $workflowEditField->edit_field_id ) echo 'selected';?>
-                                                                            >
-                                                                            <?php echo $label; ?>
-                                                                        </option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <select class="form-control" id="editFieldValueSelect" name="field_value">
-                                                                    <option value="-">Select Entity Field Values</option>
-                                                                    <?php foreach( $entityFieldValue as $label=>$value ) { ?>
-                                                                        <option value="<?php echo $value;?>"
-                                                                                <?php if( isset( $workflowEditField ) && $value == $workflowEditField->field_value ) echo 'selected';?>
-                                                                            >
-                                                                            <?php echo $label; ?>
-                                                                        </option>
-                                                                    <?php } ?>
-                                                                </select>
+                                                            <div id="webhookField" style="display:none;">
+                                                                <div class="col-md-9">
+                                                                    <button class="btn btn-outline-primary" id="AddWebhook">
+                                                                </div>
                                                             </div>
                                                             <!-- <div class="col-md-3">
                                                                 <button class="btn btn-info save-and-add-contact customer-form-submiter">Send Email</button>
@@ -433,6 +440,14 @@
             }
         });
 
+        /* Show Edit field depend option of on "Set action to be performed" */
+        $('#triggerSelect').change(function() {
+            if ($(this).val() == '1') {
+                $('#editFieldSec').show();
+            } else {
+                $('#editFieldSec').hide();
+            }
+        });
 
         const optionsFieldMap = <?php echo json_encode( $conditionFieldMap ); ?>;
         const actionTypeMap = <?php echo json_encode( $actionTypeMap ); ?>;
