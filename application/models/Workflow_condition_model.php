@@ -38,7 +38,7 @@ class Workflow_condition_model extends App_Model
      * @param mixed $data workflow  condition $_POST data
      */
     public function add($data) {
-        $this->db->insert(db_prefix() . 'Workflow_condition', $data);
+        $this->db->insert(db_prefix() . 'workflow_condition', $data);
 
         $insert_id = $this->db->insert_id();
         if ($insert_id) {
@@ -52,16 +52,16 @@ class Workflow_condition_model extends App_Model
     {
         if (is_numeric($id)) {
             $this->db->where('id', $id);
-            return $this->db->get(db_prefix() . 'Workflow_condition')->row();
+            return $this->db->get(db_prefix() . 'workflow_condition')->row();
         }
 
-        return $this->db->get(db_prefix() . 'Workflow_condition')->result_array();
+        return $this->db->get(db_prefix() . 'workflow_condition')->result_array();
     }
 
     public function update($id, $data)
     {
         $this->db->where('id', $id);
-        $this->db->update(db_prefix() . 'Workflow_condition', $data);
+        $this->db->update(db_prefix() . 'workflow_condition', $data);
         return $this->db->affected_rows() > 0;
     }
 
@@ -73,7 +73,7 @@ class Workflow_condition_model extends App_Model
     public function delete_workflow_condition($id)
     {
         $this->db->where('id', $id);
-        $this->db->delete(db_prefix() . 'Workflow_condition');
+        $this->db->delete(db_prefix() . 'workflow_condition');
         return $this->db->affected_rows() > 0;
     }
 }

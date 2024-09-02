@@ -4,6 +4,7 @@ CREATE TABLE tblworkflow_delay (
     pref_count INT(11),
     pref_duration SMALLINT,
     is_before BOOLEAN DEFAULT TRUE,
+    delay_date_type SMALLINT,
     repeat_type SMALLINT,
     is_recurance BOOLEAN DEFAULT TRUE,
     frequency INT(11),

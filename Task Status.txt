@@ -2,9 +2,9 @@ Workflow Screen
     -- Validations
 
 Delayed Action
-    -- UI
-    -- Connect backend
-    -- Making Dependants
+    -- UI - DONE
+    -- Making Dependants - DONE
+    -- Connect backend - DONE
     -- Save
     -- update delete function
 
@@ -15,6 +15,9 @@ Based on conditions
     #3 : ?
     #4 : Operators
     #5 : ?
+AND OR LOGIC
+    - Update UI
+    - Update processing
 
 Set action to be performed
     - UI fields for each trigger below
@@ -30,5 +33,8 @@ Set action to be performed
 
 Load each selected field & their function
     create mapping array for field & functions
+
 Workflow Processing
+
+CONNECT GIT TO LIVE SITE
 

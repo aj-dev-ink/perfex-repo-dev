@@ -25,6 +25,15 @@ class Workflow_model extends App_Model
             log_activity('New Workflow Added [ID: ' . $insert_id . ']');
         }
 
+        //insert Delay Actions
+        if( isset( $arrWorkflowData['is_trigger_now'] ) && !$arrWorkflowData['is_trigger_now'] ){
+            $arrFields = ['pref_count', 'pref_duration', 'is_before', 'delay_date_type', 'repeat_type', 'is_recurance', 'frequency', 'until_date'];
+
+            $arrDelayData = setTableFields( $arrFields, $data );
+            $arrDelayData['workflow_id'] = $insert_id;
+            $delayInsertId = $this->workflow_delay_model->add( $arrDelayData );
+        }
+
         //insert conditions
         if( isset( $arrWorkflowData['is_condition_based'] ) && $arrWorkflowData['is_condition_based'] ){
             $arrConInsertIds=[];
@@ -41,7 +50,7 @@ class Workflow_model extends App_Model
                 }
                 $arrConditionData['workflow_id'] = $insert_id;
 
-                $arrConInsertIds[] = $this->Workflow_condition_model->add( $arrConditionData );
+                $arrConInsertIds[] = $this->workflow_condition_model->add( $arrConditionData );
 
                 $conIndex++;
             }
@@ -56,7 +65,7 @@ class Workflow_model extends App_Model
                     //Insert to Edit fields
                     $arrEditFieldData = setTableFields( ['edit_type_id','edit_field_id','field_value'], $data );
                     $arrEditFieldData['workflow_id'] = $insert_id;
-                    $triggerInserId = $this->Workflow_edit_field_model->add( $arrEditFieldData );
+                    $triggerInsertId = $this->workflow_edit_field_model->add( $arrEditFieldData );
                     break;
                 case $enumTriggerType['Send Email']:
                     # code...

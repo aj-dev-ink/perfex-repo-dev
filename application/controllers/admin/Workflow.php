@@ -9,9 +9,9 @@ class Workflow extends AdminController
         parent::__construct();
 
         $this->load->model('workflow_model');
-        $this->load->model('Workflow_condition_model');
-        $this->load->model('Workflow_edit_field_model');
-        $this->load->model('Workflow_delay_model');
+        $this->load->model('workflow_condition_model');
+        $this->load->model('workflow_edit_field_model');
+        $this->load->model('workflow_delay_model');
         
     }
 
