@@ -194,6 +194,12 @@
         )
     );
 
+    define('WFD_REASSIGN', 
+        array(
+            'Select User'=>1,
+        )
+    );
+
 
     
 ?>

@@ -360,9 +360,25 @@
                                                                     <button type="button" class="btn btn-outline-primary" id="AddWebhook">Add Webhook</button>
                                                                 </div>
                                                             </div>
-                                                            <!-- <div class="col-md-3">
-                                                                <button class="btn btn-info save-and-add-contact customer-form-submiter">Send Email</button>
-                                                            </div> -->
+                                                            <div id="sendEmailSec" style="display:none;">
+                                                                <div class="col-md-9">
+                                                                    <button type="button" class="btn btn-outline-primary" id="sendEmailAction">Send Email</button>
+                                                                </div> 
+                                                            </div>
+                                                            <div id="reassignSec" style="display:none;">
+                                                                <div class="col-md-3">
+                                                                    <select class="form-control" id="reassignField" name="edit_type_id">
+                                                                        <option value="-">Select Entity</option>
+                                                                        <?php foreach( $reassignUsers as $label=>$value ) { ?>
+                                                                        <option value="<?php echo $value;?>"
+                                                                                <?php if( isset( $workflowReassign ) && $value == $workflowReassign->reassignUsers ) echo 'selected';?>
+                                                                            >
+                                                                            <?php echo $label; ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                    </select>
+                                                                </div> 
+                                                            </div>
                                                         </div>
                                                     </div> 
                                                     </div>  
@@ -371,7 +387,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <!-- Add WebHook -->                                             
                                 <div class="panel-body" id="addWebhookSec" style="display:none;">
                                     <div class="row">
                                         <div class="col-sm-12 panelHead">Add Webhook</div>
@@ -533,6 +549,7 @@
             if ($(this).val() == '1') {
                 $('#editFieldSec').show();
                 $('#addWebhookSec').hide();
+                $('#reassignSec').hide();
             } else {
                 $('#editFieldSec').hide();
             }
@@ -550,6 +567,16 @@
             $('#addWebhookSec').show();
         });
 
+        /* Reassign Field option hide/show */
+        $('#triggerSelect').change(function() {
+            if ($(this).val() == '4') {
+                $('#reassignSec').show();
+                $('#webhookField').hide()
+                $('#addWebhookSec').hide();
+            } else {
+                $('#reassignSec').hide();
+            }
+        });
 
 
 

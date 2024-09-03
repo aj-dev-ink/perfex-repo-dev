@@ -61,6 +61,7 @@ class Workflow extends AdminController
             $data['arrWorkflowConditions'] = $workflow;//load workflow cons here
             $data['workflowEditField'] = $workflow;//load workflow cons here
             $data['workflowDelay'] = $workflow;//load workflow cons here
+            $data['workflowReassign'] = $workflow;//load workflow cons here
         }
 
         $data['entityTypes'] = WF_ENTITY_TYPE;
@@ -79,6 +80,7 @@ class Workflow extends AdminController
         $data['isBeforeAfter'] = WFD_IS_BEFORE;
         $data['prefPropertyTypes'] = WFD_PREF_PROPERTY;
         $data['repeatTypes'] = WFD_REPEAT_TYPE;
+        $data['reassignUsers'] = WFD_REASSIGN;
 
         $data['entitytoEdit'] = Workflow_edit_field_model::$enumEntitytoEdit;
         $data['entityField'] = Workflow_edit_field_model::$enumEntityField;
