@@ -200,6 +200,13 @@
         )
     );
 
+    define('WFD_EMAIL_TEMPLATE', 
+        array(
+            'Custom Email Template'=>1,
+            'Task Created Email Template'=>2,
+        )
+    );
+
 
     
 ?>
