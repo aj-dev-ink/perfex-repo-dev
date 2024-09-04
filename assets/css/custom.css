@@ -175,3 +175,7 @@
 .d-block{
   display: block;
 }
+
+.chk{
+  display:none;
+}
