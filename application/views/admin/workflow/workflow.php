@@ -110,6 +110,7 @@
                 $('#addWebhookSec').hide();
                 $('#reassignSec').hide();
                 $('#sendEmailSection').hide();
+                $('#addTaskArea').hide();
             } else {
                 $('#editFieldSec').hide();
             }
@@ -120,6 +121,7 @@
             if ($(this).val() == '2') {
                 $('#sendEmailSec').show();
                 $('#addWebhookSec').hide();
+                $('#addTaskArea').hide();                
             } else {
                 $('#sendEmailSec').hide();
             }
@@ -129,6 +131,8 @@
             $('#editFieldSec').hide();
             $('#addWebhookSec').hide();
             $('#reassignSec').hide();
+            $('#addTaskSec').hide();
+            $('#addTaskArea').hide();
         });
         
 
@@ -137,13 +141,48 @@
             if ($(this).val() == '3') {
                 $('#webhookField').show();
                 $('#sendEmailSection').hide();
+                $('#addTaskSec').hide();
+                $('#addTaskArea').hide();
             } else {
                 $('#webhookField').hide();
             }
         });
-        $('#AddWebhook').click(function() {
-            $('#addWebhookSec').show();
-        });
+        
+
+        $('input[name="authorization"]').change(function(){
+            if ($('#apiKey').is(':checked')) {
+                // If Option 1 is selected, hide the section
+                $('#apiKeySec').show();
+                $('#bearerTokenSec').hide();
+                $('#basicAuthSec').hide();
+            } else if ($('#bearerToken').is(':checked')) {
+                // If Option 2 is selected, show the section
+                $('#bearerTokenSec').show();
+                $('#apiKeySec').hide();
+                $('#basicAuthSec').hide();
+            } else if ($('#basicAuth').is(':checked')) {
+                // If Option 2 is selected, show the section
+                $('#basicAuthSec').show();
+                $('#apiKeySec').hide();
+                $('#bearerTokenSec').hide();
+            } else if ($('#noAuth').is(':checked')) {
+                // If Option 2 is selected, show the section
+                $('#apiKeySec').hide();
+                $('#bearerTokenSec').hide();
+                $('#basicAuthSec').hide();
+            }
+        }); 
+
+        $('input[name="webhookParam"]').change(function(){
+            if ($('#addParam').is(':checked')) {
+                // If Option 1 is selected, hide the section
+                $('#addParameterSec').show();
+            } else if ($('#noParam').is(':checked')) {
+                // If Option 2 is selected, show the section
+                $('#addParameterSec').hide();
+            }
+        }); 
+        /* End Webhook */
 
 
         /* Reassign Field option hide/show */
@@ -153,13 +192,29 @@
                 $('#webhookField').hide()
                 $('#addWebhookSec').hide();
                 $('#sendEmailSection').hide();
+                $('#addTaskArea').hide();
             } else {
                 $('#reassignSec').hide();
             }
         });
 
 
-
+        /* Add Task Action Hide/Show */
+        $('#triggerSelect').change(function() {
+            if ($(this).val() == '7') {
+                $('#addTaskSec').show();
+                $('#reassignSec').hide();
+                $('#webhookField').hide()
+                $('#addWebhookSec').hide();
+                $('#sendEmailSection').hide();
+            } else {
+                $('#addTaskSec').hide();
+            }
+        });
+        
+        $('#addTaskAction').click(function() {
+            $('#addTaskArea').show();
+        });
 
         const optionsFieldMap = <?php echo json_encode( $conditionFieldMap ); ?>;
         const actionTypeMap = <?php echo json_encode( $actionTypeMap ); ?>;

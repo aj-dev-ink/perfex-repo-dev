@@ -20,13 +20,35 @@
                                     <?php } ?>
                                 </select>
                             </div>
+                            <!-- Edit Field -->
                             <?php $this->load->view('admin/workflow/actions/editfield'); ?>
-                            <?php $this->load->view('admin/workflow/actions/webhook'); ?>
-                            <?php $this->load->view('admin/workflow/actions/sendemail'); ?>
+                            <!-- Reassign -->
+                             
                             <?php $this->load->view('admin/workflow/actions/reassign'); ?>
+                            <!-- Add Webhook -->
+                            <div id="webhookField" style="display:none;">
+                                <div class="col-md-9">
+                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#webhookModal" id="AddWebhook">Add Webhook</button>
+                                </div>
+                            </div>
+                            <!-- Send Email -->
+                            <div id="sendEmailSec" style="display:none;">
+                                <div class="col-md-9">
+                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#sendEmailModal" id="sendEmailAction">Send Email</button>
+                                </div> 
+                            </div>
+                            <!-- Add Task -->
+                            <div id="addTaskSec" style="display:none;">
+                                <div class="col-md-9">
+                                    <button type="button" class="btn btn-outline-primary"  data-toggle="modal" data-target="#addTaskModal" id="addTaskAction">Create Task</button>
+                                </div> 
+                            </div>
                         </div>
-                    </div> 
                     </div>  
+                    <?php $this->load->view('admin/workflow/actions/webhook'); ?>
+                    <?php $this->load->view('admin/workflow/actions/sendemail'); ?>
+                    <?php $this->load->view('admin/workflow/actions/createTask'); ?>
+                    
                 </div> 
             </div>
         </div>
