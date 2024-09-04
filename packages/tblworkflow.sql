@@ -12,12 +12,4 @@ CREATE TABLE tblworkflow (
 
 --
 ALTER TABLE `tblworkflow`
-ADD COLUMN `is_active` BOOLEAN DEFAULT TRUE; 
-
-ALTER TABLE `tblworkflow`
-ADD COLUMN `day` INT(4); 
-ALTER TABLE `tblworkflow`
-ADD COLUMN `hour` INT(4);
-ALTER TABLE `tblworkflow`
-ADD COLUMN `minute` INT(4);
-
+ADD COLUMN `is_active` BOOLEAN DEFAULT TRUE;
