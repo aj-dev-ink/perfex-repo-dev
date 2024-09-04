@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Workflow_edit_field_model extends App_Model
 {
 
-    /* WorkFlow Action Performed */
+    /* WorkFlow edit_field Performed */
     public static $enumEntitytoEdit = array('Deal'=>1, 'Contact'=>2);
     public static $enumEntityField = array('Name'=>1, 'Company Name'=>2, 'Email'=>3, 'Phone'=>4);
     public static $enumEntityFieldValue= array('New Value'=>1);
@@ -16,8 +16,8 @@ class Workflow_edit_field_model extends App_Model
     }
 
     /**
-     * Add new workflow Edit field trigger
-     * @param mixed $data Edit field trigger $_POST data
+     * Add new workflow Edit field
+     * @param mixed $data Edit field $_POST data
      */
     public function add($data) {
         $this->db->insert(db_prefix() . 'workflow_edit_field', $data);
