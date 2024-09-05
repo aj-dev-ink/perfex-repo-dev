@@ -149,23 +149,24 @@
         });
         
 
-        $('input[name="authorization"]').change(function(){
-            if ($('#apiKey').is(':checked')) {
+        $('input[name="webhook[request_type]"]').change(function(){
+            
+            if ($('input[name="webhook[request_type]"][value="2"]').is(':checked')) {
                 // If Option 1 is selected, hide the section
                 $('#apiKeySec').show();
                 $('#bearerTokenSec').hide();
                 $('#basicAuthSec').hide();
-            } else if ($('#bearerToken').is(':checked')) {
-                // If Option 2 is selected, show the section
+            } else if ($('input[name="webhook[request_type]"][value="3"]').is(':checked')) {
+                // If Option 3 is selected, show the section
                 $('#bearerTokenSec').show();
                 $('#apiKeySec').hide();
                 $('#basicAuthSec').hide();
-            } else if ($('#basicAuth').is(':checked')) {
-                // If Option 2 is selected, show the section
+            } else if ($('input[name="webhook[request_type]"][value="4"]').is(':checked')) {
+                // If Option 4 is selected, show the section
                 $('#basicAuthSec').show();
                 $('#apiKeySec').hide();
                 $('#bearerTokenSec').hide();
-            } else if ($('#noAuth').is(':checked')) {
+            } else if ($('input[name="webhook[request_type]"][value="1"]').is(':checked')) {
                 // If Option 2 is selected, show the section
                 $('#apiKeySec').hide();
                 $('#bearerTokenSec').hide();
@@ -173,7 +174,7 @@
             }
         }); 
 
-        $('input[name="webhookParam"]').change(function(){
+        $('input[name="webhook[is_url_param]"]').change(function(){
             if ($('#addParam').is(':checked')) {
                 // If Option 1 is selected, hide the section
                 $('#addParameterSec').show();
