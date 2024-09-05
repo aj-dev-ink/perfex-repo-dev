@@ -10,8 +10,10 @@ class Workflow extends AdminController
 
         $this->load->model('workflow_model');
         $this->load->model('workflow_condition_model');
-        $this->load->model('workflow_edit_field_model');
         $this->load->model('workflow_delay_model');
+        $this->load->model('workflow_edit_field_model');
+        $this->load->model('workflow_webhook_model');
+        
         
     }
 
@@ -35,6 +37,7 @@ class Workflow extends AdminController
 
     public function create($id=null)
     {
+
         if (staff_cant('create', 'workflow')) {
             ajax_access_denied();
         }
@@ -63,6 +66,7 @@ class Workflow extends AdminController
             $data['workflowDelay'] = $workflow;//load workflow cons here
             $data['workflowReassign'] = $workflow;//load workflow cons here
             $data['workflowSendEmail'] = $workflow;//load workflow cons here
+            $data['workflowWebhook'] = $workflow;//load workflow cons here
         }
 
         $data['entityTypes'] = WF_ENTITY_TYPE;
@@ -88,6 +92,12 @@ class Workflow extends AdminController
         $data['entitytoEdit'] = Workflow_edit_field_model::$enumEntitytoEdit;
         $data['entityField'] = Workflow_edit_field_model::$enumEntityField;
         $data['entityFieldValue'] = Workflow_edit_field_model::$enumEntityFieldValue;
+
+        $data['webhookAuthType'] = WFW_AUTH_TYPE;
+        $data['webhookRequestType'] = WFW_REQUEST_TYPE;
+        
+
+        
 
         $this->load->view('admin/workflow/workflow', $data);
     }

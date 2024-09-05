@@ -68,8 +68,17 @@ class Workflow_model extends App_Model
                     $triggerInsertId = $this->workflow_edit_field_model->add( $arrEditFieldData );
                     break;
                 case $enumTriggerType['Send Email']:
-                    # code...
+                    // # code...
                     break;
+                case $enumTriggerType['Webhook']:
+                    //Insert to Webhook
+                    $webhookData = isset( $data['webhook'] ) ? $data['webhook'] : [];
+                    $webhookFields = ['name', 'description', 'request_type', 'request_url', 'authorization_type', 'api_key', 'bearer_token', 'auth_username', 'auth_password', 'is_url_param', 'url_params' ];
+                    $arrEditFieldData = setTableFields( $webhookFields, $webhookData );
+                    $arrEditFieldData['workflow_id'] = $insert_id;
+                    $triggerInsertId = $this->workflow_webhook_model->add( $arrEditFieldData );
+                    break;
+
             }
         }
 

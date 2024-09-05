@@ -12,91 +12,65 @@
                         <div class="col-sm-12">
                             <div class="form-group" app-field-wrapper="webhookName">
                                 <?php //$value = (isset($workflow) ? $workflow->description : ''); ?>
-                                <?php echo render_input('webhookName', 'Name', ''); ?>
+                                <?php echo render_input('webhook[name]', 'Name', ''); ?>
                             </div>
                             <div class="form-group" app-field-wrapper="webhookDescription">
                                 <?php //$value = (isset($workflow) ? $workflow->description : ''); ?>
-                                <?php echo render_textarea('webhookDescription', 'Description', ''); ?>
+                                <?php echo render_textarea('webhook[description]', 'Description', ''); ?>
                             </div> 
                             
                             <div class="form-group" app-field-wrapper="webhookRequestType">
                                 <label  for="requestType" class="control-label d-block">Request Type</label>
-                                <div class="radio-inline pb-5">
-                                    <input class="relative" type="radio" name="requestType" id="typeGet" value="1" 
-                                        <?php //if( isset( $workflow ) && $workflow->is_trigger_now ) echo 'selected';?>
-                                    >
-                                    <label for="typeGet"> <?php echo 'Get'; ?> </label>
-                                </div>
-                                <div class="radio-inline pb-5">
-                                    <input class="relative" type="radio" name="requestType" id="typePost" value="2" 
-                                            <?php //if( isset( $workflow ) && !$workflow->is_trigger_now ) echo 'selected';?>
-                                    >
-                                    <label for="typePost"> <?php echo 'Post'; ?> </label>
-                                </div>
-                                <div class="radio-inline pb-5">
-                                    <input class="relative" type="radio" name="requestType" id="typePut" value="2" 
-                                            <?php //if( isset( $workflow ) && !$workflow->is_trigger_now ) echo 'selected';?>
-                                    >
-                                    <label for="typePut"> <?php echo 'Put'; ?> </label>
-                                </div>
+
+                                <?php foreach( $webhookAuthType as $label=>$value ) { ?>
+                                    <div class="radio-inline pb-5">
+                                        <input class="relative"  type="radio" name="webhook[request_type]" id="webhook_request_type_<?php echo $value; ?>" value="<?php echo $value; ?>" <?php if( isset( $webhook ) && $value == $webhook->request_type ) echo 'selected';?> >
+                                        <label for="entity_type_id" class="btn btn-default"><i class="fa-regular fa-thumbs-up pull-left radioThumb"></i> <?php echo _l($label); ?> </label>
+                                    </div>
+                                <?php } ?>
+
                             </div>
                             <div class="form-group" app-field-wrapper="webhookRequestURL">
-                                <?php //$value = (isset($workflow) ? $workflow->description : ''); ?>
-                                <?php echo render_input('webhookRequestURL', 'Request URL', ''); ?>
+                                <?php //$value = (isset($webhook) ? $webhook->request_url : ''); ?>
+                                <?php echo render_input('webhook[request_url]', 'Request URL', ''); ?>
                             </div>
                             <div class="form-group" app-field-wrapper="webhookAuthorization">
                                 <label  for="requestType" class="control-label d-block">Authorization</label>
-                                <div class="radio-inline pb-5">
-                                    <input class="relative" type="radio" name="authorization" id="noAuth" value="1" 
-                                        <?php //if( isset( $workflow ) && $workflow->is_trigger_now ) echo 'selected';?>
-                                    >
-                                    <label for="noAuth"> <?php echo 'No Authorization Required'; ?> </label>
-                                </div>
-                                <div class="radio-inline pb-5">
-                                    <input class="relative" type="radio" name="authorization" id="apiKey" value="2" 
-                                            <?php //if( isset( $workflow ) && !$workflow->is_trigger_now ) echo 'selected';?>
-                                    >
-                                    <label for="apiKey"> <?php echo 'API Key'; ?> </label>
-                                </div>
-                                <div class="radio-inline pb-5">
-                                    <input class="relative" type="radio" name="authorization" id="bearerToken" value="2" 
-                                            <?php //if( isset( $workflow ) && !$workflow->is_trigger_now ) echo 'selected';?>
-                                    >
-                                    <label for="bearerToken"> <?php echo 'Bearer Token'; ?> </label>
-                                </div>
-                                <div class="radio-inline pb-5">
-                                    <input class="relative" type="radio" name="authorization" id="basicAuth" value="2" 
-                                            <?php //if( isset( $workflow ) && !$workflow->is_trigger_now ) echo 'selected';?>
-                                    >
-                                    <label for="basicAuth"> <?php echo 'Basic Authantication'; ?> </label>
-                                </div>
+
+                                <?php foreach( $webhookRequestType as $label=>$value ) { ?>
+                                    <div class="radio-inline pb-5">
+                                        <input class="relative"  type="radio" name="webhook[authorization_type]" id="webhook_authorization_type_<?php echo $value; ?>" value="<?php echo $value; ?>" <?php if( isset( $webhook ) && $value == $webhook->authorization_type ) echo 'selected';?> >
+                                        <label for="webhook_authorization_type_<?php echo $value; ?>" class="btn btn-default"><i class="fa-regular fa-thumbs-up pull-left radioThumb"></i> <?php echo _l($label); ?> </label>
+                                    </div>
+                                <?php } ?>
                             </div>
                             
                             <div class="form-group">
                                 <!-- API Key -->
                                 <div id="apiKeySec" class="form-group" app-field-wrapper="webhookAPIKey" style="display:none;">
-                                    <?php echo render_input('webhookApiKey', 'API Key', ''); ?>                         
+                                    <?php echo render_input('webhook[api_key]', 'API Key', ''); ?>                         
                                 </div>
                                 <!-- Bearer Token -->
                                 <div id="bearerTokenSec" class="form-group" app-field-wrapper="webhookBearerToken" style="display:none;">
-                                    <?php echo render_input('webhookBearerToken', 'Bearer Token', ''); ?>                         
+                                    <?php echo render_input('webhook[bearer_token]', 'Bearer Token', ''); ?>                         
                                 </div>
                                 <!-- Basic Auth Token -->
                                 <div id="basicAuthSec" class="form-group" app-field-wrapper="webhookBasicAuth" style="display:none;">
-                                    <?php echo render_input('webhookBasicAuth', 'Basic Auth', ''); ?>                         
+                                    <?php echo render_input('webhook[auth_username]', 'Username', ''); ?>                         
+                                    <?php echo render_input('webhook[auth_password]', 'Password', ''); ?>
                                 </div>
                             </div>
                             
                             <div class="form-group" app-field-wrapper="webhookAuthorization">
                                 <label  for="requestType" class="control-label d-block">URL Parameter</label>
                                 <div class="radio-inline pb-5">
-                                    <input class="relative" type="radio" name="webhookParam" id="noParam" value="1" 
+                                    <input class="relative" type="radio" name="webhook[is_url_param]" id="noParam" value="0" 
                                         <?php //if( isset( $workflow ) && $workflow->is_trigger_now ) echo 'selected';?>
                                     >
                                     <label for="noParam"> <?php echo 'No Parameter'; ?> </label>
                                 </div>
                                 <div class="radio-inline pb-5">
-                                    <input class="relative" type="radio" name="webhookParam" id="addParam" value="2" 
+                                    <input class="relative" type="radio" name="webhook[is_url_param]" id="addParam" value="1" 
                                             <?php //if( isset( $workflow ) && !$workflow->is_trigger_now ) echo 'selected';?>
                                     >
                                     <label for="addParam"> <?php echo 'Add Parameter'; ?> </label>
@@ -105,7 +79,7 @@
                             <!-- Add Parameter -->
                             <div class="form-group">
                                 <div id="addParameterSec" class="form-group" app-field-wrapper="webhookAddParam" style="display:none;">
-                                    <?php echo render_textarea('webhookParameter', 'Parameter', ''); ?>                         
+                                    <?php echo render_textarea('webhook[url_params]', 'Parameter', ''); ?>                         
                                 </div>
                             </div>
                         </div>

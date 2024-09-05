@@ -207,6 +207,21 @@
         )
     );
 
+    define('WFW_REQUEST_TYPE', 
+        array(
+            'GET'=>1,
+            'POST'=>2,
+            'PUT'=>3,
+        )
+    );
 
-    
+    define('WFW_AUTH_TYPE', 
+        array(
+            'No Authorization Required'=>1,
+            'API Key'=>2,
+            'Bearer Token'=>3,
+            'Basic Authantication'=>4
+        )
+    );
+   
 ?>
