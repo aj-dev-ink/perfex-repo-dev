@@ -312,5 +312,64 @@
         });
     });
 
+</script>
+
+<script>
+//Function to update CompareValue selection on change of field to comapre "clsConditionSelect"
+$(document).on('change', '.clsIncrementalSection .clsConditionSelect', function () {
+
+    // Reference to the parent div
+    var parentDiv = $(this).closest('.clsIncrementalSection');
+    // Toggle the 'hide' class for the specified elements within parentDiv
+    parentDiv.find('.divStageSelect, .divValueSelect, .divOperatorSelect, .divActualCompareValue, .divCompareValueSelect').toggleClass('hide');    
+
+    const conditionFieldOptionMap = <?php echo json_encode( $conditionFieldOptionMap ); ?>;
+
+    // Get the selected value
+    var selectedValue = $(this).val();
+    var entityTypeValue = $('#entity_type_id').val();
+
+    if( '-' == selectedValue ) return;
+
+    const selectedFieldName = conditionFieldOptionMap[entityTypeValue][selectedValue]["field_name"];
+    const isTextBoxValue = conditionFieldOptionMap[entityTypeValue][selectedValue]["is_textbox"];
+
+
+
+    if( isTextBoxValue ){
+
+    } else {
+
+        // AJAX request to the backend
+        $.ajax({
+            url: '<?php echo site_url('admin/workflow/getCompareOptions'); ?>', // Replace with your backend URL
+            type: 'POST',
+            data: {
+                fieldId: selectedValue, // Sending the selected value to the backend
+                entityType: entityTypeValue, // Sending the Entity type value to the backend
+            },
+            success: function (response) {
+                response = JSON.parse(response);
+                // Assuming response contains an array of options in the format [{id: 1, name: 'Option1'}, ...]
+                var optionsData = response.data; // Adjust according to the actual structure of your response
+                
+                // Find the select box with class clsCompareValueSelect within the parent div
+                var compareSelect = parentDiv.find('.clsCompareValueSelect');
+                
+                // Clear existing options
+                compareSelect.empty();
+                // Populate the select box with new options
+                compareSelect.append($('<option></option>').attr('value', "-").text('Select'));
+                $.each(optionsData, function (index, option) {
+                    //compareSelect.append($('<option></option>').attr('value', option.id).text(option.name));
+                    compareSelect.append($('<option>', { value: option.id, text: option.name }));
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching data:', error);
+            }
+        });
+    }
+});
 
 </script>

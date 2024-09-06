@@ -27,14 +27,14 @@
 
                     <div class="section2" id="sectionToToggle">
                         <div id="sectionContainer">
-                            <div class="row graySection" id="incrementalSection">
+                            <div class="row graySection clsIncrementalSection" id="incrementalSection">
                                 <div class="col-md-3">
-                                    <select class="form-control" id="conditionSelect" name="condition_type_id[]">
+                                    <select class="form-control clsConditionSelect" id="conditionSelect" name="condition_type_id[]">
                                         <option value="-">Select</option>
                                     </select>
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-2 hide divStageSelect">
                                     <select class="form-control" id="stageSelect" name="stage_type_id[]">
                                         <option value="-">Select</option>
                                         <?php foreach( $stageTypes as $label=>$value ) { ?>
@@ -47,7 +47,7 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-2 hide divValueSelect">
                                     <select class="form-control" id="valueSelect" name="value_type_id[]">
                                         <option value="-">Select</option>
                                         <?php foreach( $valueTypes as $label=>$value ) { ?>
@@ -60,8 +60,8 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-2">
-                                    <select class="form-control" id="operatorSelect" name="operator_type_id[]">
+                                <div class="col-md-2 hide divOperatorSelect">
+                                    <select class="form-control clsOperatorSelect" id="operatorSelect" name="operator_type_id[]">
                                         <option value="-">Select</option>
                                         <?php foreach( $operatorTypes as $label=>$value ) { ?>
                                             <option value="<?php echo $value;?>"
@@ -73,8 +73,13 @@
                                     </select>
                                 </div>
                                 
-                                <div class="col-md-2">
-                                    <select class="form-control" id="compareValueSelect" name="compare_value_type_id[]">
+                                <div class="col-md-2 hide divActualCompareValue">
+                                    <?php $value = (isset($workflowDelayed) ? $workflowDelayed->actual_compare_value : ''); ?>
+                                    <?php echo render_input('actual_compare_value[]', '', $value); ?>
+                                </div>
+
+                                <div class="col-md-2 hide divCompareValueSelect">
+                                    <select class="form-control clsCompareValueSelect" id="compareValueSelect" name="compare_value_type_id[]">
                                         <option value="-">Select</option>
                                         <?php foreach( $enumTimePreference2 as $label=>$value ) { ?>
                                             <option value="<?php echo $value;?>"
@@ -85,6 +90,7 @@
                                         <?php } ?>
                                     </select>
                                 </div>
+
                                 <div class="col-md-1 text-right incrementalBtn">
                                     <a class="add-section !tw-px-0 tw-group !tw-text-white" data-toggle="dropdown">
                                         <span class="tw-rounded-full tw-bg-primary-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
@@ -100,3 +106,4 @@
         </div>
     </div>
 </div>
+

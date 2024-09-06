@@ -41,7 +41,7 @@ class Workflow_model extends App_Model
             $conIndex = 0;
             while( $countConditions > $conIndex ){
 
-                $arrConditionFields = ['condition_type_id','stage_type_id','value_type_id','operator_type_id','compare_value_type_id'];
+                $arrConditionFields = ['condition_type_id','stage_type_id','value_type_id','operator_type_id','compare_value_type_id', 'actual_compare_value'];
                 $arrConditionData = [];
                 foreach( $arrConditionFields as $field ){
                     if( isset( $data[$field], $data[$field][$conIndex] ) ){
@@ -138,4 +138,20 @@ class Workflow_model extends App_Model
         }
         return $affected;
     }
+
+    public function getOptionsByFieldEntity( $fieldId, $entityType ) {
+
+        $arrOptions = [ ['id' => NULL, 'name'=> 'No Options Set'] ];
+
+        $functionName = WF_FIELD_OPTION_MAP[$entityType][$fieldId]['function_name'] ?? '';
+        
+        if( function_exists( $functionName ) ) {
+            $arrOptions = $functionName(); // Call the method if it exists
+        } else {
+            // Handle the case where the method does not exist
+            throw new Exception( $functionName . " function for option does not exist!");
+        }
+        return $arrOptions;
+    }
+ 
 }

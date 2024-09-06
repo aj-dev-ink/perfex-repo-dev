@@ -37,7 +37,6 @@ class Workflow extends AdminController
 
     public function create($id=null)
     {
-
         if (staff_cant('create', 'workflow')) {
             ajax_access_denied();
         }
@@ -95,10 +94,10 @@ class Workflow extends AdminController
 
         $data['webhookAuthType'] = WFW_AUTH_TYPE;
         $data['webhookRequestType'] = WFW_REQUEST_TYPE;
-        
+        $data['conditionFieldOptionMap'] = WF_FIELD_OPTION_MAP;
 
         
-
+        
         $this->load->view('admin/workflow/workflow', $data);
     }
 
@@ -137,4 +136,21 @@ class Workflow extends AdminController
             echo json_encode( ['success' => false] );
         }
     }
+
+    public function getCompareOptions() {
+        $fieldId = $this->input->post('fieldId');
+        $entityType = $this->input->post('entityType');
+    
+        if( is_numeric( $fieldId ) && is_numeric( $entityType ) ) {
+            $arrOptions = $this->workflow_model->getOptionsByFieldEntity( $fieldId, $entityType );
+            if( is_array( $arrOptions ) ) {
+                echo json_encode( ['success' => true, 'data'=>$arrOptions ] );
+            } else {
+                echo json_encode( ['success' => false, 'message'=>'Unable to load options.'] );
+            }
+        } else {
+            echo json_encode( ['success' => false, 'message'=>'Invalid entity or field.'] );
+        }
+    }
+    
 }
