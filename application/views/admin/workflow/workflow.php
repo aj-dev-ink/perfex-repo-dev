@@ -319,27 +319,30 @@
 //Function to update CompareValue selection on change of field to comapre "clsConditionSelect"
 $(document).on('change', '.clsIncrementalSection .clsConditionSelect', function () {
 
-    // Reference to the parent div
-    var parentDiv = $(this).closest('.clsIncrementalSection');
-    // Toggle the 'hide' class for the specified elements within parentDiv
-    parentDiv.find('.divStageSelect, .divValueSelect, .divOperatorSelect, .divActualCompareValue, .divCompareValueSelect').toggleClass('hide');    
-
     const conditionFieldOptionMap = <?php echo json_encode( $conditionFieldOptionMap ); ?>;
 
     // Get the selected value
     var selectedValue = $(this).val();
     var entityTypeValue = $('#entity_type_id').val();
 
-    if( '-' == selectedValue ) return;
+    // Reference to the parent div
+    var parentDiv = $(this).closest('.clsIncrementalSection');
+
+    if( '-' == selectedValue ){
+        parentDiv.find('.divStageSelect, .divValueSelect, .divOperatorSelect, .divActualCompareValue, .divCompareValueSelect').addClass('hide');    
+        return;
+    } 
+
 
     const selectedFieldName = conditionFieldOptionMap[entityTypeValue][selectedValue]["field_name"];
     const isTextBoxValue = conditionFieldOptionMap[entityTypeValue][selectedValue]["is_textbox"];
 
-
-
     if( isTextBoxValue ){
-
+        parentDiv.find('.divStageSelect, .divValueSelect, .divCompareValueSelect').addClass('hide');    
+        parentDiv.find('.divOperatorSelect, .divActualCompareValue').removeClass('hide');    
     } else {
+        parentDiv.find('.divStageSelect, .divValueSelect, .divCompareValueSelect').addClass('hide');    
+        parentDiv.find('.divOperatorSelect, .divCompareValueSelect').removeClass('hide');    
 
         // AJAX request to the backend
         $.ajax({
