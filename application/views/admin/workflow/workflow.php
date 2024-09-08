@@ -341,7 +341,7 @@ $(document).on('change', '.clsIncrementalSection .clsConditionSelect', function 
         parentDiv.find('.divStageSelect, .divValueSelect, .divCompareValueSelect').addClass('hide');    
         parentDiv.find('.divOperatorSelect, .divActualCompareValue').removeClass('hide');    
     } else {
-        parentDiv.find('.divStageSelect, .divValueSelect, .divCompareValueSelect').addClass('hide');    
+        parentDiv.find('.divStageSelect, .divValueSelect, .divActualCompareValue').addClass('hide');    
         parentDiv.find('.divOperatorSelect, .divCompareValueSelect').removeClass('hide');    
 
         // AJAX request to the backend
