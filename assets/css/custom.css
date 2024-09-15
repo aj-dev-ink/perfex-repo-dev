@@ -206,3 +206,12 @@
 .disabledSec{
   display: none;
 }
+
+/* Validation styles*/
+#nameError{
+  margin-top: -10px;
+  display: block;
+}
+.is-invalid{
+  border: rgb(233, 66, 66) solid 1px!important;
+}

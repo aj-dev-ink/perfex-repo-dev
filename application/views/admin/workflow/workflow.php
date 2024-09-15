@@ -22,7 +22,11 @@
                                 <?php echo form_open('admin/workflow/create', ['class' => '', 'id' => 'workflow-form']); ?>
                                 <div class="form-group f_client_id">
                                     <?php $value = (isset($workflow) ? $workflow->name : ''); ?>
-                                    <?php echo render_input('name', 'Name', $value); ?>
+                                    <?php 
+                                        $labelName_with_asterisk = 'Name <span style="color: red;">*</span>';
+                                        echo render_input('name', $labelName_with_asterisk, $value); 
+                                    ?>
+                                    <span id="nameError" class="text-danger" style="display: none;">This is a required field.</span>
                                 </div>
                                 <div class="form-group" app-field-wrapper="description">
                                     <?php $value = (isset($workflow) ? $workflow->description : ''); ?>
@@ -54,6 +58,21 @@
 <script>
     /*Jquery code for Set COndition*/
     $(document).ready(function(){
+
+        // On input field losing focus
+        $('input[name="name"]').blur(function() {
+            var nameValue = $(this).val().trim();
+
+            // Check if input is empty
+            if (nameValue === '') {
+                $('#nameError').show(); // Show error message
+                $(this).addClass('is-invalid'); // Optional: add error class to the input
+            } else {
+                $('#nameError').hide(); // Hide error message if valid
+                $(this).removeClass('is-invalid'); // Remove error class if valid
+            }
+        });
+
         /* Function for hide and show condition section based on condition radio button */
         $('#sectionToToggle').hide();
         $('#sectionToToggleToExecute').hide();
