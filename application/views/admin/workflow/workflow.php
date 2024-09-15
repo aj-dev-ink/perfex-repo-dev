@@ -60,12 +60,27 @@
 
         // Handle the radio button change event
         $('input[name="is_condition_based"]').change(function(){
+
+            //Active the step 4 and 5
+            $('#StepToDelyed').find('#sectionToggleToDelayed').removeClass('disabled');
+            $('#StepToDelyed').find('#sectionContainerDelayed').removeClass('disabledSec');
+            $('#step5').find('#setConditionToExecute').removeClass('disabled');
+            $('#step5').find('#whenDisabled').removeClass('disabledSec');
+
             if ($('#all_deals').is(':checked')) {
                 // If Option 1 is selected, hide the section
                 $('#sectionToToggle').hide();
+                // Activate step 4 section
+                $('#step6').find('.formSection-sep-bottom').removeClass('disabled');
+                $('#step6').find('#actionPerformHide').removeClass('disabledSec');
+
             } else if ($('#is_condition_based').is(':checked')) {
                 // If Option 2 is selected, show the section
                 $('#sectionToToggle').show();
+                // Activate step 4 section
+                $('#step6').find('.formSection-sep-bottom').removeClass('disabled');
+                $('#step6').find('#actionPerformHide').removeClass('disabledSec');
+
             }
         });
 
@@ -74,6 +89,11 @@
 
         // Handle the radio button change event
         $('input[name="is_trigger_now"]').change(function(){
+
+            //Remove Step 2 disabled section to active
+            $('#step3').find('.disabled').removeClass('disabled');
+            $('#step3').find('.disabledSec').removeClass('disabledSec');
+
             // Check the value of the selected radio button
             var selectedValue = $('input[name="is_trigger_now"]:checked').val();
 
@@ -97,11 +117,20 @@
                 $('#sectionToToggle').hide();
                 $('#sectionToToggleToExecute').hide();
 
-
             } else if ($('#dealyed_trigger').is(':checked')) {
                 // Change the section title based on the selected value
                 $('#sectionTitle').text('Set conditions to schedule the action');
 
+                // disabled step 4 section
+                $('#StepToDelyed').find('#sectionToggleToDelayed').addClass('disabled');
+                $('#StepToDelyed').find('#sectionContainerDelayed').addClass('disabledSec');
+                // disabled step 5 section
+                $('#step5').find('#setConditionToExecute').addClass('disabled');
+                $('#step5').find('#whenDisabled').addClass('disabledSec');
+                // disabled step 6 section
+                $('#step6').find('.formSection-sep-bottom').addClass('disabled');
+                $('#step6').find('#actionPerformHide').addClass('disabledSec');
+                
                 // If Option 2 is selected, show the section
                 $('#sectionToggleToDelayed').show();
 
@@ -116,12 +145,22 @@
         /* If condition to execute the action show / hide section based on condition  or all entites */
         // Handle the radio button change event
         $('input[name="is_condition_based_to_execute"]').change(function(){
+
             if ($('#all_deals_to_execute').is(':checked')) {
                 // If Option 1 is selected, hide the section
                 $('#sectionToToggleToExecute').hide();
+
+                // Active step 6 section
+                $('#step6').find('.formSection-sep-bottom').removeClass('disabled');
+                $('#step6').find('#actionPerformHide').removeClass('disabledSec');
+
             } else if ($('#is_condition_based_to_execute').is(':checked')) {
                 // If Option 2 is selected, show the section
                 $('#sectionToToggleToExecute').show();
+
+                // Active step 6 section
+                $('#step6').find('.formSection-sep-bottom').removeClass('disabled');
+                $('#step6').find('#actionPerformHide').removeClass('disabledSec');
             }
         });
 
@@ -270,6 +309,11 @@
             var optionsFM = optionsFieldMap[selectedValue];
             var optionsAM = actionTypeMap[selectedValue];
 
+            //Remove Step 2 disabled section to active
+            $('#step2').find('.disabled').removeClass('disabled');
+            $('#step2').find('.disabledSec').removeClass('disabledSec');
+           
+            
             //Update Action  DD
             // Get the select box element by its ID
             var $actionTypeSelect = $('#actionTypeSelect');

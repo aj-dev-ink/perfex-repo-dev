@@ -78,6 +78,9 @@
   margin-left: -25px;
   margin-right: -25px;
  }
+ .remBottomBrd{
+  border-bottom: none!important;
+ }
  .formSection-inner{
   padding-left: 25px;
   padding-right: 25px;
@@ -185,4 +188,21 @@
 }
 .radio-inline{
   cursor: pointer;
+}
+
+/* Disabled section styles */
+.formSection-sep-bottom.disabled{
+  color: #8798ad;
+}
+.formSection-sep-bottom.disabled .blue-circle {
+  background-color: #eef3f5;
+  color: #8798ad;
+  pointer-events: none;
+}
+.formSection-sep-bottom.disabled .labelHead{
+  color: #8798ad;
+  pointer-events: none;
+} 
+.disabledSec{
+  display: none;
 }
