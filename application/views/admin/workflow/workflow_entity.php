@@ -2,10 +2,10 @@
     <div class="formSection-inner pt-15">
         <div class="form-group" app-field-wrapper="Select Entity">
             <span class="blue-circle mr-2">1</span>
-            <label for="description" class="control-label">Select Entity 
+            <label for="description" class="labelHead control-label">Select Entity 
                 <i class="fa-regular fa-circle-question pull-right tw-mt-0.5 tw-ml-1"
                     data-toggle="tooltip"
-                    data-title="<?php echo _l('customer_currency_change_notice'); ?>">
+                    data-title="<?php echo _l('workflow_select_entity_step'); ?>">
                 </i>
             </label>
             <div class="form-group" app-field-wrapper="entity_type_id">

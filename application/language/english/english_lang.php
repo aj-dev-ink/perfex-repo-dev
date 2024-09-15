@@ -3939,5 +3939,11 @@ $lang['proposal_auto_convert_to_invoice_on_client_accept'] = 'Auto convert the p
 $lang['invoice_activity_auto_converted_from_proposal']      = 'Invoice auto created from proposal with number %s';
 $lang['clients_proposal_invoiced_successfully'] = 'Thank you for accepting the proposal. Please review the created invoice for the proposal';
 
-//New lang starts here
-$lang['als_workflow']              = 'Workflow';
+//New lang starts here for Workflow
+$lang['als_workflow'] = 'Workflow';
+$lang['workflow_select_entity_step'] = 'Please select the entity you would like to create an automated workflow for';
+$lang['workflow_select_action_type'] = 'Please select a action type and trigger preference to your workflow';
+$lang['workflow_select_condition_filter'] = 'Please set conditions to filter records to execute the workflow';
+$lang['workflow_set_any_action'] = 'Set any actions you want the system to perform automatically when the above selected trigger and conditions met';
+$lang['workflow_set_execution_condition'] = 'Please set execution conditions to filter records to execute the delayed workflow';
+$lang['workflow_set_action_to_perform'] = 'Set any actions you want the system to perform automatically when the above selected trigger and conditions met';

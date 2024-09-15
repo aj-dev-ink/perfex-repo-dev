@@ -1,33 +1,33 @@
-<div class="formSection-sep-bottom">
+<div class="formSection-sep-bottom" id="setConditionToExecute" style="display:none;">
     <div class="formSection-inner pt-15">
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-group" app-field-wrapper="Set Conditions">
-                    <span class="blue-circle mr-2">3</span>
-                    <label for="description" class="labelHead control-label"><span  id="sectionTitle">Set Conditions</span>
+                    <span class="blue-circle mr-2">5</span>
+                    <label for="description" class="labelHead control-label">Set conditions to execute the action
                         <i class="fa-regular fa-circle-question pull-right tw-mt-0.5 tw-ml-1"
                             data-toggle="tooltip"
-                            data-title="<?php echo _l('workflow_select_condition_filter'); ?>">
+                            data-title="<?php echo _l('workflow_set_execution_condition'); ?>">
                         </i>
                     </label>
                     <div class="section2 pb-5">
                         <div class="radio-inline">
-                            <input class="relative" type="radio" name="is_condition_based" id="all_deals" value="0" 
+                            <input class="relative" type="radio" name="is_condition_based_to_execute" id="all_deals_to_execute" value="0" 
                                 <?php if( isset( $workflow ) && !$workflow->is_condition_based ) echo 'selected';?>
                             >
-                            <label for="all_deals"> <?php echo _l('All Entities'); ?> </label>
+                            <label for="all_deals_to_execute"> <?php echo _l('All Entities'); ?> </label>
                         </div>
                         <div class="radio-inline">
-                            <input class="relative" type="radio" name="is_condition_based" id="is_condition_based" value="1" 
+                            <input class="relative" type="radio" name="is_condition_based_to_execute" id="is_condition_based_to_execute" value="1" 
                                     <?php if( isset( $workflow ) && $workflow->is_condition_based ) echo 'selected';?>
                             >
-                            <label for="is_condition_based"> <?php echo _l('Based on conditions'); ?> </label>
+                            <label for="is_condition_based_to_execute"> <?php echo _l('Based on conditions'); ?> </label>
                         </div>
                     </div>
 
-                    <div class="section2" id="sectionToToggle">
-                        <div id="sectionContainer">
-                            <div class="row graySection clsIncrementalSection" id="incrementalSection">
+                    <div class="section2" id="sectionToToggleToExecute">
+                        <div id="sectionContainerExecute">
+                            <div class="row graySection clsIncrementalSection" id="incrementalSectionToExecute">
                                 <div class="col-md-3">
                                     <select class="form-control clsConditionSelect" id="conditionSelect" name="condition_type_id[]">
                                         <option value="-">Select</option>
@@ -106,6 +106,3 @@
         </div>
     </div>
 </div>
-
-<?php $this->load->view('admin/workflow/workflow_when_to_perform'); ?>
-<?php $this->load->view('admin/workflow/workflow_condition_to_execute'); ?>

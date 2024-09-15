@@ -82,6 +82,10 @@
   padding-left: 25px;
   padding-right: 25px;
  }
+ .formSection-inner .labelHead{
+  font-size: 16px;
+  font-weight: 600;
+ }
  /* custom radio button styles */
  .radio-pull-left{
   margin-left: 34px;

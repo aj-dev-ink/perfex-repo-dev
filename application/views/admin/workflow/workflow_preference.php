@@ -4,10 +4,10 @@
             <div class="col-sm-12 col-12">
                 <div app-field-wrapper="Select action types">
                     <span class="blue-circle mr-2">2</span>
-                    <label for="description" class="control-label">Set action type and trigger preferences 
+                    <label for="description" class="labelHead control-label">Set action type and trigger preferences 
                         <i class="fa-regular fa-circle-question pull-right tw-mt-0.5 tw-ml-1"
                             data-toggle="tooltip"
-                            data-title="<?php echo _l('customer_currency_change_notice'); ?>">
+                            data-title="<?php echo _l('workflow_select_action_type'); ?>">
                         </i>
                     </label>
                 </div>
@@ -41,8 +41,19 @@
                 </div>
             </div>
 
-            <!-- Delayed Action Condition -->
+            <!-- Delayed Action Condition
             <div class="section2" id="sectionToggleToDelayed">
+                <div class="col-sm-12 col-12">
+                    <div app-field-wrapper="Select action types">
+                        <span class="blue-circle mr-2">4</span>
+                        <label for="description" class="labelHead control-label">Select when to perform action 
+                            <i class="fa-regular fa-circle-question pull-right tw-mt-0.5 tw-ml-1"
+                                data-toggle="tooltip"
+                                data-title="<?php echo _l('workflow_select_action_type'); ?>">
+                            </i>
+                        </label>
+                    </div>
+                </div>
                     <div class="col-sm-12 col-12">
                         <div id="sectionContainerDelayed" class="form-group">
                         <div class="row graySection">
@@ -129,7 +140,7 @@
                     </div>  
                 </div>    
             </div>  
-            <!-- End -->
+            End -->
 
         </div>
     </div>

@@ -56,6 +56,7 @@
     $(document).ready(function(){
         /* Function for hide and show condition section based on condition radio button */
         $('#sectionToToggle').hide();
+        $('#sectionToToggleToExecute').hide();
 
         // Handle the radio button change event
         $('input[name="is_condition_based"]').change(function(){
@@ -73,15 +74,56 @@
 
         // Handle the radio button change event
         $('input[name="is_trigger_now"]').change(function(){
+            // Check the value of the selected radio button
+            var selectedValue = $('input[name="is_trigger_now"]:checked').val();
+
             if ($('#immediate_trigger').is(':checked')) {
+                // Change the section title based on the selected value
+                $('#sectionTitle').text('Set Conditions');
+
                 // If Option 1 is selected, hide the section
                 $('#sectionToggleToDelayed').hide();
+
+                // Set conditions to execute the action hide
+                $('#setConditionToExecute').hide();
+
+                // If Set Condition to execute the action hide the step counter number should be change
+                $('#actionToPerformCount').text('4');
+
+                //Reset Based on condition section when click on immediate trigger radio button
+                $('input[name="is_condition_based"]').prop('checked', false);
+                $('input[name="is_condition_based_to_execute"]').prop('checked', false);
+                
+                $('#sectionToToggle').hide();
+                $('#sectionToToggleToExecute').hide();
+
+
             } else if ($('#dealyed_trigger').is(':checked')) {
+                // Change the section title based on the selected value
+                $('#sectionTitle').text('Set conditions to schedule the action');
+
                 // If Option 2 is selected, show the section
                 $('#sectionToggleToDelayed').show();
+
+                // Set conditions to execute the action show
+                $('#setConditionToExecute').show();
+
+                // If Set Condition to execute the action show the step counter number should be change
+                $('#actionToPerformCount').text('6');
             }
         });
 
+        /* If condition to execute the action show / hide section based on condition  or all entites */
+        // Handle the radio button change event
+        $('input[name="is_condition_based_to_execute"]').change(function(){
+            if ($('#all_deals_to_execute').is(':checked')) {
+                // If Option 1 is selected, hide the section
+                $('#sectionToToggleToExecute').hide();
+            } else if ($('#is_condition_based_to_execute').is(':checked')) {
+                // If Option 2 is selected, show the section
+                $('#sectionToToggleToExecute').show();
+            }
+        });
 
         /* Hide and show onclick of Delayed Recurrance radio buttons */
         $('#is_frequent').click(function() {
@@ -311,6 +353,52 @@
             });
 
         });
+
+
+        /* Set conditions to execute the action => Funtion for incremental section clicked on plus button */
+
+        let sectionIndexExecute = 1; // Counter to track the number of sections
+
+        // Use event delegation to handle click events on dynamically added elements    
+        
+        $('#sectionContainerExecute').on('click', '.add-section', function(e) {
+            
+            e.preventDefault();
+
+            // Clone the section
+            let $sectionToCloneExecute = $('#incrementalSectionToExecute').clone();
+
+            // Increment the section index
+            sectionIndexExecute++;
+
+            // Update the id and name attributes in the cloned section
+            $sectionToCloneExecute.attr('id', 'incrementalSectionToExecute_' + sectionIndexExecute);
+            $sectionToCloneExecute.find('select').each(function() {
+                //let nameAttr = $(this).attr('name');
+                //$(this).attr('name', nameAttr + '_' + sectionIndex);
+            });
+
+            // Reset the select fields in the cloned section
+            $sectionToCloneExecute.find('select').prop('selectedIndex', 0);
+
+            // Append the "Remove Section" button to the cloned section
+            $sectionToCloneExecute.find('.col-md-1').prepend(`
+                <a class="remove-section-btn !tw-px-0 tw-group !tw-text-white mr-5" data-toggle="dropdown">
+                    <span class="tw-rounded-full tw-bg-danger-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M200-440v-80h560v80H200Z"/></svg>
+                    </span>
+                </a>
+            `);
+
+            // Append the cloned section to the container
+            $('#sectionContainerExecute').append($sectionToCloneExecute);
+
+            // Event listener to remove a section when the Remove button is clicked
+            $('#sectionContainerExecute').on('click', '.remove-section-btn', function() {
+                $(this).closest('.graySection').remove();
+            });
+        });
+
     });
 
 </script>
