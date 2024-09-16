@@ -3947,3 +3947,5 @@ $lang['workflow_select_condition_filter'] = 'Please set conditions to filter rec
 $lang['workflow_set_any_action'] = 'Set any actions you want the system to perform automatically when the above selected trigger and conditions met';
 $lang['workflow_set_execution_condition'] = 'Please set execution conditions to filter records to execute the delayed workflow';
 $lang['workflow_set_action_to_perform'] = 'Set any actions you want the system to perform automatically when the above selected trigger and conditions met';
+$lang['workflow_request_type_get'] = 'GET requests are typically limited by 2048 characters, please check your Web servers configuration to increase this limit';
+$lang['workflow_request_url'] = 'This is the API endpoint URL which is used to make a request';

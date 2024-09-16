@@ -11,45 +11,16 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group" app-field-wrapper="webhookName">
-                                <?php //$value = (isset($workflow) ? $workflow->description : ''); ?>
-                                <?php echo render_input('webhook[name]', 'Name', ''); ?>
+                                <?php $labelWebhookName = 'Name <span style="color: red;">*</span>';  ?>
+                                <?php echo render_input('webhook[name]', $labelWebhookName, ''); ?>
                             </div>
                             <div class="form-group" app-field-wrapper="webhookDescription">
                                 <?php //$value = (isset($workflow) ? $workflow->description : ''); ?>
                                 <?php echo render_textarea('webhook[description]', 'Description', ''); ?>
                             </div> 
-                            
-                            <div class="form-group" app-field-wrapper="webhookRequestType">
-                                <label  for="requestType" class="control-label d-block">Request Type</label>
-                                <?php foreach( $webhookAuthType as $label=>$value ) { ?>
-                                    <div class="radio-inline pb-5">
-                                        <input class="relative"  type="radio" name="webhook[request_type]" id="webhook_request_type_<?php echo $value; ?>" value="<?php echo $value; ?>" <?php if( isset( $webhook ) && $value == $webhook->request_type ) echo 'selected';?> >
-                                        <label for="webhook_request_type_<?php echo $value; ?>"> <?php echo _l($label); ?> </label>
-                                    </div>
-                                <?php } ?>
-                            </div>
-                            <div class="form-group">
-                                <!-- API Key -->
-                                <div id="apiKeySec" class="form-group" app-field-wrapper="webhookAPIKey" style="display:none;">
-                                    <?php echo render_input('webhook[api_key]', 'API Key', ''); ?>                         
-                                </div>
-                                <!-- Bearer Token -->
-                                <div id="bearerTokenSec" class="form-group" app-field-wrapper="webhookBearerToken" style="display:none;">
-                                    <?php echo render_input('webhook[bearer_token]', 'Bearer Token', ''); ?>                         
-                                </div>
-                                <!-- Basic Auth Token -->
-                                <div id="basicAuthSec" class="form-group" app-field-wrapper="webhookBasicAuth" style="display:none;">
-                                    <?php echo render_input('webhook[auth_username]', 'Username', ''); ?>                         
-                                    <?php echo render_input('webhook[auth_password]', 'Password', ''); ?>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group" app-field-wrapper="webhookRequestURL">
-                                <?php //$value = (isset($webhook) ? $webhook->request_url : ''); ?>
-                                <?php echo render_input('webhook[request_url]', 'Request URL', ''); ?>
-                            </div>
+
                             <div class="form-group" app-field-wrapper="webhookAuthorization">
-                                <label  for="requestType" class="control-label d-block">Authorization</label>
+                                <label  for="requestType" class="control-label d-block">Request Type <span style="color: red;">*</span></label>
 
                                 <?php foreach( $webhookRequestType as $label=>$value ) { ?>
                                     <div class="radio-inline pb-5">
@@ -58,11 +29,77 @@
                                     </div>
                                 <?php } ?>
                             </div>
+                            
+                            <div class="form-group" app-field-wrapper="webhookRequestURL">
+                                <?php
+                                    $labelRequestURL = 'Request URL <span style="color: red;">*</span> <i class="fa-regular fa-circle-question pull-right tw-mt-0.5 tw-ml-1"
+                                    data-toggle="tooltip"
+                                    data-title="' . lang('workflow_request_url') . '">
+                                </i>';
+                                ?>
+                                
+                                <?php echo render_input('webhook[request_url]', $labelRequestURL, ''); ?>
+                            </div>
 
-                            
-                            
+                            <div class="form-group" app-field-wrapper="webhookRequestType">
+                                <label  for="requestType" class="control-label d-block">Authorization <span style="color: red;">*</span></label>
+                                <?php foreach( $webhookAuthType as $label=>$value ) { ?>
+                                    <div class="radio-inline pb-5">
+                                        <input class="relative"  type="radio" name="webhook[request_type]" id="webhook_request_type_<?php echo $value; ?>" value="<?php echo $value; ?>" <?php if( isset( $webhook ) && $value == $webhook->request_type ) echo 'selected';?> >
+                                        <label for="webhook_request_type_<?php echo $value; ?>"> <?php echo _l($label); ?> </label>
+                                    </div>
+                                <?php } ?>
+                            </div>
+
+                            <div class="form-group">
+                                <!-- API Key -->
+                                <div id="apiKeySec" class="row graySection" style="display:none;">
+                                    <div class="col-sm-4" app-field-wrapper="webhookAPIKey">
+                                        <?php 
+                                            $labelApiKey = 'API Key <span style="color: red;">*</span>'; 
+                                            echo render_input('webhook[api_key]', $labelApiKey, '');
+                                        ?>                        
+                                    </div>
+                                    <div class="col-sm-4" app-field-wrapper="webhookAPIKeyValue">
+                                        <?php 
+                                            $labelkeyValue = 'Key Value <span style="color: red;">*</span>'; 
+                                            echo render_input('webhook[api_key_value]', $labelkeyValue, '');
+                                        ?>                         
+                                    </div>
+                                    <div class="col-sm-4" app-field-wrapper="webhookAPIKeyAddTo">
+                                        <?php 
+                                        $input = render_input('webhook[api_key_addTo]', 'Add To', 'Header');
+                                        echo str_replace('<input', '<input disabled="disabled"', $input);
+                                        ?>                         
+                                    </div>
+                                </div>
+                                <!-- Bearer Token -->
+                                <div id="bearerTokenSec" class="form-group" app-field-wrapper="webhookBearerToken" style="display:none;">
+                                    <?php 
+                                        $labelBearerToken = 'Bearer Token <span style="color: red;">*</span>'; 
+                                        echo render_input('webhook[bearer_token]', $labelBearerToken, '');
+                                    ?>    
+                                </div>
+                                <!-- Basic Auth Token -->
+                                <div id="basicAuthSec" class="form-group" app-field-wrapper="webhookBasicAuth" style="display:none;">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <?php 
+                                                $labelUserName = 'Username <span style="color: red;">*</span>'; 
+                                                echo render_input('webhook[auth_username]', $labelUserName, '');
+                                            ?>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <?php 
+                                                $labelPassword = 'Password <span style="color: red;">*</span>'; 
+                                                echo render_input('webhook[auth_password]', $labelPassword, '', 'password');
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group" app-field-wrapper="webhookAuthorization">
-                                <label  for="requestType" class="control-label d-block">URL Parameter</label>
+                                <label  for="requestType" class="control-label d-block">URL Parameters <span style="color: red;">*</span></label>
                                 <div class="radio-inline pb-5">
                                     <input class="relative" type="radio" name="webhook[is_url_param]" id="noParam" value="0" 
                                         <?php //if( isset( $workflow ) && $workflow->is_trigger_now ) echo 'selected';?>
@@ -79,7 +116,20 @@
                             <!-- Add Parameter -->
                             <div class="form-group">
                                 <div id="addParameterSec" class="form-group" app-field-wrapper="webhookAddParam" style="display:none;">
-                                    <?php echo render_textarea('webhook[url_params]', 'Parameter', ''); ?>                         
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <?php 
+                                                $labelParameterName = 'Parameter Name <span style="color: red;">*</span>'; 
+                                                echo render_input('webhook[url_params]', $labelParameterName, '');
+                                            ?>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <?php 
+                                                $labelParameterType = 'Parameter Type <span style="color: red;">*</span>'; 
+                                                echo render_input('webhook[url_params_type]', $labelParameterType, '');
+                                            ?>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
