@@ -41,3 +41,60 @@ CONNECT GIT TO LIVE SITE
 Data migration
 
 trigger log
+
+
+
+
+Functions & options
+
+lead created AND 
+	>> company name = tesla
+	>> Owner = Elon
+Then
+	after 25 mins
+
+If Schedule_condition, met then schdule to perform action check on set time & if repeats
+-------------------------------------------------------------------------
+
+Action_Condition
+----------DD's fields
+owner - _getUserOptions
+converted by - _getUserOptions
+Created by - _getUserOptions
+updaed by  - _getUserOptions
+
+imported by _getUserOptions
+salutation _getSalutationOptions
+timezone _getTimeZoneOptions
+country _getCountryOptions
+do not disturb ? _getYesNoOptions
+pipeline _getPipelineOptions
+company country _getCountryOptions
+company employees _getCompEmloyeeOptions
+compay industry _getCompIndustryOptions
+lead type _getLeadTypeOptions
+currency _getCurrencyOptions
+product or services _getProduxtServicesOptions
+campaign _getCampaignOptions
+lead source _getLeadSourceOptions
+
+buissness unit _getBuissnessUnit
+forcasting type _getForastingType
+
+
+is Mql? _getYesNoOption
+is new ? _getYesNoOption
+automation activate ? _getYesNoOption
+
+--------------- has other field
+pipelinestage
+---------------Date Time counter field
+Expected closure on
+Actual closure date
+converted at
+created at
+updated at
+existing lead created on
+task due on 
+meetting scheduled on
+latest activity on
