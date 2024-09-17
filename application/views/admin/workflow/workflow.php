@@ -38,6 +38,7 @@
                                 <?php $this->load->view('admin/workflow/workflow_condition'); ?>
                                 <?php $this->load->view('admin/workflow/workflow_action'); ?>
                                 
+
                                 <div class="btn-bottom-toolbar text-right">
                                     <button type="submit" class="btn btn-default save-and-add-contact customer-form-submiter">Cancel</button>
 
@@ -461,6 +462,74 @@
                 $(this).closest('.graySection').remove();
             });
         });
+
+
+        /*  Set action to be performed => Funtion for incremental section clicked on plus button 
+        let sectionIndexAction = 1; // Counter to track the number of sections
+
+        // Use event delegation to handle click events on dynamically added elements    
+        
+        $('#sectionContainerAction').on('click', '.add-section', function(e) {
+            
+            e.preventDefault();
+
+            // Clone the section
+            let $sectionToCloneAction = $('#incrementalSectionToAction').clone();
+
+            
+            // Increment the section index
+            sectionIndexAction++;
+
+            // Update the id and name attributes in the cloned section
+            $sectionToCloneAction.attr('id', 'incrementalSectionToAction' + sectionIndexAction);
+            $sectionToCloneAction.find('select').each(function() {
+                //let nameAttr = $(this).attr('name');
+                //$(this).attr('name', nameAttr + '_' + sectionIndex);
+            });
+
+            // Reset the select fields in the cloned section
+            $sectionToCloneAction.find('select').prop('selectedIndex', 0);
+
+            // Append the "Remove Section" button to the cloned section
+            $sectionToCloneAction.find('.col-md-1').prepend(`
+                <a class="remove-section-btn !tw-px-0 tw-group !tw-text-white mr-5" data-toggle="dropdown">
+                    <span class="tw-rounded-full tw-bg-danger-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M200-440v-80h560v80H200Z"/></svg>
+                    </span>
+                </a>
+            `);
+
+            // Append the cloned section to the container
+            $('#sectionContainerAction').append($sectionToCloneAction);
+
+            // Event listener to remove a section when the Remove button is clicked
+            $('#sectionContainerAction').on('click', '.remove-section-btn', function() {
+                $(this).closest('.graySection').remove();
+            });
+        });
+        */
+
+/* Set action to be performed "Edit Field" section JS */
+        $('#editTypeSelect').change(function() {
+            $('#editFieldSelect').show();
+        });
+
+        $('#editFieldSelect').change(function() {
+            var selectedValue = $(this).val();
+            if (selectedValue === '2') {
+                $('#editFieldValueSelect').show(); // Show the input field section
+                $('#editCopyFieldValue').hide(); // Hide the input field section if other options are selected
+            } else {
+                $('#editCopyFieldValue').show();
+                $('#editFieldValueSelect').hide(); // Hide the input field section if other options are selected
+            }
+        });
+
+        $('#copyFieldAction').click(function() {
+            $('#copyFieldModal').show();
+        });
+        
+        
 
     });
 

@@ -7,7 +7,8 @@ class Workflow_edit_field_model extends App_Model
 
     /* WorkFlow edit_field Performed */
     public static $enumEntitytoEdit = array('Deal'=>1, 'Contact'=>2);
-    public static $enumEntityField = array('Name'=>1, 'Company Name'=>2, 'Email'=>3, 'Phone'=>4);
+    //public static $enumEntityField = array('Name'=>1, 'Company Name'=>2, 'Email'=>3, 'Phone'=>4);
+    public static $enumEntityField = array('Copy Field Value'=>1, 'Enter Custom Value'=>2);
     public static $enumEntityFieldValue= array('New Value'=>1);
 
     public function __construct()
