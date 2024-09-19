@@ -97,7 +97,6 @@ class Workflow extends AdminController
         $data['conditionFieldOptionMap'] = WF_FIELD_OPTION_MAP;
 
         
-        
         $this->load->view('admin/workflow/workflow', $data);
     }
 

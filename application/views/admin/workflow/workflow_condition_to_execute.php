@@ -5,7 +5,7 @@
                 <div class="col-sm-12">
                     <div class="form-group" app-field-wrapper="Set Conditions">
                         <span class="blue-circle mr-2">5</span>
-                        <label for="description" class="labelHead control-label">Set conditions to execute the action
+                        <label for="description" class="labelHead control-label">Set conditions to execute the action.
                             <i class="fa-regular fa-circle-question pull-right tw-mt-0.5 tw-ml-1"
                                 data-toggle="tooltip"
                                 data-title="<?php echo _l('workflow_set_execution_condition'); ?>">
@@ -31,7 +31,7 @@
                                 <div id="sectionContainerExecute">
                                     <div class="row graySection clsIncrementalSection" id="incrementalSectionToExecute">
                                         <div class="col-md-3">
-                                            <select class="form-control clsConditionSelect" id="conditionSelect" name="condition_type_id[]">
+                                            <select class="form-control clsConditionSelect" id="executeConditionSelect" name="condition_type_id[]">
                                                 <option value="-">Select</option>
                                             </select>
                                         </div>

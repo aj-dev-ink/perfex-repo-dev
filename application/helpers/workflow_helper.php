@@ -86,7 +86,7 @@ if (!function_exists('_getTimeZoneOptions')) {
             ['id' => 1, 'name'=> 'GMT'], 
             ['id' => 2, 'name'=> 'PST'],
             ['id' => 3, 'name'=> 'EST'] 
-        ];        
+        ];
     }
 }
 

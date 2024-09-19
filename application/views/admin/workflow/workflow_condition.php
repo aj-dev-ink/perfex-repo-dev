@@ -5,7 +5,7 @@
                 <div class="col-sm-12">
                     <div class="form-group" app-field-wrapper="Set Conditions">
                         <span class="blue-circle mr-2">3</span>
-                        <label for="description" class="labelHead control-label"><span  id="sectionTitle">Set Conditions</span>
+                        <label for="description" class="labelHead control-label"><span  id="sectionTitle">Set conditions to schedule the action</span>
                             <i class="fa-regular fa-circle-question pull-right tw-mt-0.5 tw-ml-1"
                                 data-toggle="tooltip"
                                 data-title="<?php echo _l('workflow_select_condition_filter'); ?>">
@@ -22,7 +22,7 @@
                                 <input class="relative" type="radio" name="is_condition_based" id="is_condition_based" value="1" 
                                         <?php if( isset( $workflow ) && $workflow->is_condition_based ) echo 'selected';?>
                                 >
-                                <label for="is_condition_based"> <?php echo _l('Based on conditions'); ?> </label>
+                                <label for="is_condition_based"> <?php echo _l('Set conditions to schedule the action'); ?> </label>
                             </div>
                         </div>
 
@@ -30,7 +30,7 @@
                             <div id="sectionContainer">
                                 <div class="row graySection clsIncrementalSection" id="incrementalSection">
                                     <div class="col-md-3">
-                                        <select class="form-control clsConditionSelect" id="conditionSelect" name="condition_type_id[]">
+                                        <select class="form-control clsConditionSelect" id="scheduleConditionSelect" name="condition_type_id[]">
                                             <option value="-">Select</option>
                                         </select>
                                     </div>

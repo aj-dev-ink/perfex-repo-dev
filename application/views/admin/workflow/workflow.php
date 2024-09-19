@@ -319,60 +319,6 @@
             $('#addTaskArea').show();
         });
 
-        const optionsFieldMap = <?php echo json_encode( $conditionFieldMap ); ?>;
-        const actionTypeMap = <?php echo json_encode( $actionTypeMap ); ?>;
-        
-        // Handle the radio button change event for event type
-        $('input[name="entity_type_id"]').change(function(){
-            
-            var selectedValue = $('input[name="entity_type_id"]:checked').val();
-
-            var optionsFM = optionsFieldMap[selectedValue];
-            var optionsAM = actionTypeMap[selectedValue];
-
-            //Remove Step 2 disabled section to active
-            $('#step2').find('.disabled').removeClass('disabled');
-            $('#step2').find('.disabledSec').removeClass('disabledSec');
-           
-            
-            //Update Action  DD
-            // Get the select box element by its ID
-            var $actionTypeSelect = $('#actionTypeSelect');
-            // Clear the existing options
-            $actionTypeSelect.empty();
-            // Populate the select box with new options
-            $actionTypeSelect.append($('<option></option>').attr('value', "-").text('Select'));
-            $.each(optionsAM, function(key, value) {
-                $actionTypeSelect.append($('<option></option>').attr('value', value).text(key));
-            });
-
-            
-            //Update Condition  DD
-            // Get the select box element by its ID
-            var $conditionSelect = $('#conditionSelect');
-            // Clear the existing options
-            $conditionSelect.empty();
-            // Populate the select box with new options
-            $conditionSelect.append($('<option></option>').attr('value', "-").text('Select'));
-            $.each(optionsFM, function(key, value) {
-                $conditionSelect.append($('<option></option>').attr('value', value).text(key));
-            });
-
-
-            // update editTypeSelect DD for edit field section
-            // Get the select box element by its ID
-            var $editTypeSelect = $('#editTypeSelect');
-            // Clear the existing options
-            $editTypeSelect.empty();
-            // Populate the select box with new options
-            $editTypeSelect.append($('<option></option>').attr('value', "-").text('Select'));
-            $.each(optionsFM, function(key, value) {
-                $editTypeSelect.append($('<option></option>').attr('value', value).text(key));
-            });
-
-        });
-
-
 
         /* Funtion for incremental section clicked on plus button */
 
@@ -538,6 +484,77 @@
 
     });
 
+</script>
+
+
+
+<script>
+    // Select Entity on change event
+    // Handle the radio button change of event
+    // Updates Set action type and trigger preferences
+    // updates first select box of condition for Schedule
+    // updates first select box of condition for Execute
+    // Updates Select box for Edit Field ( fields ) under action to be performed
+
+    const optionsFieldMap = <?php echo json_encode( $conditionFieldMap ); ?>;
+    const actionTypeMap = <?php echo json_encode( $actionTypeMap ); ?>;
+    
+    $('input[name="entity_type_id"]').change(function(){
+        
+        var selectedValue = $('input[name="entity_type_id"]:checked').val();
+
+        var optionsFM = optionsFieldMap[selectedValue];
+        var optionsAM = actionTypeMap[selectedValue];
+
+        //Remove Step 2 disabled section to active
+        $('#step2').find('.disabled').removeClass('disabled');
+        $('#step2').find('.disabledSec').removeClass('disabledSec');
+        
+
+        // Get the select box element by its ID
+        var $actionTypeSelect = $('#actionTypeSelect');
+        // Clear the existing options
+        $actionTypeSelect.empty();
+        // Populate the select box with new options
+        $actionTypeSelect.append($('<option></option>').attr('value', "-").text('Select'));
+        $.each(optionsAM, function(key, value) {
+            $actionTypeSelect.append($('<option></option>').attr('value', value).text(key));
+        });
+
+        //Update Condition DD Scedule
+        // Get the select box element by its ID
+        var $sceheduleCondSlct = $('#scheduleConditionSelect');
+        // Clear the existing options
+        $sceheduleCondSlct.empty();
+        // Populate the select box with new options
+        $sceheduleCondSlct.append($('<option></option>').attr('value', "-").text('Select'));
+        $.each(optionsFM, function(key, value) {
+            $sceheduleCondSlct.append($('<option></option>').attr('value', value).text(key));
+        });
+
+        //Update Condition DD execute
+        // Get the select box element by its ID
+        var $exeCondSlct = $('#executeConditionSelect');
+        // Clear the existing options
+        $exeCondSlct.empty();
+        // Populate the select box with new options
+        $exeCondSlct.append($('<option></option>').attr('value', "-").text('Select'));
+        $.each(optionsFM, function(key, value) {
+            $exeCondSlct.append($('<option></option>').attr('value', value).text(key));
+        });
+
+        // update editTypeSelect DD for edit field section
+        // Get the select box element by its ID
+        var $editTypeSelect = $('#editTypeSelect');
+        // Clear the existing options
+        $editTypeSelect.empty();
+        // Populate the select box with new options
+        $editTypeSelect.append($('<option></option>').attr('value', "-").text('Select'));
+        $.each(optionsFM, function(key, value) {
+            $editTypeSelect.append($('<option></option>').attr('value', value).text(key));
+        });
+
+    });
 </script>
 
 <script>
