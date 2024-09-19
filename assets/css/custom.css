@@ -215,3 +215,14 @@
 .is-invalid{
   border: rgb(233, 66, 66) solid 1px!important;
 }
+.customInputWidth input[type='text']{
+  width: 60px;
+}
+.dFlex{
+  display: inline-flex;
+}
+.input-group-text{
+  display: block;
+  line-height: 30px;
+  padding: 0 8px;
+}

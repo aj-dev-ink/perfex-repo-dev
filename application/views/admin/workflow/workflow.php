@@ -37,6 +37,7 @@
                                 <?php $this->load->view('admin/workflow/workflow_preference'); ?>
                                 <?php $this->load->view('admin/workflow/workflow_condition'); ?>
                                 <?php $this->load->view('admin/workflow/workflow_action'); ?>
+                                <?php $this->load->view('admin/workflow/actions/copyFieldValue'); ?>
                                 
 
                                 <div class="btn-bottom-toolbar text-right">
@@ -529,7 +530,11 @@
             $('#copyFieldModal').show();
         });
         
-        
+        //Open Copy field value modal
+        $('#copyFieldAction').on('click', function(){
+            console.log('jshhdjhsd');
+            $('#copyFieldModal').modal('show');
+        });        
 
     });
 

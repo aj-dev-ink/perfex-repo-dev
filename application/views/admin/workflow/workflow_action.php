@@ -34,22 +34,16 @@
                                         <?php $this->load->view('admin/workflow/actions/reassign'); ?>
                                     <!-- Add Webhook -->
                                         <div class="col-sm-8" id="webhookField" style="display:none;">
-                                            <div class="col-md-7">
-                                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#webhookModal" id="AddWebhook">Add Webhook</button>
-                                            </div>
+                                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#webhookModal" id="AddWebhook">Add Webhook</button>
                                         </div>
                                     <!-- Send Email -->
                                         <div class="col-sm-8" id="sendEmailSec" style="display:none;">
-                                            <div class="col-md-7">
-                                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#sendEmailModal" id="sendEmailAction">Send Email</button>
-                                            </div> 
+                                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#sendEmailModal" id="sendEmailAction">Send Email</button>
                                         </div>
                                     
                                     <!-- Add Task -->
                                         <div class="col-sm-8" id="addTaskSec" style="display:none;">
-                                            <div class="col-md-7">
-                                                <button type="button" class="btn btn-outline-primary"  data-toggle="modal" data-target="#addTaskModal" id="addTaskAction">Create Task</button>
-                                            </div> 
+                                            <button type="button" class="btn btn-outline-primary"  data-toggle="modal" data-target="#addTaskModal" id="addTaskAction">Create Task</button>
                                         </div>
                                     
                                     <!-- increment button 
