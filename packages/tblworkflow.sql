@@ -13,3 +13,7 @@ CREATE TABLE tblworkflow (
 --
 ALTER TABLE `tblworkflow`
 ADD COLUMN `is_active` BOOLEAN DEFAULT TRUE;
+
+--
+ALTER TABLE `tblworkflow`
+ADD COLUMN `is_condition_based_schedule` BOOLEAN DEFAULT TRUE;

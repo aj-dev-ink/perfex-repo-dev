@@ -9,7 +9,8 @@ class Workflow extends AdminController
         parent::__construct();
 
         $this->load->model('workflow_model');
-        $this->load->model('workflow_condition_model');
+        $this->load->model('workflow_schedule_condition_model');//schedule condition
+        $this->load->model('workflow_condition_model');//execute condition
         $this->load->model('workflow_delay_model');
         $this->load->model('workflow_edit_field_model');
         $this->load->model('workflow_webhook_model');
@@ -60,6 +61,7 @@ class Workflow extends AdminController
 
         if( isset( $workflow ) ) {
             $data['workflow'] = $workflow;
+            $data['arrWorkflowScheduleConditions'] = $workflow;//load workflow cons here
             $data['arrWorkflowConditions'] = $workflow;//load workflow cons here
             $data['workflowEditField'] = $workflow;//load workflow cons here
             $data['workflowDelay'] = $workflow;//load workflow cons here

@@ -15,7 +15,7 @@ class Workflow_model extends App_Model
      * @param mixed $data workflow $_POST data
      */
     public function add($data) {
-        $arrWorkflowFields = ['name','description','entity_type_id','action_type_id','is_trigger_now','is_condition_based','trigger_type_id'];
+        $arrWorkflowFields = ['name','description','entity_type_id','action_type_id','is_trigger_now','is_condition_based_schedule','is_condition_based','trigger_type_id'];
         $arrWorkflowData = setTableFields( $arrWorkflowFields, $data );
 
         $this->db->insert(db_prefix() . 'workflow', $arrWorkflowData);
@@ -27,6 +27,29 @@ class Workflow_model extends App_Model
 
         //insert Delay Actions
         if( isset( $arrWorkflowData['is_trigger_now'] ) && !$arrWorkflowData['is_trigger_now'] ){
+
+            if( isset( $arrWorkflowData['is_condition_based_schedule'] ) && $arrWorkflowData['is_condition_based_schedule'] ){
+                $arrScheduleConInsertIds=[];
+                $countSchedConditions = count( $data['sched_condition_type_id'] );
+                $conIndex = 0;
+                while( $countSchedConditions > $conIndex ){
+    
+                    $arrSchedConditionFields = ['sched_condition_type_id','sched_stage_type_id','sched_value_type_id','sched_operator_type_id','sched_compare_value_type_id', 'sched_actual_compare_value'];
+                    $arrSchedConditionData = [];
+                    foreach( $arrSchedConditionFields as $field ){
+                        if( isset( $data[$field], $data[$field][$conIndex] ) ){
+                            $arrConditionData[$field] = $data[$field][$conIndex];
+                        }
+                    }
+                    $arrSchedConditionData['workflow_id'] = $insert_id;
+    
+                    $arrScheduleConInsertIds[] = $this->workflow_schedule_condition_model->add( $arrSchedConditionData );
+    
+                    $conIndex++;
+                }    
+            }
+            
+
             $arrFields = ['pref_count', 'pref_duration', 'is_before', 'delay_date_type', 'repeat_type', 'is_recurance', 'frequency', 'until_date'];
 
             $arrDelayData = setTableFields( $arrFields, $data );
