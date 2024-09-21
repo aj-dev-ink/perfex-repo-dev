@@ -212,7 +212,7 @@
   margin-top: -10px;
   display: block;
 }
-.is-invalid{
+.is-invalid, .error{
   border: rgb(233, 66, 66) solid 1px!important;
 }
 .customInputWidth input[type='text']{
@@ -225,4 +225,8 @@
   display: block;
   line-height: 30px;
   padding: 0 8px;
+}
+#name-error{
+  color: rgb(233, 66, 66)!important;
+  border:none!important;
 }

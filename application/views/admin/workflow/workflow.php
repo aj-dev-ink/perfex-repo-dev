@@ -27,7 +27,6 @@
                                         $labelName_with_asterisk = 'Name <span style="color: red;">*</span>';
                                         echo render_input('name', $labelName_with_asterisk, $value); 
                                     ?>
-                                    <span id="nameError" class="text-danger" style="display: none;">This is a required field.</span>
                                 </div>
                                 <div class="form-group" app-field-wrapper="description">
                                     <?php $value = (isset($workflow) ? $workflow->description : ''); ?>
@@ -44,9 +43,9 @@
                                 
 
                                 <div class="btn-bottom-toolbar text-right">
-                                    <button type="submit" class="btn btn-default save-and-add-contact customer-form-submiter">Cancel</button>
+                                    <button type="button" class="btn btn-default save-and-add-contact customer-form-submiter" id="cancelButton">Cancel</button>
 
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="submit" class="btn btn-primary" id="saveWorkflow" disabled>Save</button>
                                 </div>
                             <?php echo form_close(); ?>
                         </div>
@@ -64,7 +63,42 @@
     /*Jquery code for Set COndition*/
     $(document).ready(function(){
 
-        // On input field losing focus
+        //Initial Save workflow button disabled
+        $('#saveWorkflow').prop('disabled', true);
+
+        // Initialize form validation
+        $("#workflow-form").validate({
+            rules: {
+                name: {
+                    required: true
+                }
+            },
+            messages: {
+                name: {
+                    required: "This is a required field"
+                }
+            },
+            submitHandler: function(form) {
+                // Submit the form
+                form.submit();
+            }
+        });
+
+        // Optional: Prevent submission when clicking the save button if form is invalid
+        $('#saveWorkflow').click(function(e) {
+            e.preventDefault(); // Prevent default action
+            if ($("#workflow-form").valid()) {
+                // Submit the form if valid
+                $("#workflow-form").submit();
+            }
+        });
+
+        //If Cancel button click the redirect to Workflow grid
+        $('#cancelButton').click(function() {
+            window.history.back(); // Redirect to 1 step back
+        });
+
+        /* On input field losing focus
         $('input[name="name"]').blur(function() {
             var nameValue = $(this).val().trim();
 
@@ -76,7 +110,7 @@
                 $('#nameError').hide(); // Hide error message if valid
                 $(this).removeClass('is-invalid'); // Remove error class if valid
             }
-        });
+        });*/
 
         /* Function for hide and show condition section based on condition radio button */
         $('#sectionToToggle').hide();
@@ -245,6 +279,9 @@
                 $('#reassignSec').hide();
                 $('#sendEmailSection').hide();
                 $('#addTaskArea').hide();
+
+                //Active Save workflow button
+                $('#saveWorkflow').prop('disabled', false);
             } else {
                 $('#editFieldSec').hide();
             }
@@ -255,7 +292,10 @@
             if ($(this).val() == '2') {
                 $('#sendEmailSec').show();
                 $('#addWebhookSec').hide();
-                $('#addTaskArea').hide();                
+                $('#addTaskArea').hide(); 
+                
+                //Active Save workflow button
+                $('#saveWorkflow').prop('disabled', false);
             } else {
                 $('#sendEmailSec').hide();
             }
@@ -277,6 +317,8 @@
                 $('#sendEmailSection').hide();
                 $('#addTaskSec').hide();
                 $('#addTaskArea').hide();
+                //Active Save workflow button
+                $('#saveWorkflow').prop('disabled', false);
             } else {
                 $('#webhookField').hide();
             }
@@ -328,6 +370,8 @@
                 $('#addWebhookSec').hide();
                 $('#sendEmailSection').hide();
                 $('#addTaskArea').hide();
+                //Active Save workflow button
+                $('#saveWorkflow').prop('disabled', false);
             } else {
                 $('#reassignSec').hide();
             }
@@ -342,6 +386,8 @@
                 $('#webhookField').hide()
                 $('#addWebhookSec').hide();
                 $('#sendEmailSection').hide();
+                //Active Save workflow button
+                $('#saveWorkflow').prop('disabled', false);
             } else {
                 $('#addTaskSec').hide();
             }
