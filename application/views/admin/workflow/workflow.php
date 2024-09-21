@@ -20,6 +20,7 @@
                             <div class="panel-body">
                                 <!-- <form action="<?php echo site_url('admin/workflow/create'); ?>" id="workflow-form" method="post" accept-charset="utf-8" novalidate="novalidate"> -->
                                 <?php echo form_open('admin/workflow/create', ['class' => '', 'id' => 'workflow-form']); ?>
+                                
                                 <div class="form-group f_client_id">
                                     <?php $value = (isset($workflow) ? $workflow->name : ''); ?>
                                     <?php 
@@ -33,12 +34,13 @@
                                     <?php echo render_textarea('description', 'Description', $value); ?>
                                 </div>
   
-                                
+                                <div>
                                 <!-- 1 --><?php $this->load->view('admin/workflow/workflow_entity'); ?> 
                                 <!-- 2 --><?php $this->load->view('admin/workflow/workflow_preference'); ?>
                                 <!-- 3 --><?php $this->load->view('admin/workflow/workflow_condition_to_execute'); ?>
                                 <!-- 4 --><?php $this->load->view('admin/workflow/workflow_action'); ?>
-                                <?php $this->load->view('admin/workflow/actions/copyFieldValue'); ?>
+                                    <?php //$this->load->view('admin/workflow/actions/copyFieldValue'); ?>
+                                </div>
                                 
 
                                 <div class="btn-bottom-toolbar text-right">
