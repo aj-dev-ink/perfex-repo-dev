@@ -1,7 +1,7 @@
-<!-- Delayed Action Condition -->
+<!-- Delayed Action Condition Step 4 -->
  <div id="StepToDelyed">
 
-        <div id="sectionToggleToDelayed"  class="formSection-sep-bottom disabled">
+        <div id="sectionToggleToDelayed"  class="formSection-sep-bottom ">
             <div class="formSection-inner pt-15 pb-10">
                 <div class="row">
                     <div class="col-sm-12 col-12">
@@ -15,7 +15,7 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-12 disabledSec">
+                    <div class="col-sm-12 col-12">
                         <div id="sectionContainerDelayed" class="section2 pb-5">
                             <div class="row">
                                 <div class="col-md-2">

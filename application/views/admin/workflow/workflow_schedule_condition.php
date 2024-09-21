@@ -1,17 +1,17 @@
-<div id="step3">
-    <div class="formSection-sep-bottom disabled">
+<div id="step5"> <!-- Step 5 -->
+    <div class="formSection-sep-bottom" id="setConditionToSchedule" style="display:none;">
         <div class="formSection-inner pt-15">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group" app-field-wrapper="Set Conditions">
-                        <span class="blue-circle mr-2">3</span>
+                        <span class="blue-circle mr-2" id="scheduleConditionCount">3</span>
                         <label for="description" class="labelHead control-label"><span  id="sectionTitle">Set conditions to schedule the action</span>
                             <i class="fa-regular fa-circle-question pull-right tw-mt-0.5 tw-ml-1"
                                 data-toggle="tooltip"
                                 data-title="<?php echo _l('workflow_select_condition_filter'); ?>">
                             </i>
                         </label>
-                        <div class="section2 pb-5 disabledSec">
+                        <div class="section2 pb-5">
                             <div class="radio-inline">
                                 <input class="relative" type="radio" name="is_condition_based" id="all_deals" value="0" 
                                     <?php if( isset( $workflow ) && !$workflow->is_condition_based ) echo 'selected';?>

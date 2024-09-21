@@ -1,3 +1,4 @@
+<!-- Step 1 -->
 <div class="formSection-sep-top formSection-sep-bottom">
     <div class="formSection-inner pt-15">
         <div class="form-group" app-field-wrapper="Select Entity">

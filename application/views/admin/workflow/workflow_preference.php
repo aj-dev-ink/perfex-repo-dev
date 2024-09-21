@@ -1,5 +1,5 @@
-<div id="step2">
-    <div class="formSection-sep-bottom disabled">
+<div id="step2"> <!-- Step 2 -->
+    <div class="formSection-sep-bottom">
         <div class="formSection-inner pt-15 pb-15 ">
             <div class="row">
                 <div class="col-sm-12 col-12">
@@ -13,7 +13,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-sm-5 col-12 disabledSec">
+                <div class="col-sm-5 col-12">
                     <div class="" app-field-wrapper="Select action types">
                         <div class="section2">
                             <select class="form-control" id="actionTypeSelect" name="action_type_id" style="margin-bottom:10px;">
@@ -41,9 +41,9 @@
                         </div>
                     </div>
                 </div>
-                <?php $this->load->view('admin/workflow/workflow_schedule_condition'); ?>
-                <?php $this->load->view('admin/workflow/workflow_when_to_perform'); ?>
             </div>
         </div>
     </div>
 </div>
+<?php $this->load->view('admin/workflow/workflow_schedule_condition'); ?>
+<?php $this->load->view('admin/workflow/workflow_when_to_perform'); ?>
