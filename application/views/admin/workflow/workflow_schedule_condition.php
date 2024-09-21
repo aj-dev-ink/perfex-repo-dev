@@ -107,8 +107,5 @@
             </div>
         </div>
     </div>
-
-    <?php $this->load->view('admin/workflow/workflow_when_to_perform'); ?>
-    <?php $this->load->view('admin/workflow/workflow_condition_to_execute'); ?>
-
+    
 </div>

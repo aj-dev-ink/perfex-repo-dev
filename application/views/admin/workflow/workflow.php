@@ -33,10 +33,11 @@
                                     <?php echo render_textarea('description', 'Description', $value); ?>
                                 </div>
   
-                                <?php $this->load->view('admin/workflow/workflow_entity'); ?>
-                                <?php $this->load->view('admin/workflow/workflow_preference'); ?>
-                                <?php $this->load->view('admin/workflow/workflow_condition'); ?>
-                                <?php $this->load->view('admin/workflow/workflow_action'); ?>
+                                
+                                <!-- 1 --><?php $this->load->view('admin/workflow/workflow_entity'); ?> 
+                                <!-- 2 --><?php $this->load->view('admin/workflow/workflow_preference'); ?>
+                                <!-- 3 --><?php $this->load->view('admin/workflow/workflow_condition_to_execute'); ?>
+                                <!-- 4 --><?php $this->load->view('admin/workflow/workflow_action'); ?>
                                 <?php $this->load->view('admin/workflow/actions/copyFieldValue'); ?>
                                 
 
