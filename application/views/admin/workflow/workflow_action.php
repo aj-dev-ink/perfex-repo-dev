@@ -61,6 +61,7 @@
                         <?php $this->load->view('admin/workflow/actions/webhook'); ?>
                         <?php $this->load->view('admin/workflow/actions/sendemail'); ?>
                         <?php $this->load->view('admin/workflow/actions/createTask'); ?>
+                        <?php $this->load->view('admin/workflow/actions/copyFieldValue'); ?>
                         
                     </div> 
                 </div>
