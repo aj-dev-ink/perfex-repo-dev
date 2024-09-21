@@ -1,7 +1,7 @@
 <!-- Delayed Action Condition Step 4 -->
  <div id="StepToDelyed">
 
-        <div id="sectionToggleToDelayed"  class="formSection-sep-bottom ">
+        <div id="sectionToggleToDelayed"  class="formSection-sep-bottom disabled">
             <div class="formSection-inner pt-15 pb-10">
                 <div class="row">
                     <div class="col-sm-12 col-12">
@@ -15,11 +15,11 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-12">
+                    <div class="col-sm-12 col-12 disabledSec">
                         <div id="sectionContainerDelayed" class="section2 pb-5">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <?php echo render_input('pref_count', 'Time Preference', ''); ?>
+                                    <?php echo render_input('pref_count', 'Time Preference', '', 'number'); ?>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="name" class="control-label">&nbsp;</label>

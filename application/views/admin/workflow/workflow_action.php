@@ -1,5 +1,5 @@
 <div id="step6"> <!-- Step 6 -->
-    <div class="formSection-sep-bottom remBottomBrd">
+    <div class="formSection-sep-bottom remBottomBrd disabled">
         <div class="formSection-inner pt-15">
             <div class="row">
                 <div class="col-sm-12">
@@ -13,7 +13,7 @@
                         </label>
                         
                         <!-- Actio To Perform Section -->
-                        <div id="actionPerformHide" class="section2">
+                        <div id="actionPerformHide" class="section2 disabledSec">
                             <div id="sectionContainerAction">
                                 <div class="row graySection clsIncrementalActionSection" id="incrementalSectionToAction">
                                     <div class="col-md-3">

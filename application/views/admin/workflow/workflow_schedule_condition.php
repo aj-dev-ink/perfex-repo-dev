@@ -1,5 +1,5 @@
 <div id="step5"> <!-- Step 5 -->
-    <div class="formSection-sep-bottom" id="setConditionToSchedule" style="display:none;">
+    <div class="formSection-sep-bottom disabled" id="setConditionToSchedule" style="display:none;">
         <div class="formSection-inner pt-15">
             <div class="row">
                 <div class="col-sm-12">
@@ -11,7 +11,7 @@
                                 data-title="<?php echo _l('workflow_select_condition_filter'); ?>">
                             </i>
                         </label>
-                        <div class="section2 pb-5">
+                        <div class="section2 pb-5 disabledSec">
                             <div class="radio-inline">
                                 <input class="relative" type="radio" name="is_condition_based" id="all_deals" value="0" 
                                     <?php if( isset( $workflow ) && !$workflow->is_condition_based ) echo 'selected';?>

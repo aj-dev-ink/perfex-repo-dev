@@ -1,17 +1,17 @@
 <div id="step3"> <!-- Step 3 -->
-    <div class="formSection-sep-bottom " id="setConditionToExecute">
+    <div class="formSection-sep-bottom disabled" id="setConditionToExecute">
         <div class="formSection-inner pt-15">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="form-group" app-field-wrapper="Set Conditions">
                         <span class="blue-circle mr-2" id="executeConditionText">3</span>
-                        <label for="description" class="labelHead control-label">Set conditions to execute the action.
+                        <label for="description" class="labelHead control-label">Set conditions to execute the action
                             <i class="fa-regular fa-circle-question pull-right tw-mt-0.5 tw-ml-1"
                                 data-toggle="tooltip"
                                 data-title="<?php echo _l('workflow_set_execution_condition'); ?>">
                             </i>
                         </label>
-                        <div id="whenDisabled" class="">
+                        <div id="whenDisabled" class="disabledSec">
                             <div class="section2 pb-5">
                                 <div class="radio-inline">
                                     <input class="relative" type="radio" name="is_condition_based_to_execute" id="all_deals_to_execute" value="0" 
