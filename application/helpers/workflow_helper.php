@@ -111,11 +111,18 @@ if (!function_exists('_getPipelineOptions')) {
 
 if (!function_exists('_getCountryOptions')) {
     function _getCountryOptions(){
-        return [
-            ['id' => 1, 'name'=> 'United States'], 
-            ['id' => 2, 'name'=> 'Canada'],
-            ['id' => 3, 'name'=> 'United Kingdom'] 
-        ];        
+
+        $CI = &get_instance();
+        $CI->db->select('country_id as id, short_name as name');
+        $CI->db->from( db_prefix() . 'countries');
+        $query = $CI->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->result_array();// Return all records as array options
+        }
+
+        return [];  // Return empty array
+
     }
 }
 
