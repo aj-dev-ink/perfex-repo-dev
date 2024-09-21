@@ -14,16 +14,16 @@
                         <div id="whenDisabled" class="disabledSec">
                             <div class="section2 pb-5">
                                 <div class="radio-inline">
-                                    <input class="relative" type="radio" name="is_condition_based_to_execute" id="all_deals_to_execute" value="0" 
+                                    <input class="relative" type="radio" name="is_condition_based" id="all_deals_to_execute" value="0" 
                                         <?php if( isset( $workflow ) && !$workflow->is_condition_based ) echo 'selected';?>
                                     >
                                     <label for="all_deals_to_execute"> <?php echo _l('All Entities'); ?> </label>
                                 </div>
                                 <div class="radio-inline">
-                                    <input class="relative" type="radio" name="is_condition_based_to_execute" id="is_condition_based_to_execute" value="1" 
+                                    <input class="relative" type="radio" name="is_condition_based" id="is_condition_based" value="1" 
                                             <?php if( isset( $workflow ) && $workflow->is_condition_based ) echo 'selected';?>
                                     >
-                                    <label for="is_condition_based_to_execute"> <?php echo _l('Based on conditions'); ?> </label>
+                                    <label for="is_condition_based"> <?php echo _l('Based on conditions'); ?> </label>
                                 </div>
                             </div>
 

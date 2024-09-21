@@ -13,16 +13,16 @@
                         </label>
                         <div class="section2 pb-5 disabledSec">
                             <div class="radio-inline">
-                                <input class="relative" type="radio" name="is_condition_based" id="all_deals" value="0" 
-                                    <?php if( isset( $workflow ) && !$workflow->is_condition_based ) echo 'selected';?>
+                                <input class="relative" type="radio" name="is_condition_based_schedule" id="all_deals" value="0" 
+                                    <?php if( isset( $workflow ) && !$workflow->is_condition_based_schedule ) echo 'selected';?>
                                 >
                                 <label for="all_deals"> <?php echo _l('All Entities'); ?> </label>
                             </div>
                             <div class="radio-inline">
-                                <input class="relative" type="radio" name="is_condition_based" id="is_condition_based" value="1" 
+                                <input class="relative" type="radio" name="is_condition_based_schedule" id="is_condition_based_schedule" value="1" 
                                         <?php if( isset( $workflow ) && $workflow->is_condition_based ) echo 'selected';?>
                                 >
-                                <label for="is_condition_based"> <?php echo _l('Set conditions to schedule the action'); ?> </label>
+                                <label for="is_condition_based_schedule"> <?php echo _l('Set conditions to schedule the action'); ?> </label>
                             </div>
                         </div>
 
@@ -30,13 +30,13 @@
                             <div id="sectionContainer">
                                 <div class="row graySection clsIncrementalSection" id="incrementalSection">
                                     <div class="col-md-3">
-                                        <select class="form-control clsConditionSelect" id="scheduleConditionSelect" name="condition_type_id[]">
+                                        <select class="form-control clsConditionSelect" id="scheduleConditionSelect" name="sched_condition_type_id[]">
                                             <option value="-">Select</option>
                                         </select>
                                     </div>
 
                                     <div class="col-md-2 hide divStageSelect">
-                                        <select class="form-control" id="stageSelect" name="stage_type_id[]">
+                                        <select class="form-control" id="stageSelect" name="sched_stage_type_id[]">
                                             <option value="-">Select</option>
                                             <?php foreach( $stageTypes as $label=>$value ) { ?>
                                                 <option value="<?php echo $value;?>"
@@ -49,7 +49,7 @@
                                     </div>
 
                                     <div class="col-md-2 hide divValueSelect">
-                                        <select class="form-control" id="valueSelect" name="value_type_id[]">
+                                        <select class="form-control" id="valueSelect" name="sched_value_type_id[]">
                                             <option value="-">Select</option>
                                             <?php foreach( $valueTypes as $label=>$value ) { ?>
                                                 <option value="<?php echo $value;?>"
@@ -62,7 +62,7 @@
                                     </div>
 
                                     <div class="col-md-2 hide divOperatorSelect">
-                                        <select class="form-control clsOperatorSelect" id="operatorSelect" name="operator_type_id[]">
+                                        <select class="form-control clsOperatorSelect" id="operatorSelect" name="sched_operator_type_id[]">
                                             <option value="-">Select</option>
                                             <?php foreach( $operatorTypes as $label=>$value ) { ?>
                                                 <option value="<?php echo $value;?>"
@@ -76,11 +76,11 @@
                                     
                                     <div class="col-md-2 hide divActualCompareValue">
                                         <?php $value = (isset($workflowDelayed) ? $workflowDelayed->actual_compare_value : ''); ?>
-                                        <?php echo render_input('actual_compare_value[]', '', $value); ?>
+                                        <?php echo render_input('sched_actual_compare_value[]', '', $value); ?>
                                     </div>
 
                                     <div class="col-md-2 hide divCompareValueSelect">
-                                        <select class="form-control clsCompareValueSelect" id="compareValueSelect" name="compare_value_type_id[]">
+                                        <select class="form-control clsCompareValueSelect" id="compareValueSelect" name="sched_compare_value_type_id[]">
                                             <option value="-">Select</option>
                                             <?php foreach( $enumTimePreference2 as $label=>$value ) { ?>
                                                 <option value="<?php echo $value;?>"

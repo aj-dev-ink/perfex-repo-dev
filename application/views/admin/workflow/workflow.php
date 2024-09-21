@@ -114,8 +114,8 @@
                     $('#actionToPerformCount').text('4');
 
                     //Reset Based on condition section when click on immediate trigger radio button
+                    $('input[name="is_condition_based_schedule"]').prop('checked', false);
                     $('input[name="is_condition_based"]').prop('checked', false);
-                    $('input[name="is_condition_based_to_execute"]').prop('checked', false);
                     
                     $('#sectionToToggle').hide();
                     $('#sectionToToggleToExecute').hide();
@@ -133,7 +133,7 @@
                     $('#StepToDelyed').find('.disabledSec').removeClass('disabledSec');
                     
                     //Reset Based on condition section when click on Delayed Action radio button
-                    $('input[name="is_condition_based_to_execute"]').prop('checked', false);
+                    $('input[name="is_condition_based"]').prop('checked', false);
 
                     // Disabled the step6 section
                     $('#step6').find('.formSection-sep-bottom').addClass('disabled');
@@ -161,7 +161,7 @@
         // -----------------------------------------------------------------------------------------------------------
 
             // Handle the radio button change event
-            $('input[name="is_condition_based"]').change(function(){
+            $('input[name="is_condition_based_schedule"]').change(function(){
 
                 /*Active the step 4 and 5 */
                 $('#StepToDelyed').find('#sectionToggleToDelayed').removeClass('disabled');
@@ -176,7 +176,7 @@
                     $('#step6').find('.formSection-sep-bottom').removeClass('disabled');
                     $('#step6').find('#actionPerformHide').removeClass('disabledSec');*/
 
-                } else if ($('#is_condition_based').is(':checked')) {
+                } else if ($('#is_condition_based_schedule').is(':checked')) {
                     // If Option 2 is selected, show the section
                     $('#sectionToToggle').show();
                     /* Activate step 4 section
@@ -196,7 +196,7 @@
         
         // Handle the radio button change event
 
-            $('input[name="is_condition_based_to_execute"]').change(function(){
+            $('input[name="is_condition_based"]').change(function(){
 
                 if ($('#all_deals_to_execute').is(':checked')) {
                     // If Option 1 is selected, hide the section
@@ -206,7 +206,7 @@
                     $('#step6').find('.formSection-sep-bottom').removeClass('disabled');
                     $('#step6').find('#actionPerformHide').removeClass('disabledSec');
 
-                } else if ($('#is_condition_based_to_execute').is(':checked')) {
+                } else if ($('#is_condition_based').is(':checked')) {
                     // If Option 2 is selected, show the section
                     $('#sectionToToggleToExecute').show();
 
