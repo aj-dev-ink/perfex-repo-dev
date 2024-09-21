@@ -695,5 +695,60 @@ $(document).on('change', '.clsIncrementalSection .clsConditionSelect', function 
         });
     }
 });
+</script>
 
+<!-- Function to update | Set action to be performed | Selecting Edit Field display options or actual value -->
+<script>
+    $(document).on('change', '#editTypeSelect', function () {
+
+        const conditionFieldOptionMap = <?php echo json_encode( $conditionFieldOptionMap ); ?>;
+
+        // Get the selected value
+        var selectedValue = $(this).val();
+        var entityTypeValue = $('#entity_type_id').val();
+
+        const selectedFieldName = conditionFieldOptionMap[entityTypeValue][selectedValue]["field_name"];
+        const isTextBoxValue = conditionFieldOptionMap[entityTypeValue][selectedValue]["is_textbox"];
+
+        var editCustomValueInput = $('#edit_custom_value');
+        var editCustomValueSelect = $('#edit_field_value');
+
+        if( isTextBoxValue ){
+            //hide select  show input
+            editCustomValueInput.closest('div').show();
+            editCustomValueSelect.closest('div').hide();
+        } else {
+            //hide input show select
+            editCustomValueInput.closest('div').hide();
+            editCustomValueSelect.closest('div').show();
+
+            // AJAX request to the backend
+            $.ajax({
+                url: '<?php echo site_url('admin/workflow/getCompareOptions'); ?>', // Replace with your backend URL
+                type: 'POST',
+                data: {
+                    fieldId: selectedValue, // Sending the selected value to the backend
+                    entityType: entityTypeValue, // Sending the Entity type value to the backend
+                },
+                success: function (response) {
+                    response = JSON.parse(response);
+                    // Assuming response contains an array of options in the format [{id: 1, name: 'Option1'}, ...]
+                    var optionsData = response.data; // Adjust according to the actual structure of your response
+                    
+                    // Clear existing options
+                    var editCustomValueSelect = $('#edit_field_value');
+                    editCustomValueSelect.empty();
+                    // Populate the select box with new options
+                    editCustomValueSelect.append($('<option></option>').attr('value', "-").text('Select'));
+                    $.each(optionsData, function (index, option) {
+                        //compareSelect.append($('<option></option>').attr('value', option.id).text(option.name));
+                        editCustomValueSelect.append($('<option>', { value: option.id, text: option.name }));
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching data:', error);
+                }
+            });
+        }
+    });
 </script>

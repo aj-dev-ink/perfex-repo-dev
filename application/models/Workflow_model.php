@@ -15,6 +15,7 @@ class Workflow_model extends App_Model
      * @param mixed $data workflow $_POST data
      */
     public function add($data) {
+
         $arrWorkflowFields = ['name','description','entity_type_id','action_type_id','is_trigger_now','is_condition_based_schedule','is_condition_based','trigger_type_id'];
         $arrWorkflowData = setTableFields( $arrWorkflowFields, $data );
 
@@ -38,7 +39,7 @@ class Workflow_model extends App_Model
                     $arrSchedConditionData = [];
                     foreach( $arrSchedConditionFields as $field ){
                         if( isset( $data[$field], $data[$field][$conIndex] ) ){
-                            $arrConditionData[$field] = $data[$field][$conIndex];
+                            $arrSchedConditionData[$field] = $data[$field][$conIndex];
                         }
                     }
                     $arrSchedConditionData['workflow_id'] = $insert_id;

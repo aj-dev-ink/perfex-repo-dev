@@ -16,7 +16,6 @@
             </div>
             <div class="col-md-4">
                 <select class="form-control" id="editFieldSelect" name="edit_field_id" style="display:none">
-                    <option value="-">Select Entity Field</option>
                     <?php foreach( $entityField as $label=>$value ) { ?>
                         <option value="<?php echo $value;?>"
                                 <?php if( isset( $workflowEditField ) && $value == $workflowEditField->edit_field_id ) echo 'selected';?>
@@ -27,7 +26,15 @@
                 </select>
             </div>
             <div class="col-md-4" id="editFieldValueSelect" style="display:none;">
-                <?php echo render_input('webhook[field_value]', '', ''); ?>
+
+                <?php echo render_input('edit_custom_value', '', ''); ?>
+
+                <div>
+                    <select class="form-control" id="edit_field_value" name="edit_field_value">
+                        <option value="-">Select Option</option>
+                    </select>
+                </div>
+
             </div>
             <div class="col-md-4" id="editCopyFieldValue" style="display:none;">
                 <button type="button" class="btn btn-outline-primary" id="copyFieldAction">Copy Field Value</button>
