@@ -4,7 +4,7 @@
 
     define('WF_ENTITY_TYPE', array('Lead'=>1, 'Task'=>2, 'Call log'=>3, 'Meeting'=>4) );
 
-    define('WF_ACTION_TYPE', array('When a lead is created'=>1, 'When a lead is updated.'=>2, 'Execute as an associated entity action'=>3, 'Marketplace app trigger'=>4) );
+    define('WF_ACTION_TYPE', array('When a lead is created'=>1, 'When a lead is updated'=>2, 'Execute as an associated entity action'=>3, 'Marketplace app trigger'=>4) );
 
     define('WF_TRIGGER_TYPE', 
         array(
@@ -41,6 +41,13 @@
             'When a meeting is updated' => 2,
             'Marketplace app trigger' => 3,
         ]
+        )
+    );
+
+    define('WFEF_EDIT_TYPE', 
+        array(
+            'Copy Field Value'=>1,
+            'Enter Custom Value'=>2
         )
     );
 
@@ -161,7 +168,7 @@
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Salutation']                => ['field_name' => 'Salutation', 'is_textbox'=>false, 'function_name' => '_getSalutationOptions'],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['First name']                => ['field_name' => 'First name', 'is_textbox'=>true, 'function_name' => 'getUserOptions'],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Last name']                 => ['field_name' => 'Last name', 'is_textbox'=>true, 'function_name' => 'getUserOptions'],
-                WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Owner']                     => ['field_name' => 'Owner', 'is_textbox'=>false, 'function_name' => '_getUserOptions'],
+                WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Owner']                     => ['field_name' => 'Owner', 'is_textbox'=>false, 'function_name' => '_getUserOptions', 'table_name'=>'leads', 'field_name'=>'assigned'],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Company']                   => ['field_name' => 'Company', 'is_textbox'=>true, 'function_name' => 'getUserOptions'],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Pipeline']                  => ['field_name' => 'Pipeline', 'is_textbox'=>false, 'function_name' => '_getPipelineOptions'],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Pipeline stage']            => ['field_name' => 'Pipeline stage', 'is_textbox'=>true, 'function_name' => 'getUserOptions'],

@@ -90,9 +90,8 @@ class Workflow extends AdminController
 
         $data['emailTemplate'] = WFD_EMAIL_TEMPLATE;
 
-        $data['entitytoEdit'] = Workflow_edit_field_model::$enumEntitytoEdit;
-        $data['entityField'] = Workflow_edit_field_model::$enumEntityField;
-        $data['entityFieldValue'] = Workflow_edit_field_model::$enumEntityFieldValue;
+        $data['entitytoEdit'] = [];
+        $data['entityField'] = WFEF_EDIT_TYPE;
 
         $data['webhookAuthType'] = WFW_AUTH_TYPE;
         $data['webhookRequestType'] = WFW_REQUEST_TYPE;

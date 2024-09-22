@@ -6,9 +6,6 @@ class Workflow_edit_field_model extends App_Model
 {
 
     /* WorkFlow edit_field Performed */
-    public static $enumEntitytoEdit = array('Deal'=>1, 'Contact'=>2);
-    public static $enumEntityField = array('Copy Field Value'=>1, 'Enter Custom Value'=>2);
-    public static $enumEntityFieldValue= array('New Value'=>1);
 
     public function __construct()
     {
@@ -57,5 +54,13 @@ class Workflow_edit_field_model extends App_Model
         $this->db->where('id', $id);
         $this->db->delete(db_prefix() . 'workflow_edit_field');
         return $this->db->affected_rows() > 0;
+    }
+
+    /************ */
+    public function getEditFieldByWorkFlowId( $intWorkflowId ) {
+        if( is_numeric( $intWorkflowId ) ) {
+            $this->db->where( 'workflow_id', $intWorkflowId );
+            return $this->db->get( db_prefix() . 'workflow_edit_field' )->row();
+        }
     }
 }

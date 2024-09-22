@@ -21,7 +21,7 @@
                                             <option value="-">Select</option>
                                             <?php foreach( $triggerTypes as $label=>$value ) { ?>
                                                 <option value="<?php echo $value;?>"
-                                                        <?php if( isset( $workflow ) && $value == $workflowAction->trigger_type_id ) echo 'selected';?>
+                                                        <?php if( isset( $workflow ) && $value == $workflow->trigger_type_id ) echo 'selected';?>
                                                     >
                                                     <?php echo $label; ?>
                                                 </option>

@@ -87,7 +87,7 @@ class Workflow_model extends App_Model
             switch( $triggerType ) {
                 case $enumTriggerType['Edit Field']:
                     //Insert to Edit fields
-                    $arrEditFieldData = setTableFields( ['edit_type_id','edit_field_id','field_value'], $data );
+                    $arrEditFieldData = setTableFields( ['edit_type_id','edit_field_id','edit_field_value','edit_custom_value'], $data );
                     $arrEditFieldData['workflow_id'] = $insert_id;
                     $triggerInsertId = $this->workflow_edit_field_model->add( $arrEditFieldData );
                     break;
@@ -176,6 +176,17 @@ class Workflow_model extends App_Model
             throw new Exception( $functionName . " function for option does not exist!");
         }
         return $arrOptions;
+    }
+
+    
+    public function getWorkflowsByEntityType( $intEntityType, $intActionType ) {
+        if( is_numeric( $intEntityType ) && is_numeric( $intActionType ) ) {
+            $this->db->where( 'entity_type_id', $intEntityType );
+            $this->db->where( 'action_type_id', $intActionType );
+            $this->db->where( 'is_active', 1 );
+
+        }
+        return $this->db->get(db_prefix() . 'workflow')->result_array();
     }
  
 }

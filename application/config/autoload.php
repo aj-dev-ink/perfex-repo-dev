@@ -162,6 +162,7 @@ $autoload['helper'] = [
         'sms',
         'deprecated',
         'workflow',
+        'workflow_processing',
     ];
 
 if (file_exists(APPPATH . 'helpers/my_functions_helper.php')) {

@@ -101,8 +101,14 @@ task due on
 meetting scheduled on
 latest activity on
 
+truncate table `tblworkflow`;
+truncate table `tblworkflow_condition`;
+truncate table `tblworkflow_delay`;
+truncate table `tblworkflow_schedule_condition`;
+truncate table `tblworkflow_webhook`;
+truncate table `tblworkflow_edit_field`;
 
----
+---------------------------------------------------------------------------------------------
 
 ALTER TABLE `tblworkflow`
 ADD COLUMN `is_condition_based_schedule` BOOLEAN DEFAULT TRUE;
@@ -118,3 +124,11 @@ CREATE TABLE tblworkflow_schedule_condition (
     sched_compare_value_type_id SMALLINT,
     sched_actual_compare_value VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+ALTER TABLE `tblworkflow_edit_field`
+CHANGE `field_value` `edit_field_value` VARCHAR(255);
+
+ALTER TABLE `tblworkflow_edit_field`
+ADD COLUMN `edit_custom_value` VARCHAR(255);
