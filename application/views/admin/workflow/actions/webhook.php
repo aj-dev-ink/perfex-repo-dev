@@ -19,13 +19,14 @@
                                 <?php echo render_textarea('webhook[description]', 'Description', ''); ?>
                             </div> 
 
-                            <div class="form-group" app-field-wrapper="webhookAuthorization">
+                            <div class="form-group" app-field-wrapper="webhookRequestType">
                                 <label  for="requestType" class="control-label d-block">Request Type <span style="color: red;">*</span></label>
 
                                 <?php foreach( $webhookRequestType as $label=>$value ) { ?>
                                     <div class="radio-inline pb-5">
-                                        <input class="relative"  type="radio" name="webhook[authorization_type]" id="webhook_authorization_type_<?php echo $value; ?>" value="<?php echo $value; ?>" <?php if( isset( $webhook ) && $value == $webhook->authorization_type ) echo 'selected';?> >
-                                        <label for="webhook_authorization_type_<?php echo $value; ?>"> <?php echo _l($label); ?> </label>
+                                        <input class="relative"  type="radio" name="webhook[request_type]" id="webhook_request_type_<?php echo $value; ?>" value="<?php echo $value; ?>" <?php if( isset( $webhook ) && $value == $webhook->request_type ) echo 'selected';?> >
+                                        <label for="webhook_request_type_<?php echo $value; ?>"> <?php echo _l($label); ?> </label>
+                                        
                                     </div>
                                 <?php } ?>
                             </div>
@@ -41,12 +42,12 @@
                                 <?php echo render_input('webhook[request_url]', $labelRequestURL, ''); ?>
                             </div>
 
-                            <div class="form-group" app-field-wrapper="webhookRequestType">
-                                <label  for="requestType" class="control-label d-block">Authorization <span style="color: red;">*</span></label>
+                            <div class="form-group" app-field-wrapper="webhookAuthorization">
+                                <label  for="authorizationType" class="control-label d-block">Authorization <span style="color: red;">*</span></label>
                                 <?php foreach( $webhookAuthType as $label=>$value ) { ?>
                                     <div class="radio-inline pb-5">
-                                        <input class="relative"  type="radio" name="webhook[request_type]" id="webhook_request_type_<?php echo $value; ?>" value="<?php echo $value; ?>" <?php if( isset( $webhook ) && $value == $webhook->request_type ) echo 'selected';?> >
-                                        <label for="webhook_request_type_<?php echo $value; ?>"> <?php echo _l($label); ?> </label>
+                                        <input class="relative"  type="radio" name="webhook[authorization_type]" id="webhook_authorization_type_<?php echo $value; ?>" value="<?php echo $value; ?>" <?php if( isset( $webhook ) && $value == $webhook->authorization_type ) echo 'selected';?> >
+                                        <label for="webhook_authorization_type_<?php echo $value; ?>"> <?php echo _l($label); ?> </label>
                                     </div>
                                 <?php } ?>
                             </div>
