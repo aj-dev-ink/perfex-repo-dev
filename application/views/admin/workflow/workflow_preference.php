@@ -27,13 +27,13 @@
                                 <?php } ?> -->
                             </select>   
                             <div class="radio-inline pb-5">
-                                <input class="relative" type="radio" name="is_trigger_now" id="immediate_trigger" value="1" 
+                                <input class="relative" type="radio" name="is_trigger_now" id="immediate_trigger" value="1" disabled="true" 
                                     <?php if( isset( $workflow ) && $workflow->is_trigger_now ) echo 'selected';?>
                                 >
                                 <label for="immediate_trigger"> <?php echo _l('Immediate'); ?> </label>
                             </div>
                             <div class="radio-inline pb-5">
-                                <input class="relative" type="radio" name="is_trigger_now" id="dealyed_trigger" value="0" 
+                                <input class="relative" type="radio" name="is_trigger_now" id="dealyed_trigger" value="0" disabled="true" 
                                         <?php if( isset( $workflow ) && !$workflow->is_trigger_now ) echo 'selected';?>
                                 >
                                 <label for="dealyed_trigger"> <?php echo _l('Delayed Action'); ?> </label>

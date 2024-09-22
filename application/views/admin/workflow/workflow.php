@@ -119,10 +119,28 @@
         // -------------------------------------------------------------------------------------
         // Step 2 =  Set action type and trigger preferences JS
         // -------------------------------------------------------------------------------------
-        
+            
+            // Event listener for when the select box is clicked (focused)
+            $('#actionTypeSelect').on('focus', function() {
+                // Remove the "Select" option after the user clicks on the select box
+                $(this).find('option[value="-"]').remove();
+            });
+            
+            // Event listener for "Set action type and trigger preferences" select dropdown change
+            $('#actionTypeSelect').on('change', function() {
+                var selectedValue = $(this).val();
+                // Condition to disable the radio button
+                if (selectedValue == '1' || selectedValue == '2' || selectedValue == '3' || selectedValue == '4') {
+                    $('input[name="is_trigger_now"]').prop('disabled', false); // Enable the radio button
+                } else {
+                    $('input[name="is_trigger_now"]').prop('disabled', true).prop('checked', false);
+                    // Disabled and reset the radio button
+                }
+            });
+
             // Handle the radio button change event
             $('input[name="is_trigger_now"]').change(function(){
-                
+
                 /*Remove Step 3 disabled section to active*/
                 $('#step3').find('.disabled').removeClass('disabled');
                 $('#step3').find('.disabledSec').removeClass('disabledSec');
