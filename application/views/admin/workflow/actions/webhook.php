@@ -13,22 +13,23 @@
                             <div class="form-group" app-field-wrapper="webhookName">
                                 <?php $labelWebhookName = 'Name <span style="color: red;">*</span>';  ?>
                                 <?php echo render_input('webhook[name]', $labelWebhookName, ''); ?>
+                                <small class="text-danger" id="webhookNameError" style="display:none;">This field is required</small>
                             </div>
                             <div class="form-group" app-field-wrapper="webhookDescription">
                                 <?php //$value = (isset($workflow) ? $workflow->description : ''); ?>
                                 <?php echo render_textarea('webhook[description]', 'Description', ''); ?>
                             </div> 
 
-                            <div class="form-group" app-field-wrapper="webhookRequestType">
+                            <div  app-field-wrapper="webhookRequestType">
                                 <label  for="requestType" class="control-label d-block">Request Type <span style="color: red;">*</span></label>
 
                                 <?php foreach( $webhookRequestType as $label=>$value ) { ?>
                                     <div class="radio-inline pb-5">
-                                        <input class="relative"  type="radio" name="webhook[request_type]" id="webhook_request_type_<?php echo $value; ?>" value="<?php echo $value; ?>" <?php if( isset( $webhook ) && $value == $webhook->request_type ) echo 'selected';?> >
+                                        <input class="relative"  type="radio" name="webhook[request_type]" id="inputField1" value="<?php echo $value; ?>" <?php if( isset( $webhook ) && $value == $webhook->request_type ) echo 'selected';?> >
                                         <label for="webhook_request_type_<?php echo $value; ?>"> <?php echo _l($label); ?> </label>
-                                        
                                     </div>
                                 <?php } ?>
+                                
                             </div>
                             
                             <div class="form-group" app-field-wrapper="webhookRequestURL">
@@ -38,8 +39,8 @@
                                     data-title="' . lang('workflow_request_url') . '">
                                 </i>';
                                 ?>
-                                
                                 <?php echo render_input('webhook[request_url]', $labelRequestURL, ''); ?>
+                                <small class="text-danger" id="webhookRequestURLError" style="display:none;">This field is required</small>
                             </div>
 
                             <div class="form-group" app-field-wrapper="webhookAuthorization">
@@ -89,12 +90,14 @@
                                                 $labelUserName = 'Username <span style="color: red;">*</span>'; 
                                                 echo render_input('webhook[auth_username]', $labelUserName, '');
                                             ?>
+                                            <small class="text-danger" id="webhookAuthUserNameError" style="display:none;">This field is required</small>
                                         </div>
                                         <div class="col-sm-6">
                                             <?php 
                                                 $labelPassword = 'Password <span style="color: red;">*</span>'; 
                                                 echo render_input('webhook[auth_password]', $labelPassword, '', 'password');
                                             ?>
+                                            <small class="text-danger" id="webhookAuthPasswordError" style="display:none;">This field is required</small>
                                         </div>
                                     </div>
                                 </div>
@@ -123,12 +126,14 @@
                                                 $labelParameterName = 'Parameter Name <span style="color: red;">*</span>'; 
                                                 echo render_input('webhook[url_params]', $labelParameterName, '');
                                             ?>
+                                            <small class="text-danger" id="webhookUrlParamError" style="display:none;">This field is required</small>
                                         </div>
                                         <div class="col-sm-6">
                                             <?php 
                                                 $labelParameterType = 'Parameter Type <span style="color: red;">*</span>'; 
                                                 echo render_input('webhook[url_params_type]', $labelParameterType, '');
                                             ?>
+                                            <small class="text-danger" id="webhookUrlParamTypeError" style="display:none;">This field is required</small>
                                         </div>
                                     </div>
                                 </div>
@@ -139,7 +144,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" id="saveWebhook">Save changes</button>
             </div>
         </div>
     </div>

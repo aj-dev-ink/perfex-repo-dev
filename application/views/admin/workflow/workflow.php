@@ -63,6 +63,50 @@
     /*Jquery code for Set COndition*/
     $(document).ready(function(){
 
+
+        // Add Webhook form validation
+            $('#saveWebhook').on('click', function() {
+                var isValid = true; // Flag to check if all validations pass
+
+                // Clear all previous error messages
+                $('.text-danger').hide();
+
+                // Validation for "Webhook Name"
+                var webhookName = $('input[name="webhook[name]"]').val().trim();
+                if (webhookName === '') {
+                    isValid = false;
+                    $('#webhookNameError').show(); // Show error message
+                }
+
+                // Validation for "Request URL"
+                var requestURL = $('input[name="webhook[request_url]"]').val().trim();
+                if (requestURL === '') {
+                    isValid = false;
+                    $('#webhookRequestURLError').show(); // Show error message
+                }
+
+                // // Validation for "Request URL"
+                // var parameterName = $('input[name="webhook[url_params]"]').val().trim();
+                // if (parameterName === '') {
+                //     isValid = false;
+                //     $('#webhookUrlParamError').show(); // Show error message
+                // }
+                // // Validation for "Request URL"
+                // var parameterType = $('input[name="webhook[url_params_type]"]').val().trim();
+                // if (parameterType === '') {
+                //     isValid = false;
+                //     $('#webhookUrlParamTypeError').show(); // Show error message
+                // }
+                
+                // If the form is valid, allow form submission
+                if (isValid) {
+                    // Optionally, close the modal or submit the form
+                    $('#webhookModal').modal('hide');
+                }
+            });
+
+
+
         //Initial Save workflow button disabled
         $('#saveWorkflow').prop('disabled', true);
 

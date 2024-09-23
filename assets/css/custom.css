@@ -230,3 +230,7 @@
   color: rgb(233, 66, 66)!important;
   border:none!important;
 }
+#webhookModal .text-danger{
+  margin-top: -10px;
+  display: inherit;
+}
