@@ -103,7 +103,20 @@ function _executeEditField( $objWorkflow, $intEntityId ) {
                 $isTextBox = WF_FIELD_OPTION_MAP[$entityType][$fieldId]['is_textbox'];
                 $newValue = $isTextBox ? $objEditField->edit_custom_value : $objEditField->edit_field_value;
 
-                $isSucess = _updateTableFieldValueByEntityId( $tableName, $fieldName, $newValue, $intEntityId );
+                $isCustomField = WF_FIELD_OPTION_MAP[$entityType][$fieldId]['is_custom'] ?? false;
+                if( 'customfieldsvalues' == $tableName  ) {
+                    $isSucess = _updateCustomTableFieldValueByEntityId( $tableName, $fieldName, $newValue, $intEntityId );
+                }else{
+                    $isSucess = _updateTableFieldValueByEntityId( $tableName, $fieldName, $newValue, $intEntityId );
+                }
+
+                if( $isSucess ) {
+                    log_message('info', 'WorkflowProcess: Processed Successfully: ' . $tableName . ', ID: ' . $intEntityId);
+                    return true;
+                }else{
+                    log_message('error', 'WorkflowProcess: Failed to Process: ' . $tableName . ', ID: ' . $intEntityId);
+                    return false;
+                }
                 //end execution
 
                 break;
@@ -148,6 +161,64 @@ function _updateTableFieldValueByEntityId( $tableName, $fieldName, $newValue, $i
     } else {
         log_message('error', 'Failed to update field in table: ' . $tableName . ', ID: ' . $intEntityId);
         return false;
+    }
+
+}
+
+function _updateCustomTableFieldValueByEntityId( $tableName, $fieldSlug, $newValue, $intEntityId ){
+
+    $tableName = $tableName;
+    $fieldTo = explode( '_', $fieldSlug )[0];
+    $relid = $intEntityId;
+
+    $customFieldId = getCustomFieldIdBySlug( $fieldSlug );
+
+    if( !$customFieldId ){
+        log_message('info', 'WorkflowProcess: Unable to find Custom Field: ' . $tableName . ', Cusotm Field: ' . $fieldSlug);
+        return false;
+    } 
+    
+    $tableName = db_prefix() . $tableName;
+
+    $CI = &get_instance();
+
+    // Prepare the data for updating
+    $data = array(
+        'value' => $newValue
+    );
+
+    // Check if the record exists
+    $CI->db->where('relid', $intEntityId);
+    $CI->db->where('fieldid', $customFieldId);
+    $CI->db->where('fieldto', $fieldTo);
+    $query = $CI->db->get($tableName);
+    if ($query->num_rows() > 0) {
+        // Record exists, perform the update
+        $CI->db->where('relid', $intEntityId);
+        $CI->db->where('fieldid', $customFieldId);
+        $CI->db->where('fieldto', $fieldTo);
+        $updated = $CI->db->update($tableName, $data);
+        if( $updated ) {
+            log_message('info', 'WorkflowProcess: Field updated successfully in table: ' . $tableName . ', ID: ' . $intEntityId);
+            return true;
+        }else{
+            log_message('error', 'WorkflowProcess: Failed to update field in table: ' . $tableName . ', ID: ' . $intEntityId);
+            return false;
+        }
+    } else {
+        // Record doesn't exist, perform the insert
+        $data['relid'] = $intEntityId;
+        $data['fieldid'] = $customFieldId;
+        $data['fieldto'] = $fieldTo;
+        $inserted = $CI->db->insert($tableName, $data);
+
+        if( $inserted ) {
+            log_message('info', 'WorkflowProcess: Field inserted successfully in table: ' . $tableName . ', ID: ' . $intEntityId);
+            return true;
+        }else{
+            log_message('error', 'WorkflowProcess: Failed to insert field in table: ' . $tableName . ', ID: ' . $intEntityId);
+            return false;
+        }
     }
 
 }

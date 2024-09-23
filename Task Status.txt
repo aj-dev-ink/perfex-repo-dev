@@ -108,6 +108,47 @@ truncate table `tblworkflow_schedule_condition`;
 truncate table `tblworkflow_webhook`;
 truncate table `tblworkflow_edit_field`;
 
+---------------------------------------------------------------------------------------------Remaining fields in lead
+Pipeline,
+Pipeline stage,
+Time zone,
+Department,
+Do not disturb,
+Facebook,
+Twitter,
+LinkedIn,
+Requirement,
+Currency,
+Company annual revenue,
+Expected closure on,
+Actual closure date,
+Converted at,
+Converted by,
+Designation,
+Imported by,
+Created via id,
+Created via name,
+Created via type,
+Updated via id,
+Updated via name,
+Updated via type,
+Created at,
+Updated by,
+Updated at,
+Lead source keywords,
+UTM campaign,
+UTM medium,
+UTM term,
+Is MQL ?,
+Existing lead created on,
+Business unit,
+Automation activate,
+Score,
+Task due on,
+Meeting scheduled on,
+Latest activity on,
+Is new,
+Forecasting type
 ---------------------------------------------------------------------------------------------
 
 ALTER TABLE `tblworkflow`

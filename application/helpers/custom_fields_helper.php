@@ -972,3 +972,22 @@ function is_custom_fields_smart_transfer_enabled()
 
     return false;
 }
+
+function getCustomFieldIdBySlug( $fieldSlug ) {
+    $fieldTo = explode( '_', $fieldSlug )[0];
+
+    $CI = & get_instance();
+
+    $CI->db->from( db_prefix() . 'customfields' );
+    $CI->db->where( 'fieldto', $fieldTo );
+    $CI->db->where( 'slug', $fieldSlug );
+
+    $query = $CI->db->get();
+
+    if( $query->num_rows() > 0 ) {
+        $row = $query->row();
+        $id = $row->id; // Get the ID
+        return $id;
+    }
+    return false;
+}

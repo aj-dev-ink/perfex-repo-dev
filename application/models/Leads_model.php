@@ -125,11 +125,13 @@ class Leads_model extends App_Model
             $this->lead_assigned_member_notification($insert_id, $data['assigned']);
             hooks()->do_action('lead_created', $insert_id);
 
-            hooks()->do_action('workflow_entity_updated', [
-                'strEntityType' => 'lead',
+            _initWorkflowCheck([
+                'intEntityType'  => WF_ENTITY_TYPE['Lead'],
+                'intActionType' => WF_ACTION_TYPE['When a lead is created'],
                 'intEntityId' => $insert_id,
                 'objExistingEntity' => null
             ]);
+
             return $insert_id;
         }
 
@@ -311,12 +313,6 @@ class Leads_model extends App_Model
             log_activity('Lead Updated [ID: ' . $id . ']');
 
             hooks()->do_action('after_lead_updated', $id);
-
-            hooks()->do_action('workflow_entity_updated', [
-                'strEntityType'  => 'lead',
-                'intEntityId' => $id,
-                'objExistingEntity' => $current_lead_data
-            ]);
 
             _initWorkflowCheck([
                 'intEntityType'  => WF_ENTITY_TYPE['Lead'],
