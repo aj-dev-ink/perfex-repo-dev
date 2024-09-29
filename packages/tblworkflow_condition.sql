@@ -11,3 +11,9 @@ CREATE TABLE tblworkflow_condition (
 --
 ALTER TABLE `tblworkflow_condition`
 ADD COLUMN `actual_compare_value` VARCHAR(255);
+
+ALTER TABLE `tblworkflow_condition`
+MODIFY COLUMN `compare_value_type_id` VARCHAR(255);
+
+ALTER TABLE `tblworkflow_condition`
+ADD COLUMN `is_and`  BOOLEAN DEFAULT FALSE;

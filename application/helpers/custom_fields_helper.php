@@ -34,7 +34,9 @@ function render_custom_fields($belongs_to, $rel_id = false, $where = [], $items_
     }
 
     if (is_array($whereNotIn) && count($whereNotIn) > 0 || is_string($whereNotIn) && $whereNotIn != '') {
-        $CI->db->where_not_in($whereNotIn);
+        foreach( $whereNotIn as $col=>$values ){
+            $CI->db->where_not_in($col, $values);
+        }
     }
 
     $CI->db->order_by('field_order', 'asc');
@@ -971,6 +973,44 @@ function is_custom_fields_smart_transfer_enabled()
     }
 
     return false;
+}
+
+/**
+ * Get custom fields
+ * @param  string  $field_to
+ * @param  array   $where
+ * @param  boolean $exclude_only_admin
+ * @param  array   $slug
+ * @return array
+ */
+function get_custom_fields_by_slug($field_to, $where = [], $exclude_only_admin = false, $slug = [])
+{
+    $is_admin = is_admin();
+    $CI       = & get_instance();
+    $CI->db->where('fieldto', $field_to);
+    if ((is_array($where) && count($where) > 0) || (!is_array($where) && $where != '')) {
+        $CI->db->where($where);
+    }
+
+    if ( ( is_array( $slug ) && count( $slug ) > 0 ) ) {
+        $CI->db->where_in('slug', $slug);
+    }
+
+    
+
+    if (!$is_admin || $exclude_only_admin == true) {
+        $CI->db->where('only_admin', 0);
+    }
+    $CI->db->where('active', 1);
+    $CI->db->order_by('field_order', 'asc');
+
+    $results = $CI->db->get(db_prefix() . 'customfields')->result_array();
+
+    foreach ($results as $key => $result) {
+        $results[$key]['name'] = _maybe_translate_custom_field_name(e($result['name']), $result['slug']);
+    }
+
+    return $results;
 }
 
 function getCustomFieldIdBySlug( $fieldSlug ) {

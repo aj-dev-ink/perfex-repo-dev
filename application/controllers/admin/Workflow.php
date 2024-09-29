@@ -79,8 +79,7 @@ class Workflow extends AdminController
       
         $data['stageTypes'] = Workflow_condition_model::$enumStageType;
         $data['valueTypes'] = Workflow_condition_model::$enumValueType;
-        $data['operatorTypes'] = Workflow_condition_model::$enumOperatorType;
-        $data['compareValueTypes'] = Workflow_condition_model::$enumCompareValueType;
+        $data['operatorTypes'] = WFC_OPERATOR_TYPE;
 
         $data['durationTypes'] = WFD_DURATION_TYPE;
         $data['isBeforeAfter'] = WFD_IS_BEFORE;
@@ -96,8 +95,8 @@ class Workflow extends AdminController
         $data['webhookAuthType'] = WFW_AUTH_TYPE;
         $data['webhookRequestType'] = WFW_REQUEST_TYPE;
         $data['conditionFieldOptionMap'] = WF_FIELD_OPTION_MAP;
-
-        
+    
+       
         $this->load->view('admin/workflow/workflow', $data);
     }
 

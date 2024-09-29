@@ -328,11 +328,21 @@
                     <!-- Create  lead starts here -->
         <div class="lead-edit<?php if (isset($lead)) { echo ' hide'; } ?>">
             
-
-
             <?php
             //get custom fields herere
-            $custom_fields = get_custom_fields('leads', ['show_on_table' => 0]);
+            $arrSlugs = [
+                'leads_salutation',
+                'leads_remark',
+                'leads_business_unit',
+                'leads_products_or_services',
+                'leads_company_employees',
+                'leads_industry',
+                'leads_campaign_name',
+                'leads_lead_type',
+                'leads_campaign_budget',
+                'leads_lead_source_url'
+            ];
+            $custom_fields = get_custom_fields_by_slug('leads', [], false, $arrSlugs );
             $rekeyedCustFields = [];
             foreach( $custom_fields as $field ){
                 $rekeyedCustFields[$field['slug']] = $field;
@@ -609,14 +619,23 @@
             </div>
             <div class="col-md-12 mtop15">
                 <?php $rel_id = (isset($lead) ? $lead->id : false); ?>
-                <?php //@aj @todo load custom fields with conditions
-                    $excluded_slugs = ["leads_business_unit", "leads_products_or_services"];
-                    $ids = [1,3];
+                <?php //@aj load custom fields with conditions
+                    $excluded_slugs = [
+                        'leads_salutation',
+                        'leads_remark',
+                        'leads_business_unit',
+                        'leads_products_or_services',
+                        'leads_company_employees',
+                        'leads_industry',
+                        'leads_campaign_name',
+                        'leads_lead_type',
+                        'leads_campaign_budget',
+                        'leads_lead_source_url'
+                    ];
                 ?>
                 <?php
-                 //echo render_custom_fields('leads', $rel_id, [],[],['slug'=>$excluded_slugs]); 
-                 //echo render_custom_fields('leads', $rel_id, ['id'=>[ '3','4','5','6' ]] ); 
-                 //echo render_custom_fields('leads', $rel_id); 
+                //old custom leads render
+                 echo render_custom_fields('leads', $rel_id, $where = [], $items_cf_params = [], $whereNotIn = ['slug'=>$excluded_slugs])
                 ?>
             </div>
             <div class="clearfix"></div>

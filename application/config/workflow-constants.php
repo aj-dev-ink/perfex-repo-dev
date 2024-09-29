@@ -44,6 +44,22 @@
         )
     );
 
+    define('WFC_OPERATOR_TYPE', 
+        array(
+            'Equal To'=>1,
+            'Not Equal To'=>2,
+            'Contains'=>3,
+            'Not contains'=>4,
+            'Is empty'=>5,
+            'Is not empty'=>6,
+            'Begins with'=>7,
+            'Is set'=>8,
+            'Is not set'=>9,
+            'In'=>10,
+            'Not in'=>11
+        )
+    );
+
     define('WFEF_EDIT_TYPE', 
         array(
             'Copy Field Value'=>1,
