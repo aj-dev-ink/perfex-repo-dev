@@ -16,6 +16,7 @@ if (!function_exists('_initWorkflowCheck')) {
         $arrobjWorkflow = $objApp->workflow_model->getWorkflowsByEntityType( $intEntityType, $intActionType );
 
         if( !empty( $arrobjWorkflow ) ) {
+            out( $arrobjWorkflow );
             foreach( $arrobjWorkflow as $objworkflow ){
                 if( true == $objworkflow['is_trigger_now'] ){
                     //trigger now - ( Immediate )
@@ -67,50 +68,6 @@ if (!function_exists('_initWorkflowCheck')) {
                         }
                     }
 
-                    if( false == $objworkflow['is_condition_based'] ){
-                        //No condition - trigger for All Entities
-
-                        //Find Trigger & process
-                        switch( $objworkflow['trigger_type_id'] ) {
-                            case WF_TRIGGER_TYPE['Edit Field']:
-                                _executeEditField( $objworkflow, $intEntityId );
-                                break;
-                            case WF_TRIGGER_TYPE['Send Email']:
-                                # code...
-                                break;
-
-                            case WF_TRIGGER_TYPE['Webhook']:
-                                # code...
-                                break;
-
-                            case WF_TRIGGER_TYPE['Reassign']:
-                                # code...
-                                break;
-
-                            case WF_TRIGGER_TYPE['Share']:
-                                # code...
-                                break;
-
-                            case WF_TRIGGER_TYPE['Convert']:
-                                # code...
-                                break;
-
-                            case WF_TRIGGER_TYPE['Create task']:
-                                    # code...
-                                break;
-                            case WF_TRIGGER_TYPE['Marketplace actions']:
-                                # code...
-                            break;
-                        
-                            default:
-                                # code...
-                                break;
-                        }
-
-                    } else {
-                        //Based on conditions trigger
-                       $isConditionMet =  _evaluateConditions( $objworkflow, $intEntityId );
-                    }
                 } else {
                     //Delayed trigger - ( Delayed Action )
                 }
