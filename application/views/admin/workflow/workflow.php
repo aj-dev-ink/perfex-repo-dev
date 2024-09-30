@@ -599,9 +599,9 @@
             if (sectionIndexExecute > 1) {
                 $sectionToCloneExecute.prepend(`
                     <div class="toggle-condition">
-                        <input type="radio" id="and_${sectionIndexExecute}" name="expecute_is_and_${sectionIndexExecute}" value="AND">
+                        <input type="radio" id="and_${sectionIndexExecute}" name="execute_is_and_${sectionIndexExecute}" value="AND">
                         <label for="and_${sectionIndexExecute}">AND</label>
-                        <input type="radio" id="or_${sectionIndexExecute}" name="expecute_is_and_${sectionIndexExecute}" value="OR" checked>
+                        <input type="radio" id="or_${sectionIndexExecute}" name="execute_is_and_${sectionIndexExecute}" value="OR" checked>
                         <label for="or_${sectionIndexExecute}">OR</label>
                     </div>
                 `);
