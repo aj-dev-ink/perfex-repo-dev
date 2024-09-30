@@ -16,7 +16,7 @@ if (!function_exists('_initWorkflowCheck')) {
         $arrobjWorkflow = $objApp->workflow_model->getWorkflowsByEntityType( $intEntityType, $intActionType );
 
         if( !empty( $arrobjWorkflow ) ) {
-            out( $arrobjWorkflow );
+
             foreach( $arrobjWorkflow as $objworkflow ){
                 if( true == $objworkflow['is_trigger_now'] ){
                     //trigger now - ( Immediate )
