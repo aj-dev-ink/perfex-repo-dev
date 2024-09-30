@@ -461,49 +461,103 @@
 
 
         /* Funtion for incremental section clicked on plus button */
+            let sectionIndex = 1; // Counter to track the number of sections
 
-        let sectionIndex = 1; // Counter to track the number of sections
+            // Use event delegation to handle click events on dynamically added elements    
+            $('#sectionContainer').on('click', '.add-section', function(e) {
 
-        // Use event delegation to handle click events on dynamically added elements    
-        
-        $('#sectionContainer').on('click', '.add-section', function(e) {
-            
-            e.preventDefault();
+                e.preventDefault();
 
-            // Clone the section
-            let $sectionToClone = $('#incrementalSection').clone();
+                // Clone the section
+                let $sectionToClone = $('#incrementalSection').clone();
 
-            // Increment the section index
-            sectionIndex++;
+                // Increment the section index
+                sectionIndex++;
 
-            // Update the id and name attributes in the cloned section
-            $sectionToClone.attr('id', 'incrementalSection_' + sectionIndex);
-            $sectionToClone.find('select').each(function() {
-                //let nameAttr = $(this).attr('name');
-                //$(this).attr('name', nameAttr + '_' + sectionIndex);
-            });
+                // Update the id and name attributes in the cloned section
+                $sectionToClone.attr('id', 'incrementalSection_' + sectionIndex);
+                $sectionToClone.find('select').each(function() {
+                    //let nameAttr = $(this).attr('name');
+                    //$(this).attr('name', nameAttr + '_' + sectionIndex);
+                });
 
-            // Reset the select fields in the cloned section
-            $sectionToClone.find('select').prop('selectedIndex', 0);
+                // Reset the select fields in the cloned section
+                $sectionToClone.find('select').prop('selectedIndex', 0);
 
-            // Append the "Remove Section" button to the cloned section
-            $sectionToClone.find('.col-md-1').prepend(`
-                <a class="remove-section-btn !tw-px-0 tw-group !tw-text-white mr-5" data-toggle="dropdown">
-                    <span class="tw-rounded-full tw-bg-danger-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M200-440v-80h560v80H200Z"/></svg>
-                    </span>
-                </a>
-            `);
+                // Append the "Remove Section" button to the cloned section
+                $sectionToClone.find('.col-md-1').prepend(`
+                    <a class="remove-section-btn !tw-px-0 tw-group !tw-text-white mr-5" data-toggle="dropdown">
+                        <span class="tw-rounded-full tw-bg-danger-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M200-440v-80h560v80H200Z"/></svg>
+                        </span>
+                    </a>
+                `);
 
-            // Append the cloned section to the container
-            $('#sectionContainer').append($sectionToClone);
+                // Add AND/OR radio buttons if more than one section exists
+                if (sectionIndex > 1) {
+                    $sectionToClone.prepend(`
+                        <div class="toggle-condition">
+                            <input type="radio" id="and_${sectionIndex}" name="is_and_${sectionIndex}" value="AND">
+                            <label for="and_${sectionIndex}">AND</label>
+                            <input type="radio" id="or_${sectionIndex}" name="is_and_${sectionIndex}" value="OR" checked>
+                            <label for="or_${sectionIndex}">OR</label>
+                        </div>
+                    `);
+                }
 
-            // Event listener to remove a section when the Remove button is clicked
-            $('#sectionContainer').on('click', '.remove-section-btn', function() {
-                $(this).closest('.graySection').remove();
-            });
+                // Append the cloned section to the container
+                $('#sectionContainer').append($sectionToClone);
+
+                // Event listener to remove a section when the Remove button is clicked
+                $('#sectionContainer').on('click', '.remove-section-btn', function() {
+                    $(this).closest('.graySection').remove();
+                });
 
         });
+
+
+        // let sectionIndex = 1; // Counter to track the number of sections
+
+        // // Use event delegation to handle click events on dynamically added elements    
+        
+        // $('#sectionContainer').on('click', '.add-section', function(e) {
+            
+        //     e.preventDefault();
+
+        //     // Clone the section
+        //     let $sectionToClone = $('#incrementalSection').clone();
+
+        //     // Increment the section index
+        //     sectionIndex++;
+
+        //     // Update the id and name attributes in the cloned section
+        //     $sectionToClone.attr('id', 'incrementalSection_' + sectionIndex);
+        //     $sectionToClone.find('select').each(function() {
+        //         //let nameAttr = $(this).attr('name');
+        //         //$(this).attr('name', nameAttr + '_' + sectionIndex);
+        //     });
+
+        //     // Reset the select fields in the cloned section
+        //     $sectionToClone.find('select').prop('selectedIndex', 0);
+
+        //     // Append the "Remove Section" button to the cloned section
+        //     $sectionToClone.find('.col-md-1').prepend(`
+        //         <a class="remove-section-btn !tw-px-0 tw-group !tw-text-white mr-5" data-toggle="dropdown">
+        //             <span class="tw-rounded-full tw-bg-danger-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
+        //                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M200-440v-80h560v80H200Z"/></svg>
+        //             </span>
+        //         </a>
+        //     `);
+
+        //     // Append the cloned section to the container
+        //     $('#sectionContainer').append($sectionToClone);
+
+        //     // Event listener to remove a section when the Remove button is clicked
+        //     $('#sectionContainer').on('click', '.remove-section-btn', function() {
+        //         $(this).closest('.graySection').remove();
+        //     });
+
+        // });
 
 
         /* Set conditions to execute the action => Funtion for incremental section clicked on plus button */
@@ -540,6 +594,18 @@
                     </span>
                 </a>
             `);
+
+            // Add AND/OR radio buttons if more than one section exists
+            if (sectionIndexExecute > 1) {
+                $sectionToCloneExecute.prepend(`
+                    <div class="toggle-condition">
+                        <input type="radio" id="and_${sectionIndexExecute}" name="expecute_is_and_${sectionIndexExecute}" value="AND">
+                        <label for="and_${sectionIndexExecute}">AND</label>
+                        <input type="radio" id="or_${sectionIndexExecute}" name="expecute_is_and_${sectionIndexExecute}" value="OR" checked>
+                        <label for="or_${sectionIndexExecute}">OR</label>
+                    </div>
+                `);
+            }
 
             // Append the cloned section to the container
             $('#sectionContainerExecute').append($sectionToCloneExecute);
