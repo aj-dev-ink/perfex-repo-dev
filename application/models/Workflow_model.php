@@ -65,7 +65,7 @@ class Workflow_model extends App_Model
             $conIndex = 0;
             while( $countConditions > $conIndex ){
 
-                $arrConditionFields = ['condition_type_id','stage_type_id','value_type_id','operator_type_id','compare_value_type_id', 'actual_compare_value'];
+                $arrConditionFields = ['condition_type_id','stage_type_id','value_type_id','operator_type_id','compare_value_type_id', 'actual_compare_value', 'is_and'];
                 $arrConditionData = [];
                 foreach( $arrConditionFields as $field ){
                     if( isset( $data[$field], $data[$field][$conIndex] ) ){
@@ -92,7 +92,10 @@ class Workflow_model extends App_Model
                     $triggerInsertId = $this->workflow_edit_field_model->add( $arrEditFieldData );
                     break;
                 case $enumTriggerType['Send Email']:
-                    // # code...
+                    //Insert to Send Email
+                    $arrSendEmailData = setTableFields( ['template_id'], $data );
+                    $arrSendEmailData['workflow_id'] = $insert_id;
+                    $triggerInsertId = $this->workflow_send_email_model->add( $arrEditFieldData );
                     break;
                 case $enumTriggerType['Webhook']:
                     //Insert to Webhook

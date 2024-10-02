@@ -659,10 +659,21 @@
             `);
 
             // Add AND/OR toggle button if more than one section exists
+            // if (sectionIndexExecute > 1) {
+            //     $sectionToCloneExecute.prepend(`
+            //         <div class="toggle-condition">
+            //             <button type="button" class="toggle-and-or-btn" id="toggle_and_or_${sectionIndexExecute}" name="is_and_${sectionIndexExecute}" data-value="0">OR</button>
+            //         </div>
+            //     `);
+            // }
+
             if (sectionIndexExecute > 1) {
                 $sectionToCloneExecute.prepend(`
                     <div class="toggle-condition">
-                        <button type="button" class="toggle-and-or-btn" id="toggle_and_or_${sectionIndexExecute}" name="is_and_${sectionIndexExecute}" data-value="0">OR</button>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="toggle_and_or_${sectionIndexExecute}" name="is_and[]" value="1" data-value="0">
+                            <label class="form-check-label" for="toggle_and_or_${sectionIndexExecute}">OR</label>
+                        </div>
                     </div>
                 `);
             }

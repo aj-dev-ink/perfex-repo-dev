@@ -14,7 +14,10 @@ class Workflow extends AdminController
         $this->load->model('workflow_delay_model');
         $this->load->model('workflow_edit_field_model');
         $this->load->model('workflow_webhook_model');
-        
+        $this->load->model('email_template_manage_model');
+
+
+
         
     }
 
@@ -68,7 +71,10 @@ class Workflow extends AdminController
             $data['workflowReassign'] = $workflow;//load workflow cons here
             $data['workflowSendEmail'] = $workflow;//load workflow cons here
             $data['workflowWebhook'] = $workflow;//load workflow cons here
+            
         }
+
+        $data['templates'] = $this->email_template_manage_model->get_templates();
 
         $data['entityTypes'] = WF_ENTITY_TYPE;
         $data['actionTypes'] = WF_ACTION_TYPE;

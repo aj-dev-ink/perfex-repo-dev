@@ -38,8 +38,15 @@
                                         </div>
                                     <!-- Send Email -->
                                         <div class="col-sm-6" id="sendEmailSec" style="display:none;">
-                                            <select class="form-control" id="sendEmailAction" name="emailTemplateList">
+                                            <select class="form-control" id="sendEmailAction" name="sendEmail[template_id]">
                                                 <option value="-">Select Email Template</option>
+                                                <?php foreach( $templates as $objTemplate ) { ?>
+                                                    <option value="<?php echo $objTemplate->id;?>"
+                                                            <?php if( isset( $sendEmail ) && $objTemplate->id == $sendEmail->template_id ) echo 'selected';?>
+                                                        >
+                                                        <?php echo $objTemplate->template_name; ?>
+                                                    </option>
+                                                <?php } ?>
                                             </select>
                                             <!-- <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#sendEmailModal" id="sendEmailAction">Send Email</button> -->
                                         </div>
