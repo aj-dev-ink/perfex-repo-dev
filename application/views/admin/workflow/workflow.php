@@ -811,6 +811,16 @@
             $editTypeSelect.append($('<option></option>').attr('value', value).text(key));
         });
 
+        // Toggle CC field
+        $('#addCc').on('click', function() {
+            $('#ccField').toggle();  // Show or hide the CC field
+        });
+
+        // Toggle BCC field
+        $('#addBcc').on('click', function() {
+            $('#bccField').toggle();  // Show or hide the BCC field
+        });
+
     });
 </script>
 

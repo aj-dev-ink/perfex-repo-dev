@@ -28,6 +28,9 @@
 
                         <div class="section2" id="sectionToToggle">
                             <div id="sectionContainer">
+                                <!-- Hidden radio button for first condition -->
+                                <input type="radio" id="toggleRadio" name="is_and[]" class="hidden-radio" value="1">
+                       
                                 <div class="row graySection clsIncrementalSection" id="incrementalSection">
                                     <div class="col-md-3">
                                         <select class="form-control clsConditionSelect" id="scheduleConditionSelect" name="sched_condition_type_id[]">

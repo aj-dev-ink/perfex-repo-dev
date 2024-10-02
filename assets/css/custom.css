@@ -275,3 +275,28 @@
   top: -15px;
   padding-left: 10px;
 }
+
+.sendEMailTo{
+  position: relative;
+}
+.addCCBCC{
+  position: absolute;
+  top: 30px;
+  right: 5px;
+}
+.addCc-btn, .addBcc-btn{
+  font-size: 12px;
+  font-weight: 500;
+  color: #007BFF;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.addCc-btn:hover, .addBcc-btn:hover{
+  font-size: 12px;
+  font-weight: 500;
+  color: #007BFF;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}

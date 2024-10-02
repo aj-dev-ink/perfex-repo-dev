@@ -18,22 +18,46 @@
                                     <option value="option3"><?php echo _l('option_3'); ?></option>
                                 </select>
                             </div>
-                            <div class="form-group" app-field-wrapper="sendEmailTo">
+                            <div class="form-group sendEMailTo" app-field-wrapper="sendEmailTo">
                                 <?php //$value = (isset($workflow) ? $workflow->description : ''); ?>
                                 <?php echo render_input('sendTo', 'To', ''); ?>
-                            </div> 
+                                <div class="input-group-append addCCBCC">
+                                    <button id="addCc" class="addCc-btn" type="button">+CC</button>
+                                    <button id="addBcc" class="addBcc-btn" type="button">+BCC</button>
+                                </div>
+                            </div>
+
+                            <!-- Add CC Field -->
+                            <div id="ccField" style="display:none;">
+                                <?php echo render_input('cc', 'CC', ''); ?>
+                            </div>
+                            <!-- Add BCC Field -->
+                            <div id="bccField" style="display:none;">
+                                <?php echo render_input('bcc', 'BCC', ''); ?>
+                            </div>
+
                             <div class="form-group" app-field-wrapper="sendEmailChooseTemplate">
                                 <label for="sendFrom_multiselect"><?php echo 'Choose Template'; ?></label>
-                                <select class="form-control" id="sendEmailTemplate" name="sendEmailTemplate">
+                                <!-- <select class="form-control" id="sendEmailTemplate" name="sendEmailTemplate">
                                     <option value="-">Select</option>
-                                        <?php foreach( $emailTemplate as $label=>$value ) { ?>
+                                        <?php /*foreach( $emailTemplate as $label=>$value ) { ?>
                                             <option value="<?php echo $value;?>"
                                                     <?php if( isset( $workflowSendEmail ) && $value == $workflowSendEmail->emailTemplate ) echo 'selected';?>
                                                 >
                                                 <?php echo $label; ?>
                                             </option>
-                                        <?php } ?>
-                                </select>
+                                        <?php }*/ ?>
+                                </select> -->
+                                <select class="form-control" id="sendEmailAction" name="sendEmail[template_id]">
+                                    <option value="-">Select Email Template</option>
+                                    <?php foreach( $templates as $objTemplate ) { ?>
+                                        <option value="<?php echo $objTemplate->id;?>"
+                                                <?php if( isset( $sendEmail ) && $objTemplate->id == $sendEmail->template_id ) echo 'selected';?>
+                                            >
+                                            <?php echo $objTemplate->template_name; ?>
+                                        </option>
+                                    <?php } ?>
+                                </select> 
                             </div>
                             <div class="form-group" app-field-wrapper="sendEmailSubject">
                                 <?php //$value = (isset($workflow) ? $workflow->description : ''); ?>
@@ -56,4 +80,3 @@
 </div>                                             
 
 <!-- End -->
-
