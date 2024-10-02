@@ -165,10 +165,10 @@
         // -------------------------------------------------------------------------------------
             
             // Event listener for when the select box is clicked (focused)
-            $('#actionTypeSelect').on('focus', function() {
-                // Remove the "Select" option after the user clicks on the select box
-                $(this).find('option[value="-"]').remove();
-            });
+            // $('#actionTypeSelect').on('focus', function() {
+            //     // Remove the "Select" option after the user clicks on the select box
+            //     $(this).find('option[value="-"]').remove();
+            // });
             
             // Event listener for "Set action type and trigger preferences" select dropdown change
             $('#actionTypeSelect').on('change', function() {
@@ -460,7 +460,7 @@
         });
 
 
-        /* Funtion for incremental section clicked on plus button */
+        /* Funtion for incremental section clicked on plus button 
             let sectionIndex = 1; // Counter to track the number of sections
 
             // Use event delegation to handle click events on dynamically added elements    
@@ -513,7 +513,73 @@
                     $(this).closest('.graySection').remove();
                 });
 
-        });
+        });*/
+
+        /* Function for incremental section clicked on plus button */
+            let sectionIndex = 1; // Counter to track the number of sections
+
+            // Use event delegation to handle click events on dynamically added elements    
+            $('#sectionContainer').on('click', '.add-section', function(e) {
+
+                e.preventDefault();
+
+                // Clone the section
+                let $sectionToClone = $('#incrementalSection').clone();
+
+                // Increment the section index
+                sectionIndex++;
+
+                // Update the id and name attributes in the cloned section
+                $sectionToClone.attr('id', 'incrementalSection_' + sectionIndex);
+                $sectionToClone.find('select').each(function() {
+                    //let nameAttr = $(this).attr('name');
+                    //$(this).attr('name', nameAttr + '_' + sectionIndex);
+                });
+
+                // Reset the select fields in the cloned section
+                $sectionToClone.find('select').prop('selectedIndex', 0);
+
+                // Append the "Remove Section" button to the cloned section
+                $sectionToClone.find('.col-md-1').prepend(`
+                    <a class="remove-section-btn !tw-px-0 tw-group !tw-text-white mr-5" data-toggle="dropdown">
+                        <span class="tw-rounded-full tw-bg-danger-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff">
+                                <path d="M200-440v-80h560v80H200Z"/>
+                            </svg>
+                        </span>
+                    </a>
+                `);
+
+                // Add AND/OR toggle button if more than one section exists
+                if (sectionIndex > 1) {
+                    $sectionToClone.prepend(`
+                        <div class="toggle-condition">
+                            <button type="button" class="toggle-and-or-schedule-btn" id="toggle_and_or_${sectionIndex}" name="sched_is_and_${sectionIndex}" data-value="0">OR</button>
+                        </div>
+                    `);
+                }
+
+                // Append the cloned section to the container
+                $('#sectionContainer').append($sectionToClone);
+
+                // Event listener to remove a section when the Remove button is clicked
+                $('#sectionContainer').on('click', '.remove-section-btn', function() {
+                    $(this).closest('.graySection').remove();
+                });
+            });
+
+            // Toggle AND/OR button behavior
+            $(document).on('click', '.toggle-and-or-schedule-btn', function() {
+                var currentValue = $(this).attr('data-value');
+                if (currentValue === '1') {
+                    $(this).text('OR');
+                    $(this).attr('data-value', '0');
+                } else {
+                    $(this).text('AND');
+                    $(this).attr('data-value', '1');
+                }
+            });
+
 
 
         // let sectionIndex = 1; // Counter to track the number of sections
@@ -565,7 +631,6 @@
         let sectionIndexExecute = 1; // Counter to track the number of sections
 
         // Use event delegation to handle click events on dynamically added elements    
-        
         $('#sectionContainerExecute').on('click', '.add-section', function(e) {
             
             e.preventDefault();
@@ -578,11 +643,7 @@
 
             // Update the id and name attributes in the cloned section
             $sectionToCloneExecute.attr('id', 'incrementalSectionToExecute_' + sectionIndexExecute);
-            $sectionToCloneExecute.find('select').each(function() {
-                //let nameAttr = $(this).attr('name');
-                //$(this).attr('name', nameAttr + '_' + sectionIndex);
-            });
-
+            
             // Reset the select fields in the cloned section
             $sectionToCloneExecute.find('select').prop('selectedIndex', 0);
 
@@ -590,19 +651,18 @@
             $sectionToCloneExecute.find('.col-md-1').prepend(`
                 <a class="remove-section-btn !tw-px-0 tw-group !tw-text-white mr-5" data-toggle="dropdown">
                     <span class="tw-rounded-full tw-bg-danger-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M200-440v-80h560v80H200Z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff">
+                            <path d="M200-440v-80h560v80H200Z"/>
+                        </svg>
                     </span>
                 </a>
             `);
 
-            // Add AND/OR radio buttons if more than one section exists
+            // Add AND/OR toggle button if more than one section exists
             if (sectionIndexExecute > 1) {
                 $sectionToCloneExecute.prepend(`
                     <div class="toggle-condition">
-                        <input type="radio" id="and_${sectionIndexExecute}" name="is_and_${sectionIndexExecute}" value="AND">
-                        <label for="and_${sectionIndexExecute}">AND</label>
-                        <input type="radio" id="or_${sectionIndexExecute}" name="is_and_${sectionIndexExecute}" value="OR" checked>
-                        <label for="or_${sectionIndexExecute}">OR</label>
+                        <button type="button" class="toggle-and-or-btn" id="toggle_and_or_${sectionIndexExecute}" name="is_and_${sectionIndexExecute}" data-value="0">OR</button>
                     </div>
                 `);
             }
@@ -616,53 +676,20 @@
             });
         });
 
-
-        /*  Set action to be performed => Funtion for incremental section clicked on plus button 
-        let sectionIndexAction = 1; // Counter to track the number of sections
-
-        // Use event delegation to handle click events on dynamically added elements    
-        
-        $('#sectionContainerAction').on('click', '.add-section', function(e) {
-            
-            e.preventDefault();
-
-            // Clone the section
-            let $sectionToCloneAction = $('#incrementalSectionToAction').clone();
-
-            
-            // Increment the section index
-            sectionIndexAction++;
-
-            // Update the id and name attributes in the cloned section
-            $sectionToCloneAction.attr('id', 'incrementalSectionToAction' + sectionIndexAction);
-            $sectionToCloneAction.find('select').each(function() {
-                //let nameAttr = $(this).attr('name');
-                //$(this).attr('name', nameAttr + '_' + sectionIndex);
-            });
-
-            // Reset the select fields in the cloned section
-            $sectionToCloneAction.find('select').prop('selectedIndex', 0);
-
-            // Append the "Remove Section" button to the cloned section
-            $sectionToCloneAction.find('.col-md-1').prepend(`
-                <a class="remove-section-btn !tw-px-0 tw-group !tw-text-white mr-5" data-toggle="dropdown">
-                    <span class="tw-rounded-full tw-bg-danger-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M200-440v-80h560v80H200Z"/></svg>
-                    </span>
-                </a>
-            `);
-
-            // Append the cloned section to the container
-            $('#sectionContainerAction').append($sectionToCloneAction);
-
-            // Event listener to remove a section when the Remove button is clicked
-            $('#sectionContainerAction').on('click', '.remove-section-btn', function() {
-                $(this).closest('.graySection').remove();
-            });
+        // Toggle AND/OR button behavior
+        $(document).on('click', '.toggle-and-or-btn', function() {
+            var currentValue = $(this).attr('data-value');
+            if (currentValue === '1') {
+                $(this).text('OR');
+                $(this).attr('data-value', '0');
+            } else {
+                $(this).text('AND');
+                $(this).attr('data-value', '1');
+            }
         });
-        */
 
-/* Set action to be performed "Edit Field" section JS */
+
+    /* Set action to be performed "Edit Field" section JS */
         $('#editTypeSelect').change(function() {
             $('#editFieldSelect').show();
         });

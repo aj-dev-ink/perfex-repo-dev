@@ -236,4 +236,22 @@
 }
 .toggle-condition{
   margin: -15px 15px 10px;
+  position: relative;
+  top:-1px;
 }
+
+.toggle-and-or-btn, .toggle-and-or-schedule-btn {
+  background-color: transparent;
+  color: #0056b3;
+  border: none;
+  padding: 10px 5px 5px;
+  cursor: pointer;
+  border-radius: 0px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.toggle-and-or-btn:hover, .toggle-and-or-schedule-btn:hover {
+  background-color:transparent;
+}
+
