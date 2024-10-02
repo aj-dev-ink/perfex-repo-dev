@@ -36,7 +36,7 @@ if (!function_exists('_initWorkflowCheck')) {
                                 _executeEditField( $objworkflow, $intEntityId );
                                 break;
                             case WF_TRIGGER_TYPE['Send Email']:
-                                # code...
+                                _executeSendEmail( $objworkflow, $intEntityId );
                                 break;
 
                             case WF_TRIGGER_TYPE['Webhook']:
@@ -122,6 +122,28 @@ function _executeEditField( $objWorkflow, $intEntityId ) {
         }
         
     }
+}
+
+function _executeSendEmail( $objWorkflow, $intEntityId ) {
+    $objApp = &get_instance();
+    $objApp->load->model('workflow_send_email_model');
+    $objApp->load->model('email_template_manage_model');
+
+    $rel_id = $intEntityId;
+
+    $objSendEmail = $objApp->workflow_send_email_model->getSendEmailByWorkFlowId( $objWorkflow['id'] );
+
+    //switch based on type to populate send email function vars
+    //if( $objWorkflow-type == 'lead' ){
+        $rel_type = 'lead';
+        $templateId = $objSendEmail->template_id;
+        $arrMailTo = implode( ',', $objSendEmail->mail_to ); //these are field ids based on entity type get thses details
+        $arrMailCC = implode( ',', $objSendEmail->mail_cc );
+    //}
+    
+    $success = $this->email_template_manage_model->send_workflow_mail( $templateId, $arrMailTo, $arrMailCC, $rel_type, $rel_id );
+
+    return $success;
 }
 
 function _updateTableFieldValueByEntityId( $tableName, $fieldName, $newValue, $intEntityId ){
@@ -322,7 +344,7 @@ function _getFieldValue( $arrWorkflow, $condition, $intEntityId ){
             'relid' => $intEntityId,
             'fieldid' => $customFieldId
         );
-//out( $conditions );
+        //out( $conditions );
         $query = $CI->db->select('value')
                 ->from( db_prefix() . $tableName )
                 ->where($conditions)
@@ -363,3 +385,4 @@ function _getFieldValue( $arrWorkflow, $condition, $intEntityId ){
     }
 
 }
+

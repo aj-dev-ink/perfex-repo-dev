@@ -15,9 +15,6 @@ class Workflow extends AdminController
         $this->load->model('workflow_edit_field_model');
         $this->load->model('workflow_webhook_model');
         $this->load->model('email_template_manage_model');
-
-
-
         
     }
 
