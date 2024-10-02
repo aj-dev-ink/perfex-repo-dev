@@ -8,3 +8,8 @@ CREATE TABLE tblworkflow_schedule_condition (
     sched_compare_value_type_id SMALLINT,
     sched_actual_compare_value VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+ALTER TABLE `tblworkflow_schedule_condition`
+ADD COLUMN `sched_is_and`  BOOLEAN DEFAULT FALSE;

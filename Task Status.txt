@@ -179,3 +179,7 @@ MODIFY COLUMN `compare_value_type_id` VARCHAR(255);
 
 ALTER TABLE `tblworkflow_condition`
 ADD COLUMN `is_and`  BOOLEAN DEFAULT FALSE;
+
+
+ALTER TABLE `tblworkflow_schedule_condition`
+ADD COLUMN `sched_is_and`  BOOLEAN DEFAULT FALSE;
