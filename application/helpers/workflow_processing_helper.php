@@ -222,12 +222,21 @@ function _evaluateConditions( $arrWorkflow, $intEntityId ){
     $CI->db->where( 'workflow_id', $arrWorkflow['id'] );
     $arrAllConditions = $CI->db->get( db_prefix() . 'workflow_condition' )->result_array();
 
-    $all_conditions_met = true;
+    $and_conditions_met = true;
     $or_conditions_met = false;
+    $cntAndCond = 0;
+    $cntOrCond = 0;
 
 
     //...............................
     foreach ($arrAllConditions as $condition) {
+
+        if( $condition['is_and'] ){
+            $cntAndCond++;
+        } else {
+            $cntOrCond++;
+        }
+
         // Example: Checking each condition
         
         //get value here
@@ -279,8 +288,8 @@ function _evaluateConditions( $arrWorkflow, $intEntityId ){
             // Add more cases for different operators
         }
     
-        if ( $condition['is_and'] && !$result) {
-            $all_conditions_met = false;
+        if ( true == $condition['is_and'] && !$result) {
+            $and_conditions_met = false;
         }
     
         if ( ( false == $condition['is_and'] ) && $result) {
@@ -288,8 +297,12 @@ function _evaluateConditions( $arrWorkflow, $intEntityId ){
         }
     }
     
-    return ( $all_conditions_met || $or_conditions_met );
-  
+    if( 0 == $cntAndCond ) {
+        return $or_conditions_met;
+    } elseif( 0 == $cntOrCond ) {
+        return $and_conditions_met;
+    }
+    return ( $and_conditions_met || $or_conditions_met );
 }
 
 function _getFieldValue( $arrWorkflow, $condition, $intEntityId ){
