@@ -240,7 +240,7 @@
   top:-1px;
 }
 
-.toggle-and-or-btn, .toggle-and-or-schedule-btn {
+.toggle-and-or-btn, .toggle-schedule-and-or-btn {
   background-color: transparent;
   color: #0056b3;
   border: none;
@@ -251,7 +251,27 @@
   font-weight: 600;
 }
 
-.toggle-and-or-btn:hover, .toggle-and-or-schedule-btn:hover {
+.toggle-and-or-btn:hover, .toggle-schedule-and-or-btn:hover {
   background-color:transparent;
 }
 
+/* Hide the radio button circle */
+.hidden-radio {
+  display: none;
+}
+
+/* Style the label to look clickable */
+.toggle-label {
+  cursor: pointer;
+  font-size: 16px;
+  color: #007BFF;
+  display: inline-block;
+  user-select: none;
+  padding: 0 10px;
+}
+
+.toggleAndOrSec{
+  position: relative;
+  top: -15px;
+  padding-left: 10px;
+}

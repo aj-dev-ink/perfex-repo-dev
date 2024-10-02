@@ -554,7 +554,8 @@
                 if (sectionIndex > 1) {
                     $sectionToClone.prepend(`
                         <div class="toggle-condition">
-                            <button type="button" class="toggle-and-or-schedule-btn" id="toggle_and_or_${sectionIndex}" name="sched_is_and_${sectionIndex}" data-value="0">OR</button>
+                            <input type="radio" id="toggleRadio" name="is_and_${sectionIndex}" class="hidden-radio" value="0">
+                            <button type="button" class="toggle-schedule-and-or-btn" id="toggle_and_or_${sectionIndex}" name="schedule_is_and_${sectionIndex}" data-value="0">OR</button>
                         </div>
                     `);
                 }
@@ -569,16 +570,33 @@
             });
 
             // Toggle AND/OR button behavior
-            $(document).on('click', '.toggle-and-or-schedule-btn', function() {
-                var currentValue = $(this).attr('data-value');
+            $(document).on('click', '.toggle-schedule-and-or-btn', function() {
+                    // Get the current radio button
+                var radioButton = $(this).prev('input[type="radio"]'); // Assuming the radio button is before the button
+                var currentValue = radioButton.val(); // Get the current value of the radio button
+                
                 if (currentValue === '1') {
-                    $(this).text('OR');
-                    $(this).attr('data-value', '0');
+                    $(this).text('OR');  // Change button text to OR
+                    radioButton.val('0'); // Set radio button value to 0
+                    $(this).attr('data-value', '0'); // Update data-value attribute
                 } else {
-                    $(this).text('AND');
-                    $(this).attr('data-value', '1');
+                    $(this).text('AND'); // Change button text to AND
+                    radioButton.val('1'); // Set radio button value to 1
+                    $(this).attr('data-value', '1'); // Update data-value attribute
                 }
             });
+
+            // // Toggle AND/OR button behavior
+            // $(document).on('click', '.toggle-and-or-schedule-btn', function() {
+            //     var currentValue = $(this).attr('data-value');
+            //     if (currentValue === '1') {
+            //         $(this).text('OR');
+            //         $(this).attr('data-value', '0');
+            //     } else {
+            //         $(this).text('AND');
+            //         $(this).attr('data-value', '1');
+            //     }
+            // });
 
 
 
@@ -659,21 +677,11 @@
             `);
 
             // Add AND/OR toggle button if more than one section exists
-            // if (sectionIndexExecute > 1) {
-            //     $sectionToCloneExecute.prepend(`
-            //         <div class="toggle-condition">
-            //             <button type="button" class="toggle-and-or-btn" id="toggle_and_or_${sectionIndexExecute}" name="is_and_${sectionIndexExecute}" data-value="0">OR</button>
-            //         </div>
-            //     `);
-            // }
-
             if (sectionIndexExecute > 1) {
                 $sectionToCloneExecute.prepend(`
                     <div class="toggle-condition">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="toggle_and_or_${sectionIndexExecute}" name="is_and[]" value="1" data-value="0">
-                            <label class="form-check-label" for="toggle_and_or_${sectionIndexExecute}">OR</label>
-                        </div>
+                        <input type="radio" id="toggleRadio" name="is_and_execute_${sectionIndexExecute}" class="hidden-radio" value="0">
+                        <button type="button" class="toggle-and-or-btn" id="toggle_and_or__execute_${sectionIndexExecute}" name="is_and_${sectionIndexExecute}" data-value="0">OR</button>
                     </div>
                 `);
             }
@@ -688,14 +696,19 @@
         });
 
         // Toggle AND/OR button behavior
-        $(document).on('click', '.toggle-and-or-btn', function() {
-            var currentValue = $(this).attr('data-value');
+         $(document).on('click', '.toggle-and-or-btn', function() {
+                // Get the current radio button
+            var radioButton = $(this).prev('input[type="radio"]'); // Assuming the radio button is before the button
+            var currentValue = radioButton.val(); // Get the current value of the radio button
+            
             if (currentValue === '1') {
-                $(this).text('OR');
-                $(this).attr('data-value', '0');
+                $(this).text('OR');  // Change button text to OR
+                radioButton.val('0'); // Set radio button value to 0
+                $(this).attr('data-value', '0'); // Update data-value attribute
             } else {
-                $(this).text('AND');
-                $(this).attr('data-value', '1');
+                $(this).text('AND'); // Change button text to AND
+                radioButton.val('1'); // Set radio button value to 1
+                $(this).attr('data-value', '1'); // Update data-value attribute
             }
         });
 
