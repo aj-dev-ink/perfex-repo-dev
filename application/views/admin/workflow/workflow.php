@@ -105,6 +105,17 @@
                 }
             });
 
+        
+            // Add Webhook form validation
+            $('#sendEmailForm').on('click', function() {
+                var isValid = true; // Flag to check if all validations pass
+
+                // If the form is valid, allow form submission
+                if (isValid) {
+                    // Optionally, close the modal or submit the form
+                    $('#sendEmailModal').modal('hide');
+                }
+            });
 
 
         //Initial Save workflow button disabled
