@@ -565,7 +565,7 @@
                 if (sectionIndex > 1) {
                     $sectionToClone.prepend(`
                         <div class="toggle-condition">
-                            <input type="radio" id="toggleRadio" name="is_and[]" class="hidden-radio" value="0">
+                            <input type="radio" id="toggleRadio" name="sched_is_and[]" class="hidden-radio" value="0">
                             <button type="button" class="toggle-schedule-and-or-btn" id="toggle_and_or_${sectionIndex}" name="schedule_is_and_${sectionIndex}" data-value="0">OR</button>
                         </div>
                     `);
