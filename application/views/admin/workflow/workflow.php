@@ -565,7 +565,7 @@
                 if (sectionIndex > 1) {
                     $sectionToClone.prepend(`
                         <div class="toggle-condition">
-                            <input type="radio" id="toggleRadio" name="sched_is_and[]" class="hidden-radio" value="0">
+                            <input type="hidden" id="toggleRadio" name="sched_is_and[]" class="hidden-radio" value="0">
                             <button type="button" class="toggle-schedule-and-or-btn" id="toggle_and_or_${sectionIndex}" name="schedule_is_and_${sectionIndex}" data-value="0">OR</button>
                         </div>
                     `);
@@ -691,7 +691,7 @@
             if (sectionIndexExecute > 1) {
                 $sectionToCloneExecute.prepend(`
                     <div class="toggle-condition">
-                        <input type="radio" id="toggleRadio" name="is_and[]" class="hidden-radio" value="0">
+                        <input type="hidden" id="toggleRadio" name="is_and[]" class="hidden-radio" value="0">
                         <button type="button" class="toggle-and-or-btn" id="toggle_and_or__execute_${sectionIndexExecute}" name="is_and_${sectionIndexExecute}" data-value="0">OR</button>
                     </div>
                 `);
@@ -763,10 +763,12 @@
     // updates first select box of condition for Schedule
     // updates first select box of condition for Execute
     // Updates Select box for Edit Field ( fields ) under action to be performed
+    // updates To & CC select box of action Send Email
 
     const optionsFieldMap = <?php echo json_encode( $conditionFieldMap ); ?>;
     const actionTypeMap = <?php echo json_encode( $actionTypeMap ); ?>;
-    
+    const conditionFieldOptionMap = <?php echo json_encode( $conditionFieldOptionMap ); ?>;
+
     $('input[name="entity_type_id"]').change(function(){
         
         var selectedValue = $('input[name="entity_type_id"]:checked').val();
@@ -822,6 +824,34 @@
             $editTypeSelect.append($('<option></option>').attr('value', value).text(key));
         });
 
+
+        // updates To & CC select box of action Send Email
+        
+        //get the only fields which has user field options to send email to
+        //_getUserOptions can add other options basde on functions
+        var entityTypeValue = $('#entity_type_id').val();
+        var fieldData = conditionFieldOptionMap[entityTypeValue];
+
+        // Get the select box element by its ID
+        var $sendEmailToSelect = $('#sendEmailTo');
+        var $sendEmailCcSelect = $('#sendEmailCc');
+
+        // Clear the existing options
+        $sendEmailToSelect.empty();
+        $sendEmailCcSelect.empty();
+
+        // Populate the select box with new options
+        $sendEmailToSelect.append($('<option></option>').attr('value', "-").text('Select'));
+        $sendEmailCcSelect.append($('<option></option>').attr('value', "-").text('Select'));
+        for (let key in fieldData) {
+            if (fieldData[key].function_name === "_getUserOptions") {
+                $sendEmailToSelect.append($('<option></option>').attr('value', key).text( fieldData[key].field_label ));
+                $sendEmailCcSelect.append($('<option></option>').attr('value', key).text( fieldData[key].field_label ));
+            }
+        }
+        $sendEmailToSelect.selectpicker('refresh'); // If applicable
+        $sendEmailCcSelect.selectpicker('refresh'); // If applicable
+
         // Toggle CC field
         $('#addCc').on('click', function() {
             $('#ccField').toggle();  // Show or hide the CC field
@@ -838,8 +868,6 @@
 <script>
 //Function to update CompareValue selection on change of field to comapre "clsConditionSelect"
 $(document).on('change', '.clsIncrementalSection .clsConditionSelect', function () {
-
-    const conditionFieldOptionMap = <?php echo json_encode( $conditionFieldOptionMap ); ?>;
 
     // Get the selected value
     var selectedValue = $(this).val();

@@ -29,7 +29,7 @@
                         <div class="section2" id="sectionToToggle">
                             <div id="sectionContainer">
                                 <!-- Hidden radio button for first condition -->
-                                <input type="radio" id="toggleRadio" name="sched_is_and[]" class="hidden-radio" value="1">
+                                <input type="hidden" id="toggleRadio" name="sched_is_and[]" class="hidden-radio" value="1">
                        
                                 <div class="row graySection clsIncrementalSection" id="incrementalSection">
                                     <div class="col-md-3">

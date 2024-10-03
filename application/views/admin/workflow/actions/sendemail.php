@@ -48,7 +48,7 @@
                             <!-- Add CC Field -->
                             <div id="ccField" style="display:none;">
                                 <label for="sendFrom_multiselect"><?php echo 'CC'; ?></label>
-                                <select id="sendEmailTo" name="sendEmail[email_cc_fields]" class="form-control selectpicker" multiple="multiple" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>">
+                                <select id="sendEmailCc" name="sendEmail[email_cc_fields]" class="form-control selectpicker" multiple="multiple" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>">
                                     <option value="option1"><?php echo _l('option_1'); ?></option>
                                     <option value="option2"><?php echo _l('option_2'); ?></option>
                                     <option value="option3"><?php echo _l('option_3'); ?></option>

@@ -107,6 +107,7 @@ truncate table `tblworkflow_delay`;
 truncate table `tblworkflow_schedule_condition`;
 truncate table `tblworkflow_webhook`;
 truncate table `tblworkflow_edit_field`;
+truncate table `tblworkflow_send_email`;
 
 ---------------------------------------------------------------------------------------------Remaining fields in lead
 Pipeline,

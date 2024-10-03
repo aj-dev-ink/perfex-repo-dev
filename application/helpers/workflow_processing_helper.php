@@ -36,7 +36,7 @@ if (!function_exists('_initWorkflowCheck')) {
                                 _executeEditField( $objworkflow, $intEntityId );
                                 break;
                             case WF_TRIGGER_TYPE['Send Email']:
-                                _executeSendEmail( $objworkflow, $intEntityId );
+                                $isSuccess = _executeSendEmail( $objworkflow, $intEntityId );
                                 break;
 
                             case WF_TRIGGER_TYPE['Webhook']:
@@ -129,19 +129,20 @@ function _executeSendEmail( $objWorkflow, $intEntityId ) {
     $objApp->load->model('workflow_send_email_model');
     $objApp->load->model('email_template_manage_model');
 
-    $rel_id = $intEntityId;
+    $arrEntityTypes = array_flip( WF_ENTITY_TYPE );
+    $entityType = $objWorkflow['entity_type_id'];
 
     $objSendEmail = $objApp->workflow_send_email_model->getSendEmailByWorkFlowId( $objWorkflow['id'] );
 
-    //switch based on type to populate send email function vars
-    //if( $objWorkflow-type == 'lead' ){
-        $rel_type = 'lead';
-        $templateId = $objSendEmail->template_id;
-        $arrMailTo = implode( ',', $objSendEmail->mail_to ); //these are field ids based on entity type get thses details
-        $arrMailCC = implode( ',', $objSendEmail->mail_cc );
-    //}
+    //set rel_type based on type to populate send email function vars default to compose
+    $rel_type = strtolower( isset( $arrEntityTypes[$entityType] ) ? isset( $arrEntityTypes[$entityType] ) : 'compose' );
+    $rel_id = $intEntityId;
+    $templateId = $objSendEmail->template_id;
+
+    $arrMailTo = _getEmailsByFieldIds( $objWorkflow, $objSendEmail->email_to_fields, $intEntityId ); //these are email ids based on entity type get thses details
+    $arrMailCC = ( '' != $objSendEmail->email_cc_fields ) ? _getEmailsByFieldIds( $objWorkflow, $objSendEmail->email_cc_fields, $intEntityId) : '';
     
-    $success = $this->email_template_manage_model->send_workflow_mail( $templateId, $arrMailTo, $arrMailCC, $rel_type, $rel_id );
+    $success = $objApp->email_template_manage_model->send_workflow_mail( $templateId, $arrMailTo, $arrMailCC, $rel_type, $rel_id );
 
     return $success;
 }
@@ -238,7 +239,6 @@ function _updateCustomTableFieldValueByEntityId( $tableName, $fieldSlug, $newVal
 
 }
 
-
 function _evaluateConditions( $arrWorkflow, $intEntityId ){
     $CI = &get_instance();
     $CI->db->where( 'workflow_id', $arrWorkflow['id'] );
@@ -263,10 +263,11 @@ function _evaluateConditions( $arrWorkflow, $intEntityId ){
         
         //get value here
         // Fetch value from data
-        $field_value = _getFieldValue( $arrWorkflow, $condition, $intEntityId );
+        $fieldId = $condition['condition_type_id'];
+        $field_value = _getFieldValue( $arrWorkflow, $fieldId, $intEntityId );
 
         $entityType = $arrWorkflow['entity_type_id'];
-        $fieldId = $condition['condition_type_id'];
+
         $isTextBox = WF_FIELD_OPTION_MAP[$entityType][$fieldId]['is_textbox'];
         $compareVale = $isTextBox ? $condition['actual_compare_value'] : $condition['compare_value_type_id'];
 
@@ -327,11 +328,10 @@ function _evaluateConditions( $arrWorkflow, $intEntityId ){
     return ( $and_conditions_met || $or_conditions_met );
 }
 
-function _getFieldValue( $arrWorkflow, $condition, $intEntityId ){
+function _getFieldValue( $arrWorkflow, $fieldId, $intEntityId ){
     $CI = &get_instance();
     //..............................
     $entityType = $arrWorkflow['entity_type_id'];
-    $fieldId = $condition['condition_type_id'];
     $tableName = WF_FIELD_OPTION_MAP[$entityType][$fieldId]['table_name'];
     $fieldName = WF_FIELD_OPTION_MAP[$entityType][$fieldId]['field_name'];
     if( 'customfieldsvalues' == $tableName ){
@@ -386,3 +386,27 @@ function _getFieldValue( $arrWorkflow, $condition, $intEntityId ){
 
 }
 
+function _getEmailsByFieldIds( $objWorkflow, $strFieldIds, $intEntityId ){
+    $CI = &get_instance();
+    $entityType = $objWorkflow['entity_type_id'];
+    $arrFields = explode( ',', $strFieldIds );
+    $userIdsOnFields = [];
+    $strEmails = '';
+
+    foreach( $arrFields as $fieldId ){
+        $arrfieldDetails = WF_FIELD_OPTION_MAP[$entityType][$fieldId];
+        $userIdsOnFields[] = _getFieldValue( $objWorkflow, $fieldId, $intEntityId );
+    }
+
+    if( !empty($userIdsOnFields) ){
+        $CI->db->select('GROUP_CONCAT(email) as emails');  // Use GROUP_CONCAT to get comma-separated emails
+        $CI->db->from( db_prefix() . 'staff'); // Specify the table
+        $CI->db->where_in('staffid', $userIdsOnFields);
+        $query = $CI->db->get();
+    
+        $result = $query->row();  // Get the first row (as it will only return one row)
+        $strEmails = $result->emails;   // Return the comma-separated list of email
+    }
+
+    return $strEmails;
+}

@@ -15,7 +15,7 @@ class Workflow_model extends App_Model
      * @param mixed $data workflow $_POST data
      */
     public function add($data) {
-
+//out( $data );
         $arrWorkflowFields = ['name','description','entity_type_id','action_type_id','is_trigger_now','is_condition_based_schedule','is_condition_based','trigger_type_id'];
         $arrWorkflowData = setTableFields( $arrWorkflowFields, $data );
 
@@ -35,7 +35,7 @@ class Workflow_model extends App_Model
                 $conIndex = 0;
                 while( $countSchedConditions > $conIndex ){
     
-                    $arrSchedConditionFields = ['sched_condition_type_id','sched_stage_type_id','sched_value_type_id','sched_operator_type_id','sched_compare_value_type_id', 'sched_actual_compare_value'];
+                    $arrSchedConditionFields = ['sched_condition_type_id','sched_stage_type_id','sched_value_type_id','sched_operator_type_id','sched_compare_value_type_id', 'sched_actual_compare_value', 'sched_is_and'];
                     $arrSchedConditionData = [];
                     foreach( $arrSchedConditionFields as $field ){
                         if( isset( $data[$field], $data[$field][$conIndex] ) ){
@@ -91,19 +91,22 @@ class Workflow_model extends App_Model
                     $arrEditFieldData['workflow_id'] = $insert_id;
                     $triggerInsertId = $this->workflow_edit_field_model->add( $arrEditFieldData );
                     break;
+
                 case $enumTriggerType['Send Email']:
                     //Insert to Send Email
-                    $arrSendEmailData = setTableFields( ['template_id'], $data );
+                    $sendEmailDataPost = isset( $data['sendEmail'] ) ? $data['sendEmail'] : [];
+                    $sendEmailFields = ['template_id', 'email_to_fields', 'email_cc_fields'];
+                    $arrSendEmailData = setTableFields( $sendEmailFields, $sendEmailDataPost );
                     $arrSendEmailData['workflow_id'] = $insert_id;
-                    $triggerInsertId = $this->workflow_send_email_model->add( $arrEditFieldData );
+                    $triggerInsertId = $this->workflow_send_email_model->add( $arrSendEmailData );
                     break;
                 case $enumTriggerType['Webhook']:
                     //Insert to Webhook
-                    $webhookData = isset( $data['webhook'] ) ? $data['webhook'] : [];
+                    $webhookDataPost = isset( $data['webhook'] ) ? $data['webhook'] : [];
                     $webhookFields = ['name', 'description', 'request_type', 'request_url', 'authorization_type', 'api_key', 'bearer_token', 'auth_username', 'auth_password', 'is_url_param', 'url_params' ];
-                    $arrEditFieldData = setTableFields( $webhookFields, $webhookData );
-                    $arrEditFieldData['workflow_id'] = $insert_id;
-                    $triggerInsertId = $this->workflow_webhook_model->add( $arrEditFieldData );
+                    $arrWebHookData = setTableFields( $webhookFields, $webhookDataPost );
+                    $arrWebHookData['workflow_id'] = $insert_id;
+                    $triggerInsertId = $this->workflow_webhook_model->add( $arrWebHookData );
                     break;
 
             }
