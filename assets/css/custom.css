@@ -280,9 +280,10 @@
   position: relative;
 }
 .addCCBCC{
-  position: absolute;
+  /* position: absolute;
   top: 30px;
-  right: 5px;
+  right: 5px; */
+  text-align: right;
 }
 .addCc-btn, .addBcc-btn{
   font-size: 12px;
