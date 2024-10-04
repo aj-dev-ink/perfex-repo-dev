@@ -15,7 +15,7 @@ class Workflow_model extends App_Model
      * @param mixed $data workflow $_POST data
      */
     public function add($data) {
-//out( $data );
+out( $data );
         $arrWorkflowFields = ['name','description','entity_type_id','action_type_id','is_trigger_now','is_condition_based_schedule','is_condition_based','trigger_type_id'];
         $arrWorkflowData = setTableFields( $arrWorkflowFields, $data );
 
