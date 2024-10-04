@@ -62,7 +62,7 @@
 
     define('WFEF_EDIT_TYPE', 
         array(
-            'Copy Field Value'=>1,
+            //'Copy Field Value'=>1,
             'Enter Custom Value'=>2
         )
     );

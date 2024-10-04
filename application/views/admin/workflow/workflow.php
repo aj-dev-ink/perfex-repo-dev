@@ -550,6 +550,9 @@
                 // Reset the select fields in the cloned section
                 $sectionToClone.find('select').prop('selectedIndex', 0);
 
+                // Reset the input fields in the cloned section
+                $sectionToClone.find('input[type="text"]').val('');
+
                 // Append the "Remove Section" button to the cloned section
                 $sectionToClone.find('.col-md-1').prepend(`
                     <a class="remove-section-btn !tw-px-0 tw-group !tw-text-white mr-5" data-toggle="dropdown">
@@ -675,6 +678,9 @@
             
             // Reset the select fields in the cloned section
             $sectionToCloneExecute.find('select').prop('selectedIndex', 0);
+
+            // Reset the input fields in the cloned section
+            $sectionToCloneExecute.find('input[type="text"]').val('');
 
             // Append the "Remove Section" button to the cloned section
             $sectionToCloneExecute.find('.col-md-1').prepend(`

@@ -243,21 +243,14 @@ function _evaluateConditions( $arrWorkflow, $intEntityId ){
     $CI = &get_instance();
     $CI->db->where( 'workflow_id', $arrWorkflow['id'] );
     $arrAllConditions = $CI->db->get( db_prefix() . 'workflow_condition' )->result_array();
-
-    $and_conditions_met = true;
-    $or_conditions_met = false;
-    $cntAndCond = 0;
-    $cntOrCond = 0;
-
+    $condCount = 0;
+    $finalResult = null;
 
     //...............................
     foreach ($arrAllConditions as $condition) {
+        $condCount++;
 
-        if( $condition['is_and'] ){
-            $cntAndCond++;
-        } else {
-            $cntOrCond++;
-        }
+/*dig( $condition );*/
 
         // Example: Checking each condition
         
@@ -271,9 +264,12 @@ function _evaluateConditions( $arrWorkflow, $intEntityId ){
         $isTextBox = WF_FIELD_OPTION_MAP[$entityType][$fieldId]['is_textbox'];
         $compareVale = $isTextBox ? $condition['actual_compare_value'] : $condition['compare_value_type_id'];
 
-        $field_value = strtolower($field_value);
-        $compareVale = strtolower($compareVale);
-
+        $field_value = strtolower( trim( $field_value) );
+        $compareVale = strtolower( trim( $compareVale) );
+/*if( 5 == $condCount ){
+    dig( $field_value ) ;
+    dig( $compareVale ) ; 
+}*/
         $result = false;
         switch ($condition['operator_type_id']) {
 
@@ -311,21 +307,17 @@ function _evaluateConditions( $arrWorkflow, $intEntityId ){
             // Add more cases for different operators
         }
     
-        if ( true == $condition['is_and'] && !$result) {
-            $and_conditions_met = false;
+        //dig('result=' . $result);
+        if( 1 == $condCount ){
+            $finalResult = $result;
+        } else {
+            $finalResult = ( true == $condition['is_and'] ) ? $finalResult && $result : $finalResult || $result;
         }
-    
-        if ( ( false == $condition['is_and'] ) && $result) {
-            $or_conditions_met = true;
-        }
+        //dig('Final result=' . $finalResult);
     }
-    
-    if( 0 == $cntAndCond ) {
-        return $or_conditions_met;
-    } elseif( 0 == $cntOrCond ) {
-        return $and_conditions_met;
-    }
-    return ( $and_conditions_met || $or_conditions_met );
+        //out( 'last ' . $finalResult );
+    return $finalResult;    
+
 }
 
 function _getFieldValue( $arrWorkflow, $fieldId, $intEntityId ){
