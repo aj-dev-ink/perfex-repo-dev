@@ -583,7 +583,7 @@
             // Toggle AND/OR button behavior
             $(document).on('click', '.toggle-schedule-and-or-btn', function() {
                     // Get the current radio button
-                var radioButton = $(this).prev('input[type="radio"]'); // Assuming the radio button is before the button
+                var radioButton = $(this).prev('.hidden-radio'); // Assuming the radio button is before the button
                 var currentValue = radioButton.val(); // Get the current value of the radio button
                 
                 if (currentValue === '1') {
@@ -709,7 +709,7 @@
         // Toggle AND/OR button behavior
          $(document).on('click', '.toggle-and-or-btn', function() {
                 // Get the current radio button
-            var radioButton = $(this).prev('input[type="radio"]'); // Assuming the radio button is before the button
+            var radioButton = $(this).prev('.hidden-radio'); // Assuming the radio button is before the button
             var currentValue = radioButton.val(); // Get the current value of the radio button
             
             if (currentValue === '1') {
