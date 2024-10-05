@@ -307,6 +307,8 @@ function _evaluateConditions( $arrWorkflow, $intEntityId ){
             // Add more cases for different operators
         }
     
+        //var_dump( $condition['is_and'] );
+
         //dig('result=' . $result);
         if( 1 == $condCount ){
             $finalResult = $result;
@@ -315,7 +317,7 @@ function _evaluateConditions( $arrWorkflow, $intEntityId ){
         }
         //dig('Final result=' . $finalResult);
     }
-        //out( 'last ' . $finalResult );
+        //out( 'last ' . $finalResult );die;
     return $finalResult;    
 
 }

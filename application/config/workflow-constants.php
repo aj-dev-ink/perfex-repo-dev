@@ -62,6 +62,7 @@
 
     define('WFEF_EDIT_TYPE', 
         array(
+            'select'=>0,
             //'Copy Field Value'=>1,
             'Enter Custom Value'=>2
         )
@@ -229,7 +230,7 @@
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Created at']                => ['field_label' => 'Created at', 'is_textbox'=>true, 'function_name' => 'getUserOptions', 'table_name'=>'', 'field_name'=>''],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Updated by']                => ['field_label' => 'Updated by', 'is_textbox'=>false, 'function_name' => '_getUserOptions', 'table_name'=>'', 'field_name'=>''],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Updated at']                => ['field_label' => 'Updated at', 'is_textbox'=>true, 'function_name' => 'getUserOptions', 'table_name'=>'', 'field_name'=>''],
-                WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Lead source keywords']      => ['field_label' => 'Lead source keywords', 'is_textbox'=>true, 'function_name' => 'getUserOptions', 'table_name'=>'', 'field_name'=>''],
+                WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Lead source keywords']      => ['field_label' => 'Lead source keywords', 'is_textbox'=>true, 'function_name' => '_getOptionsDefault', 'table_name'=>'customfieldsvalues', 'field_name'=>'leads_lead_source_keywords'],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Lead source URL']           => ['field_label' => 'Lead source URL', 'is_textbox'=>true, 'function_name' => 'getUserOptions', 'table_name'=>'customfieldsvalues', 'field_name'=>'leads_lead_source_url'],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['UTM campaign']              => ['field_label' => 'UTM campaign', 'is_textbox'=>true, 'function_name' => 'getUserOptions', 'table_name'=>'', 'field_name'=>''],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['UTM medium']                => ['field_label' => 'UTM medium', 'is_textbox'=>true, 'function_name' => 'getUserOptions', 'table_name'=>'', 'field_name'=>''],
