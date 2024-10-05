@@ -3561,18 +3561,31 @@ class Email_template_manage_model extends CI_Model
 
     }
 
-    public function send_workflow_mail( $templateId, $arrMailTo, $arrMailCC, $rel_type, $rel_id  )
+    public function send_workflow_mail( $templateId, $strMailTo, $strMailCC, $rel_type, $rel_id  )
     {
-        $templateId = 1;
-        $arrMailTo = ['test@test.com'];
-        $arrMailCC = ['testCC@test.com'];
+        /*
+        dig( $templateId );
+        dig( $strMailTo ); 
+        dig( $strMailCC );
+        dig( $rel_type );
+        dig(  $rel_id );
+        die;
+        */
 
-        $rel_type       =  'lead';
-        $rel_id         =  1;
+        
+
         $template_id    = $templateId;
-        $mail_to        = implode( ',', $arrMailTo );
-        $mail_cc        = implode( ',', $arrMailCC );
-                
+        $mail_to        = $strMailTo;
+        $mail_cc        = $strMailCC;
+
+
+        /**/
+        //$templateId = 1;
+        //$strMailTo = 'test@test.com';
+        //$strMailCC = 'testCC@test.com';
+        //$rel_type       =  'lead';
+        //$rel_id         =  1;//overridingthis
+        /**/
 
         $objTemplate    = $this->get_template( $template_id );
         $subject        = $objTemplate->template_subject;

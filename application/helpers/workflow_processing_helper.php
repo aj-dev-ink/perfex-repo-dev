@@ -135,14 +135,18 @@ function _executeSendEmail( $objWorkflow, $intEntityId ) {
     $objSendEmail = $objApp->workflow_send_email_model->getSendEmailByWorkFlowId( $objWorkflow['id'] );
 
     //set rel_type based on type to populate send email function vars default to compose
-    $rel_type = strtolower( isset( $arrEntityTypes[$entityType] ) ? isset( $arrEntityTypes[$entityType] ) : 'compose' );
+    $rel_type = strtolower( isset( $arrEntityTypes[$entityType] ) ? $arrEntityTypes[$entityType] : 'compose' );
     $rel_id = $intEntityId;
     $templateId = $objSendEmail->template_id;
 
-    $arrMailTo = _getEmailsByFieldIds( $objWorkflow, $objSendEmail->email_to_fields, $intEntityId ); //these are email ids based on entity type get thses details
-    $arrMailCC = ( '' != $objSendEmail->email_cc_fields ) ? _getEmailsByFieldIds( $objWorkflow, $objSendEmail->email_cc_fields, $intEntityId) : '';
+    //these are email ids based on entity type get thses details
+    $strToFields = $objSendEmail->email_to_fields;
+    $strCcFields = $objSendEmail->email_cc_fields;
+
+    $strMailTo = ( '' != $strToFields && '-' != $strToFields ) ? _getEmailsByFieldIds( $objWorkflow, $strToFields, $intEntityId) : '';
+    $strMailCC = ( '' != $strCcFields && '-' != $strCcFields ) ? _getEmailsByFieldIds( $objWorkflow, $strCcFields, $intEntityId) : '';
     
-    $success = $objApp->email_template_manage_model->send_workflow_mail( $templateId, $arrMailTo, $arrMailCC, $rel_type, $rel_id );
+    $success = $objApp->email_template_manage_model->send_workflow_mail( $templateId, $strMailTo, $strMailCC, $rel_type, $rel_id );
 
     return $success;
 }
@@ -243,83 +247,91 @@ function _evaluateConditions( $arrWorkflow, $intEntityId ){
     $CI = &get_instance();
     $CI->db->where( 'workflow_id', $arrWorkflow['id'] );
     $arrAllConditions = $CI->db->get( db_prefix() . 'workflow_condition' )->result_array();
-    $condCount = 0;
-    $finalResult = null;
 
-    //...............................
-    foreach ($arrAllConditions as $condition) {
-        $condCount++;
+    /*logic:: 
+        { grp[ con1 && con2 && con3 ] OR grp[ con1 && con2 && con3 ]  OR grp[ con1 && con2 && con3 ] }
+        First create groups of conditions.
+        each group will have must fullfill as in AND conditions.
+        while checking group any condition false then we can move to next group.
+        while checking groups any group evaluate to true then we dont need to further evaluate.
+    */
+    $groupNumber = 1;
+	if( 1 == count( $arrAllConditions ) ){
+		$arrgroup[$groupNumber] = $arrAllConditions;
+	} else {
+		$count=1;
+		foreach( $arrAllConditions as $condition ){
+			if( $count > 1 && false == $condition['is_and'] ){
+				$groupNumber++;
+			}
+			$arrgroup[$groupNumber][] = $condition;
+			$count++;
+		}
+	}
 
-/*dig( $condition );*/
+	foreach( $arrgroup as $group ){
+        $groupResult = true;
+        foreach( $group as $condition ) {
+            // Example: Checking each condition
+            //get value here
+            // Fetch value from data
+            $fieldId = $condition['condition_type_id'];
+            $field_value = _getFieldValue( $arrWorkflow, $fieldId, $intEntityId );
 
-        // Example: Checking each condition
-        
-        //get value here
-        // Fetch value from data
-        $fieldId = $condition['condition_type_id'];
-        $field_value = _getFieldValue( $arrWorkflow, $fieldId, $intEntityId );
+            $entityType = $arrWorkflow['entity_type_id'];
 
-        $entityType = $arrWorkflow['entity_type_id'];
+            $isTextBox = WF_FIELD_OPTION_MAP[$entityType][$fieldId]['is_textbox'];
+            $compareVale = $isTextBox ? $condition['actual_compare_value'] : $condition['compare_value_type_id'];
 
-        $isTextBox = WF_FIELD_OPTION_MAP[$entityType][$fieldId]['is_textbox'];
-        $compareVale = $isTextBox ? $condition['actual_compare_value'] : $condition['compare_value_type_id'];
+            $field_value = strtolower( trim( $field_value) );
+            $compareVale = strtolower( trim( $compareVale) );
 
-        $field_value = strtolower( trim( $field_value) );
-        $compareVale = strtolower( trim( $compareVale) );
-/*if( 5 == $condCount ){
-    dig( $field_value ) ;
-    dig( $compareVale ) ; 
-}*/
-        $result = false;
-        switch ($condition['operator_type_id']) {
+            $result = false;
+            switch ($condition['operator_type_id']) {
 
-            case WFC_OPERATOR_TYPE['Equal To']:
-                $result = ($field_value == $compareVale);
-                break;
-            case WFC_OPERATOR_TYPE['Not Equal To']:
-                $result = ($field_value != $compareVale);
-                break;
-            case WFC_OPERATOR_TYPE['Contains']:
-            case WFC_OPERATOR_TYPE['In']:
-                //Convert the comma-separated string into an array
-                $compare_value_array = explode(", ", $compareVale);
-                //Check if $compareVale exists in the array
-                $result = in_array($field_value, $compare_value_array);
-                break;
-            case WFC_OPERATOR_TYPE['Not contains']:
-            case WFC_OPERATOR_TYPE['Not in']:
-                //Convert the comma-separated string into an array
-                $compare_value_array = explode(", ", $compareVale);
-                //Check if $compareVale exists in the array
-                $result = !in_array($field_value, $compare_value_array);
-                break;
-            case WFC_OPERATOR_TYPE['Is empty']:
-            case WFC_OPERATOR_TYPE['Is not set']:
-                $result = ( is_null($field_value) || '' == $field_value );
-                break;
-            case WFC_OPERATOR_TYPE['Is not empty']:
-            case WFC_OPERATOR_TYPE['Is set']:
-                $result = !( is_null($field_value) || '' == $field_value );
-                break;
-            case WFC_OPERATOR_TYPE['Begins with']:
-                $result = (strpos($field_value, $compareValue ) === 0);
-                break;
-            // Add more cases for different operators
+                case WFC_OPERATOR_TYPE['Equal To']:
+                    $result = ($field_value == $compareVale);
+                    break;
+                case WFC_OPERATOR_TYPE['Not Equal To']:
+                    $result = ($field_value != $compareVale);
+                    break;
+                case WFC_OPERATOR_TYPE['Contains']:
+                case WFC_OPERATOR_TYPE['In']:
+                    //Convert the comma-separated string into an array
+                    $compare_value_array = explode(", ", $compareVale);
+                    //Check if $compareVale exists in the array
+                    $result = in_array($field_value, $compare_value_array);
+                    break;
+                case WFC_OPERATOR_TYPE['Not contains']:
+                case WFC_OPERATOR_TYPE['Not in']:
+                    //Convert the comma-separated string into an array
+                    $compare_value_array = explode(", ", $compareVale);
+                    //Check if $compareVale exists in the array
+                    $result = !in_array($field_value, $compare_value_array);
+                    break;
+                case WFC_OPERATOR_TYPE['Is empty']:
+                case WFC_OPERATOR_TYPE['Is not set']:
+                    $result = ( is_null($field_value) || '' == $field_value );
+                    break;
+                case WFC_OPERATOR_TYPE['Is not empty']:
+                case WFC_OPERATOR_TYPE['Is set']:
+                    $result = !( is_null($field_value) || '' == $field_value );
+                    break;
+                case WFC_OPERATOR_TYPE['Begins with']:
+                    $result = (strpos($field_value, $compareValue ) === 0);
+                    break;
+                // Add more cases for different operators
+            }
+            $groupResult = $groupResult && $result;
+            if( false == $groupResult ){
+                continue 2;
+            }
         }
-    
-        //var_dump( $condition['is_and'] );
-
-        //dig('result=' . $result);
-        if( 1 == $condCount ){
-            $finalResult = $result;
-        } else {
-            $finalResult = ( true == $condition['is_and'] ) ? $finalResult && $result : $finalResult || $result;
+        if( true == $groupResult ){
+          return true;
         }
-        //dig('Final result=' . $finalResult);
-    }
-        //out( 'last ' . $finalResult );die;
-    return $finalResult;    
-
+	}
+    return $groupResult;
 }
 
 function _getFieldValue( $arrWorkflow, $fieldId, $intEntityId ){
