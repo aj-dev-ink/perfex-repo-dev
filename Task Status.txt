@@ -170,3 +170,49 @@ CREATE TABLE tblworkflow_send_email (
     email_to_fields VARCHAR(255),
     email_cc_fields VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-----------------------------------------------------------
+RELEASE NOTES | DEPLOY NOTES
+application/config/autoload.php
+application/config/config.php
+root/index.php
+set envoriment for Errors | log Errors
+
+application/helpers
+workflow*.*
+custom_fields_helper
+
+
+leads/profile.php
+controllers/admin/workflow.php
+
+WORKFLOW TRIGGER :: _initWorkflowCheck
+
+models/workflow*.*
+models/lead_model.php
+
+views/admin/leads/profile.php
+views/admin/workflow/*.*
+
+modules/email_template_manage/models/email_template_manage_model
+
+Assets/custom.css
+
+-- RELEASE
+- Workflow with conditions
+- AND OR Support
+- edit field
+- email send
+
+-----------------------------------------------------------
+
+truncate table `tblworkflow`;
+truncate table `tblworkflow_condition`;
+truncate table `tblworkflow_delay`;
+truncate table `tblworkflow_schedule_condition`;
+truncate table `tblworkflow_webhook`;
+truncate table `tblworkflow_edit_field`;
+truncate table `tblworkflow_send_email`;
+
+
+-----------------------------------------------------------
