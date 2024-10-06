@@ -470,197 +470,146 @@
             $('#addTaskArea').show();
         });
 
+        // -----------------------------------------------------------------------
+        // Incremental section for Schedule condition
+        // -----------------------------------------------------------------------
 
-        /* Funtion for incremental section clicked on plus button 
-            let sectionIndex = 1; // Counter to track the number of sections
+        let sectionIndex = 1; // Counter to track the number of sections
 
-            // Use event delegation to handle click events on dynamically added elements    
-            $('#sectionContainer').on('click', '.add-section', function(e) {
-
-                e.preventDefault();
-
-                // Clone the section
-                let $sectionToClone = $('#incrementalSection').clone();
-
-                // Increment the section index
-                sectionIndex++;
-
-                // Update the id and name attributes in the cloned section
-                $sectionToClone.attr('id', 'incrementalSection_' + sectionIndex);
-                $sectionToClone.find('select').each(function() {
-                    //let nameAttr = $(this).attr('name');
-                    //$(this).attr('name', nameAttr + '_' + sectionIndex);
-                });
-
-                // Reset the select fields in the cloned section
-                $sectionToClone.find('select').prop('selectedIndex', 0);
-
-                // Append the "Remove Section" button to the cloned section
-                $sectionToClone.find('.col-md-1').prepend(`
-                    <a class="remove-section-btn !tw-px-0 tw-group !tw-text-white mr-5" data-toggle="dropdown">
-                        <span class="tw-rounded-full tw-bg-danger-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M200-440v-80h560v80H200Z"/></svg>
-                        </span>
-                    </a>
-                `);
-
-                // Add AND/OR radio buttons if more than one section exists
-                if (sectionIndex > 1) {
-                    $sectionToClone.prepend(`
-                        <div class="toggle-condition">
-                            <input type="radio" id="and_${sectionIndex}" name="sched_is_and_${sectionIndex}" value="AND">
-                            <label for="and_${sectionIndex}">AND</label>
-                            <input type="radio" id="or_${sectionIndex}" name="schedis_and_${sectionIndex}" value="OR" checked>
-                            <label for="or_${sectionIndex}">OR</label>
-                        </div>
-                    `);
-                }
-
-                // Append the cloned section to the container
-                $('#sectionContainer').append($sectionToClone);
-
-                // Event listener to remove a section when the Remove button is clicked
-                $('#sectionContainer').on('click', '.remove-section-btn', function() {
-                    $(this).closest('.graySection').remove();
-                });
-
-        });*/
-
-        /* Function for incremental section clicked on plus button */
-            let sectionIndex = 1; // Counter to track the number of sections
-
-            // Use event delegation to handle click events on dynamically added elements    
-            $('#sectionContainer').on('click', '.add-section', function(e) {
-
-                e.preventDefault();
-
-                // Clone the section
-                let $sectionToClone = $('#incrementalSection').clone();
-
-                // Increment the section index
-                sectionIndex++;
-
-                // Update the id and name attributes in the cloned section
-                $sectionToClone.attr('id', 'incrementalSection_' + sectionIndex);
-                $sectionToClone.find('select').each(function() {
-                    //let nameAttr = $(this).attr('name');
-                    //$(this).attr('name', nameAttr + '_' + sectionIndex);
-                });
-
-                // Reset the select fields in the cloned section
-                $sectionToClone.find('select').prop('selectedIndex', 0);
-
-                // Reset the input fields in the cloned section
-                $sectionToClone.find('input[type="text"]').val('');
-
-                // Append the "Remove Section" button to the cloned section
-                $sectionToClone.find('.col-md-1').prepend(`
-                    <a class="remove-section-btn !tw-px-0 tw-group !tw-text-white mr-5" data-toggle="dropdown">
-                        <span class="tw-rounded-full tw-bg-danger-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff">
-                                <path d="M200-440v-80h560v80H200Z"/>
-                            </svg>
-                        </span>
-                    </a>
-                `);
-
-                // Add AND/OR toggle button if more than one section exists
-                if (sectionIndex > 1) {
-                    $sectionToClone.prepend(`
-                        <div class="toggle-condition">
-                            <input type="hidden" id="toggleRadio" name="sched_is_and[]" class="hidden-radio" value="0">
-                            <button type="button" class="toggle-schedule-and-or-btn" id="toggle_and_or_${sectionIndex}" name="schedule_is_and_${sectionIndex}" data-value="0">OR</button>
-                        </div>
-                    `);
-                }
-
-                // Append the cloned section to the container
-                $('#sectionContainer').append($sectionToClone);
-
-                // Event listener to remove a section when the Remove button is clicked
-                $('#sectionContainer').on('click', '.remove-section-btn', function() {
-                    $(this).closest('.graySection').remove();
-                });
-            });
-
-            // Toggle AND/OR button behavior
-            $(document).on('click', '.toggle-schedule-and-or-btn', function() {
-                    // Get the current radio button
-                var radioButton = $(this).prev('.hidden-radio'); // Assuming the radio button is before the button
-                var currentValue = radioButton.val(); // Get the current value of the radio button
+        // Function to update condition numbers and labels based on AND/OR toggle states
+        function updateConditionLabels() {
+            let conditions = [];
+            $('#sectionContainer .graySection').each(function(index) {
+                const toggleButton = $(this).find('.toggle-schedule-and-or-btn');
+                const conditionNumber = index + 1;
+                const logicType = toggleButton.length > 0 ? toggleButton.text().trim() : ''; // Get 'AND' or 'OR' from the button
                 
-                if (currentValue === '1') {
-                    $(this).text('OR');  // Change button text to OR
-                    radioButton.val('0'); // Set radio button value to 0
-                    $(this).attr('data-value', '0'); // Update data-value attribute
-                } else {
-                    $(this).text('AND'); // Change button text to AND
-                    radioButton.val('1'); // Set radio button value to 1
-                    $(this).attr('data-value', '1'); // Update data-value attribute
-                }
+                conditions.push({
+                    number: conditionNumber,
+                    logic: logicType
+                });
             });
 
-            // // Toggle AND/OR button behavior
-            // $(document).on('click', '.toggle-and-or-schedule-btn', function() {
-            //     var currentValue = $(this).attr('data-value');
-            //     if (currentValue === '1') {
-            //         $(this).text('OR');
-            //         $(this).attr('data-value', '0');
-            //     } else {
-            //         $(this).text('AND');
-            //         $(this).attr('data-value', '1');
-            //     }
-            // });
+            // Generate the label string like "Condition (1 & 2) / 3"
+            let labelText = "Condition ";
+            conditions.forEach((condition, index) => {
+                labelText += index === 0 ? `(${condition.number}` : ` ${condition.logic} ${condition.number}`;
+            });
+            labelText += ")";
 
+            // Update the displayed condition label
+            $('#conditionSummary').text(labelText);
+        }
 
+        // Use event delegation to handle click events on dynamically added elements    
+        $('#sectionContainer').on('click', '.add-section', function(e) {
+            e.preventDefault();
 
-        // let sectionIndex = 1; // Counter to track the number of sections
+            // Clone the section
+            let $sectionToClone = $('#incrementalSection').clone();
 
-        // // Use event delegation to handle click events on dynamically added elements    
-        
-        // $('#sectionContainer').on('click', '.add-section', function(e) {
+            // Increment the section index
+            sectionIndex++;
+
+            // Update the id and name attributes in the cloned section
+            $sectionToClone.attr('id', 'incrementalSection_' + sectionIndex);
+            $sectionToClone.find('select').prop('selectedIndex', 0);
+            $sectionToClone.find('input[type="text"]').val('');
+
+            // Add a label to display the condition number
+            $sectionToClone.prepend(`
+                <div class="condition-label">${sectionIndex}</div>
+            `);
+
+            // Append the "Remove Section" button to the cloned section
+            $sectionToClone.find('.col-md-1').prepend(`
+                <a class="remove-section-btn !tw-px-0 tw-group !tw-text-white mr-5" data-toggle="dropdown">
+                    <span class="tw-rounded-full tw-bg-danger-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff">
+                            <path d="M200-440v-80h560v80H200Z"/>
+                        </svg>
+                    </span>
+                </a>
+            `);
+
+            // Add AND/OR toggle button if more than one section exists
+            if (sectionIndex > 1) {
+                $sectionToClone.prepend(`
+                    <div class="toggle-condition">
+                        <input type="hidden" id="toggleRadio" name="sched_is_and[]" class="hidden-radio" value="0">
+                        <button type="button" class="toggle-schedule-and-or-btn" id="toggle_and_or_${sectionIndex}" name="schedule_is_and_${sectionIndex}" data-value="0">OR</button>
+                    </div>
+                `);
+            }
+
+            // Append the cloned section to the container
+            $('#sectionContainer').append($sectionToClone);
+
+            // Update condition labels
+            updateConditionLabels();
+
+            // Event listener to remove a section when the Remove button is clicked
+            $('#sectionContainer').on('click', '.remove-section-btn', function() {
+                $(this).closest('.graySection').remove();
+                updateConditionLabels(); // Update condition labels after removing a section
+            });
+        });
+
+        // Toggle AND/OR button behavior
+        $(document).on('click', '.toggle-schedule-and-or-btn', function() {
+            var radioButton = $(this).prev('.hidden-radio'); // Assuming the radio button is before the button
+            var currentValue = radioButton.val(); // Get the current value of the radio button
+
+            if (currentValue === '1') {
+                $(this).text('OR');  // Change button text to OR
+                radioButton.val('0'); // Set radio button value to 0
+                $(this).attr('data-value', '0'); // Update data-value attribute
+            } else {
+                $(this).text('AND'); // Change button text to AND
+                radioButton.val('1'); // Set radio button value to 1
+                $(this).attr('data-value', '1'); // Update data-value attribute
+            }
+
+            // Update condition labels based on the new toggle state
+            updateConditionLabels();
+        });
+
             
-        //     e.preventDefault();
-
-        //     // Clone the section
-        //     let $sectionToClone = $('#incrementalSection').clone();
-
-        //     // Increment the section index
-        //     sectionIndex++;
-
-        //     // Update the id and name attributes in the cloned section
-        //     $sectionToClone.attr('id', 'incrementalSection_' + sectionIndex);
-        //     $sectionToClone.find('select').each(function() {
-        //         //let nameAttr = $(this).attr('name');
-        //         //$(this).attr('name', nameAttr + '_' + sectionIndex);
-        //     });
-
-        //     // Reset the select fields in the cloned section
-        //     $sectionToClone.find('select').prop('selectedIndex', 0);
-
-        //     // Append the "Remove Section" button to the cloned section
-        //     $sectionToClone.find('.col-md-1').prepend(`
-        //         <a class="remove-section-btn !tw-px-0 tw-group !tw-text-white mr-5" data-toggle="dropdown">
-        //             <span class="tw-rounded-full tw-bg-danger-600 tw-text-white tw-inline-flex tw-items-center tw-justify-center tw-h-7 tw-w-7 -tw-mt-1 group-hover:!tw-bg-primary-700">
-        //                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff"><path d="M200-440v-80h560v80H200Z"/></svg>
-        //             </span>
-        //         </a>
-        //     `);
-
-        //     // Append the cloned section to the container
-        //     $('#sectionContainer').append($sectionToClone);
-
-        //     // Event listener to remove a section when the Remove button is clicked
-        //     $('#sectionContainer').on('click', '.remove-section-btn', function() {
-        //         $(this).closest('.graySection').remove();
-        //     });
-
-        // });
-
-
-        /* Set conditions to execute the action => Funtion for incremental section clicked on plus button */
+        // -----------------------------------------------------------------------------
+        /* Incremental section for Execute condition */
+        // -----------------------------------------------------------------------------
 
         let sectionIndexExecute = 1; // Counter to track the number of sections
+
+        // Function to update the condition numbers and display the condition logic (AND/OR)
+        function updateConditionLabelsToExecute() {
+            let conditions = [];
+            
+            $('#sectionContainerExecute .graySection').each(function(index) {
+                const toggleButton = $(this).find('.toggle-and-or-btn');
+                const conditionNumber = index + 1;
+                const logicType = toggleButton.length > 0 ? toggleButton.text().trim() : ''; // Get 'AND' or 'OR' from the button
+                
+                conditions.push({
+                    number: conditionNumber,
+                    logic: logicType
+                });
+            });
+
+            // Generate the label string like "Condition (1 AND 2) OR 3"
+            let labelText = "Condition (";
+            conditions.forEach((condition, index) => {
+                if (index === 0) {
+                    labelText += `${condition.number}`;  // First condition doesn't have a preceding logic
+                } else {
+                    labelText += ` ${condition.logic} ${condition.number}`;
+                }
+            });
+            labelText += ")";
+
+            // Update the displayed condition label
+            $('#conditionSummaryExecute').text(labelText); // Ensure #conditionSummaryExecute exists in the HTML
+        }
 
         // Use event delegation to handle click events on dynamically added elements    
         $('#sectionContainerExecute').on('click', '.add-section', function(e) {
@@ -681,6 +630,11 @@
 
             // Reset the input fields in the cloned section
             $sectionToCloneExecute.find('input[type="text"]').val('');
+
+            // Add a label to display the condition number
+            $sectionToCloneExecute.prepend(`
+                <div class="condition-label">${sectionIndexExecute}</div>
+            `);
 
             // Append the "Remove Section" button to the cloned section
             $sectionToCloneExecute.find('.col-md-1').prepend(`
@@ -706,18 +660,25 @@
             // Append the cloned section to the container
             $('#sectionContainerExecute').append($sectionToCloneExecute);
 
+            // Update the condition numbers after adding a new section
+            //updateConditionNumbers();
+
+            // Update the condition labels and summary
+            updateConditionLabelsToExecute();
+
             // Event listener to remove a section when the Remove button is clicked
             $('#sectionContainerExecute').on('click', '.remove-section-btn', function() {
                 $(this).closest('.graySection').remove();
+                //updateConditionNumbers(); // Update condition numbers after removing a section
+                updateConditionLabelsToExecute(); // Update the condition labels after removing a section
             });
         });
 
         // Toggle AND/OR button behavior
-         $(document).on('click', '.toggle-and-or-btn', function() {
-                // Get the current radio button
+        $(document).on('click', '.toggle-and-or-btn', function() {
             var radioButton = $(this).prev('.hidden-radio'); // Assuming the radio button is before the button
             var currentValue = radioButton.val(); // Get the current value of the radio button
-            
+
             if (currentValue === '1') {
                 $(this).text('OR');  // Change button text to OR
                 radioButton.val('0'); // Set radio button value to 0
@@ -727,6 +688,9 @@
                 radioButton.val('1'); // Set radio button value to 1
                 $(this).attr('data-value', '1'); // Update data-value attribute
             }
+
+            // Update the condition labels and summary
+            updateConditionLabelsToExecute();
         });
 
 

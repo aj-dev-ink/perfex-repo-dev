@@ -49,6 +49,7 @@
 .pr-15{ padding-right: 15px; }
 
 .mr-5{ margin-right: 5px;}
+.mr-10{ margin-left: 10px;}
 
 .blue-circle{
     display: inline-block;
@@ -144,6 +145,7 @@
   padding: 10px;
   background-color: #f5f5f5;
   margin: 0;
+  position: relative;
 }
 /*Increemental Section*/
 .incrementalBtn{
@@ -300,4 +302,29 @@
   background-color: transparent;
   border: none;
   cursor: pointer;
+}
+#sectionContainerExecute, #sectionContainer{
+  position: relative;
+}
+.defaultCondition-label{
+  position: absolute;
+  top: 17px;
+  left: 15px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 99;
+}
+.condition-label{
+  position: absolute;
+  left: 15px;
+  padding-top: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.clsIncrementalSection{
+  padding-left: 20px;
+}
+#conditionSummary, #conditionSummaryExecute{
+  padding-top: 10px;
+  font-weight: 600;
 }

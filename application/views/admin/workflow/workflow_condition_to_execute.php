@@ -31,7 +31,7 @@
                                 <div id="sectionContainerExecute">
                                     <!-- Hidden radio button for first condition -->
                                     <input type="hidden" id="toggleRadio" name="is_and[]" class="hidden-radio" value="1">
-                       
+                                    <div class="defaultCondition-label">1</div> 
                                     <div class="row graySection clsIncrementalSection" id="incrementalSectionToExecute">
                                         <div class="col-md-3">
                                             <select class="form-control clsConditionSelect" id="executeConditionSelect" name="condition_type_id[]">
@@ -104,7 +104,8 @@
                                             </a>
                                         </div>
                                     </div> 
-                                </div>    
+                                </div> 
+                                <div id="conditionSummaryExecute">Condition </div>   
                             </div>     
                         </div>                        
                     </div>  
