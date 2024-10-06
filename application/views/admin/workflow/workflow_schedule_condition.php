@@ -30,7 +30,9 @@
                             <div id="sectionContainer">
                                 <!-- Hidden radio button for first condition -->
                                 <input type="hidden" id="toggleRadio" name="sched_is_and[]" class="hidden-radio" value="1">
-                       
+
+                                <div class="defaultCondition-label">1</div> 
+
                                 <div class="row graySection clsIncrementalSection" id="incrementalSection">
                                     <div class="col-md-3">
                                         <select class="form-control clsConditionSelect" id="scheduleConditionSelect" name="sched_condition_type_id[]">
@@ -103,8 +105,12 @@
                                         </a>
                                     </div>
                                 </div> 
-                            </div>    
-                        </div>                             
+                            </div> 
+                            
+                            <div id="conditionSummary">Condition </div>
+                        </div>     
+                        
+                        
                     </div>  
                 </div>
             </div>
