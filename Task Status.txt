@@ -173,6 +173,7 @@ CREATE TABLE tblworkflow_send_email (
 
 -----------------------------------------------------------
 RELEASE NOTES | DEPLOY NOTES
+-----------------------------------------------------------
 application/config/autoload.php
 application/config/config.php
 root/index.php
@@ -205,6 +206,8 @@ Assets/custom.css
 - email send
 
 -----------------------------------------------------------
+RELEASED  WORKFLOW WITH CONDITION AND OR
+-----------------------------------------------------------
 
 truncate table `tblworkflow`;
 truncate table `tblworkflow_condition`;
@@ -213,6 +216,16 @@ truncate table `tblworkflow_schedule_condition`;
 truncate table `tblworkflow_webhook`;
 truncate table `tblworkflow_edit_field`;
 truncate table `tblworkflow_send_email`;
+truncate table `tblworkflow_processing_schedule`;
 
 
 -----------------------------------------------------------
+CREATE TABLE tblworkflow_processing_schedule (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    workflow_id INT(11),
+    entity_type INT(11),
+    entity_id INT(11),
+    is_processed BOOLEAN DEFAULT 0,
+    scheduled_time timestamp
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+

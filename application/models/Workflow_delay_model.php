@@ -40,4 +40,11 @@ class Workflow_delay_model extends App_Model
         $this->db->update(db_prefix() . 'workflow_delay', $data);
         return $this->db->affected_rows() > 0;
     }
+
+    public function getWorkflowDelayByWorkFlowId( $intWorkflowId ) {
+        if( is_numeric( $intWorkflowId ) ) {
+            $this->db->where( 'workflow_id', $intWorkflowId );
+            return $this->db->get( db_prefix() . 'workflow_delay' )->row();
+        }
+    }
 }
