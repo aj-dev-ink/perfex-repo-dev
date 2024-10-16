@@ -229,3 +229,17 @@ CREATE TABLE tblworkflow_processing_schedule (
     scheduled_time timestamp
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
+workflow_constants
+Controller:workflow
+custom_field_helper
+workflow_helper
+workflow_processing_helper
+workflow_helper
+
+Workflow::Controller
+views
+helpers
+db::models::workflow
+Constants
+DB backup

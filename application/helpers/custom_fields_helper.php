@@ -1031,3 +1031,44 @@ function getCustomFieldIdBySlug( $fieldSlug ) {
     }
     return false;
 }
+
+function getCustomFieldOptionsBySlug( $fieldSlug ) {
+    $fieldTo = explode( '_', $fieldSlug )[0];
+
+    $CI = & get_instance();
+
+    $CI->db->from( db_prefix() . 'customfields' );
+    $CI->db->where( 'fieldto', $fieldTo );
+    $CI->db->where( 'slug', $fieldSlug );
+
+    $query = $CI->db->get();
+
+    if( $query->num_rows() > 0 ) {
+        $row = $query->row();
+        if( $row->type == 'select' ){
+            return explode( ',', $row->options );
+        } 
+    }
+    return false;
+}
+
+function getRelIdsBySlugByValue( $slug, $fieldValue ){
+    $CI = & get_instance();
+
+    $customFieldTable = db_prefix() . 'customfields';
+    $customFieldValueTable = db_prefix() . 'customfieldsvalues';
+
+    $CI->db->select( $customFieldValueTable . '.relid');
+    $CI->db->from($customFieldTable);
+    $CI->db->join($customFieldValueTable, $customFieldTable . '.id = ' . $customFieldValueTable . '.fieldid');
+    $CI->db->where($customFieldTable.'.slug', $slug);
+    $CI->db->where($customFieldValueTable.'.value', trim($fieldValue));
+    
+    $query = $CI->db->get();
+
+    if ($query->num_rows() > 0) {
+        return $query->result_array(); // Returns all the relid values
+    } else {
+        return false; // No results found
+    }
+}

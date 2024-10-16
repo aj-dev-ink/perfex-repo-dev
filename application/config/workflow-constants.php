@@ -134,7 +134,8 @@
             'Meeting scheduled on' => 63,
             'Latest activity on' => 64,
             'Is new' => 65,
-            'Forecasting type' => 66
+            'Forecasting type' => 66,
+            'Lead Email'=>67
         ],
         WF_ENTITY_TYPE['Task']=>[
             'Task name' => 1,
@@ -183,7 +184,7 @@
             WF_ENTITY_TYPE['Lead'] => [
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Salutation']                => ['field_label' => 'Salutation', 'is_textbox'=>false, 'function_name' => '_getSalutationOptions', 'table_name'=>'customfieldsvalues', 'field_name'=>'leads_salutation'],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Full name']                 => ['field_label' => 'Full name', 'is_textbox'=>true, 'function_name' => 'getUserOptions', 'table_name'=>'leads', 'field_name'=>'name'],
-                WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Owner']                     => ['field_label' => 'Owner', 'is_textbox'=>false, 'function_name' => '_getUserOptions', 'table_name'=>'leads', 'field_name'=>'assigned'],
+                WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Owner']                     => ['field_label' => 'Owner', 'is_textbox'=>false, 'function_name' => '_getUserOptions', 'is_email_field'=>true, 'table_name'=>'leads', 'field_name'=>'assigned'],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Company']                   => ['field_label' => 'Company', 'is_textbox'=>true, 'function_name' => 'getUserOptions', 'table_name'=>'leads', 'field_name'=>'company'],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Pipeline']                  => ['field_label' => 'Pipeline', 'is_textbox'=>false, 'function_name' => '_getPipelineOptions', 'table_name'=>'', 'field_name'=>''],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Pipeline stage']            => ['field_label' => 'Pipeline stage', 'is_textbox'=>true, 'function_name' => 'getUserOptions', 'table_name'=>'', 'field_name'=>''],
@@ -246,6 +247,7 @@
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Latest activity on']        => ['field_label' => 'Latest activity on', 'is_textbox'=>true, 'function_name' => 'getUserOptions', 'table_name'=>'', 'field_name'=>''],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Is new']                    => ['field_label' => 'Is new', 'is_textbox'=>false, 'function_name' => '_getYesNoOptions', 'table_name'=>'', 'field_name'=>''],
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Forecasting type']          => ['field_label' => 'Forecasting type', 'is_textbox'=>false, 'function_name' => '_getForastingType', 'table_name'=>'', 'field_name'=>''],
+                WF_FIELD_MAP[WF_ENTITY_TYPE['Lead']]['Lead Email']                => ['field_label' => 'Lead Email', 'is_textbox'=>true, 'function_name' => 'getUserOptions', 'is_email_field'=>true, 'table_name'=>'leads', 'field_name'=>'email'],
             ],
             WF_ENTITY_TYPE['Task'] => [
                 WF_FIELD_MAP[WF_ENTITY_TYPE['Task']]['Task name']                => ['field_label' => 'Task name', 'is_textbox'=>true, 'function_name' => 'getUserOptions'],

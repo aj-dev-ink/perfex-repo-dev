@@ -156,5 +156,17 @@ class Workflow extends AdminController
             echo json_encode( ['success' => false, 'message'=>'Invalid entity or field.'] );
         }
     }
+
+    public function getEmailFieldOptions() {
+        $entityType = $this->input->post('entityType');
+
+        //WorkflowHelper::_getEmailFieldOptions()
+        $arrOptions = _getEmailFieldOptions( $entityType );
+        if( is_array( $arrOptions ) ) {
+            echo json_encode( ['success' => true, 'data'=>$arrOptions ] );
+        } else {
+            echo json_encode( ['success' => false, 'message'=>'Unable to load options.'] );
+        }
+    }
     
 }

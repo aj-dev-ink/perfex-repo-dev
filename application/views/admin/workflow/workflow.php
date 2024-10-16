@@ -798,29 +798,45 @@
         // updates To & CC select box of action Send Email
         
         //get the only fields which has user field options to send email to
-        //_getUserOptions can add other options basde on functions
+        //check workflow_helper::_getEmailFieldOptions can add other options basde on functions
         var entityTypeValue = $('#entity_type_id').val();
         var fieldData = conditionFieldOptionMap[entityTypeValue];
 
-        // Get the select box element by its ID
-        var $sendEmailToSelect = $('#sendEmailTo');
-        var $sendEmailCcSelect = $('#sendEmailCc');
+        $.ajax({
+            url: '<?php echo site_url('admin/workflow/getEmailFieldOptions'); ?>',
+            type: 'POST',
+            data: {
+                entityType: entityTypeValue, // Sending the Entity type value to the backend
+            },
+            success: function (response) {
+                response = JSON.parse(response);
+                // Assuming response contains an array of options in the format [{id: 1, name: 'Option1'}, ...]
+                var optionsData = response.data; // Adjust according to the actual structure of your response
+                
+                // Get the select box element by its ID
+                var $sendEmailToSelect = $('#sendEmailTo');
+                var $sendEmailCcSelect = $('#sendEmailCc');
 
-        // Clear the existing options
-        $sendEmailToSelect.empty();
-        $sendEmailCcSelect.empty();
+                // Clear the existing options
+                $sendEmailToSelect.empty();
+                $sendEmailCcSelect.empty();
 
-        // Populate the select box with new options
-        $sendEmailToSelect.append($('<option></option>').attr('value', "-").text('Select'));
-        $sendEmailCcSelect.append($('<option></option>').attr('value', "-").text('Select'));
-        for (let key in fieldData) {
-            if (fieldData[key].function_name === "_getUserOptions") {
-                $sendEmailToSelect.append($('<option></option>').attr('value', key).text( fieldData[key].field_label ));
-                $sendEmailCcSelect.append($('<option></option>').attr('value', key).text( fieldData[key].field_label ));
+                // Populate the select box with new options
+                $sendEmailToSelect.append($('<option></option>').attr('value', "-").text('Select'));
+                $sendEmailCcSelect.append($('<option></option>').attr('value', "-").text('Select'));
+                $.each(optionsData, function (index, option) {
+                    $sendEmailToSelect.append($('<option>', { value: option.id, text: option.name }));
+                    $sendEmailCcSelect.append($('<option>', { value: option.id, text: option.name }));
+                });
+
+                $sendEmailToSelect.selectpicker('refresh'); // If applicable
+                $sendEmailCcSelect.selectpicker('refresh'); // If applicable
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching data:', error);
             }
-        }
-        $sendEmailToSelect.selectpicker('refresh'); // If applicable
-        $sendEmailCcSelect.selectpicker('refresh'); // If applicable
+        });
+
 
         // Toggle CC field
         $('#addCc').on('click', function() {
@@ -831,7 +847,6 @@
         $('#addBcc').on('click', function() {
             $('#bccField').toggle();  // Show or hide the BCC field
         });
-
     });
 </script>
 

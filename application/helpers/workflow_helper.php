@@ -295,3 +295,32 @@ if (!function_exists('_getForastingType')) {
         ];        
     }
 }
+
+
+if (!function_exists('_getEmailFieldOptions')) {
+    function _getEmailFieldOptions( $entityType ){
+        $arrOptions = [];
+        switch ($entityType) {
+            case WF_ENTITY_TYPE['Lead']:
+                foreach( WF_FIELD_OPTION_MAP[WF_ENTITY_TYPE['Lead']]  as $key=>$arrfieldDetails ){
+                    if( isset( $arrfieldDetails['is_email_field'] ) && true == $arrfieldDetails['is_email_field'] ){
+                        $arrOptions[] = ['id' => $key, 'name'=> $arrfieldDetails['field_label'] ];
+                        //add this to dd values here
+                    }
+                }
+                //customfieldhelper::getCustomFieldOptionsBySlug()
+                $arrCustomFieldOptions = getCustomFieldOptionsBySlug('staff_designation'); 
+                foreach( $arrCustomFieldOptions as $strOption ){
+                    $arrOptions[] = ['id' => 'role_'. trim($strOption), 'name'=> trim($strOption) ]; 
+                }
+                //$arrfieldDetails = WF_FIELD_OPTION_MAP[$entityType][$fieldId];
+                # code...
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+        return $arrOptions;
+    }
+}
