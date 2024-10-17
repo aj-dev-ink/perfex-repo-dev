@@ -6,8 +6,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Email_template_manage_model extends CI_Model
 {
 
-    public string $email_template_from_mail = '';
-    public string $email_template_from_name = '';
+    public $email_template_from_mail = '';
+    public $email_template_from_name = '';
 
 
     public function __construct()
@@ -537,7 +537,6 @@ class Email_template_manage_model extends CI_Model
 
 
         $this->db->insert( $mail_log_tab , $log_data );
-
 
         $this->db->where('id',$mail_log_id)->update(db_prefix().'email_template_manage_mail_logs',$update_log);
 
@@ -1916,7 +1915,6 @@ class Email_template_manage_model extends CI_Model
 
 
                 } // end if proposal rel type
-
                 elseif ( $rel_type == 'estimate' )
                 {
 
@@ -2293,6 +2291,9 @@ class Email_template_manage_model extends CI_Model
         if ( !empty( $cnf['from_name'] ) )
             $this->email_template_from_name = $cnf['from_name'] ;
 
+
+        $this->email_template_from_name = "=?UTF-8?B?" . base64_encode($this->email_template_from_name) . "?=";
+
     }
 
 
@@ -2338,7 +2339,6 @@ class Email_template_manage_model extends CI_Model
                     }
 
                 }
-
 
                 if ( $add_to_add )
                 {
@@ -2579,9 +2579,7 @@ class Email_template_manage_model extends CI_Model
                     {
                         foreach ( $members as $member )
                         {
-
-                            if( !empty( $member->staff_id ) )
-                                $this->webhook_send_mail( $webhook , $project , 'staff' , $member->staff_id );
+                            if( !empty( $member->staff_id ) )                                $this->webhook_send_mail( $webhook , $project , 'staff' , $member->staff_id );
 
                         }
 
@@ -2650,7 +2648,7 @@ class Email_template_manage_model extends CI_Model
         {
 
 
-            $invoice = $this->db->select('id,clientid,sale_agent')->where('id',$rel_id)->get(db_prefix().'invoices')->row();
+            $invoice = $this->db->select('id, clientid , clientid as client_id, sale_agent, sale_agent as staff_id')->where('id',$rel_id)->get(db_prefix().'invoices')->row();
 
             if ( !empty( $invoice ) )
             {
@@ -2694,7 +2692,7 @@ class Email_template_manage_model extends CI_Model
         {
 
 
-            $lead = $this->db->select('assigned,id')->where('id',$rel_id)->get(db_prefix().'leads')->row();
+            $lead = $this->db->select('assigned,id, assigned as staff_id , id as lead_id')->where('id',$rel_id)->get(db_prefix().'leads')->row();
 
             if ( !empty( $lead ) )
             {
@@ -3475,7 +3473,6 @@ class Email_template_manage_model extends CI_Model
         {
 
             $staff_id = get_staff_user_id();
-
             foreach ( $records as $record )
             {
 
@@ -3590,6 +3587,39 @@ class Email_template_manage_model extends CI_Model
         $objTemplate    = $this->get_template( $template_id );
         $subject        = $objTemplate->template_subject;
         $content        = $objTemplate->template_content;
+
+        //merge_fields personalisation start
+
+        switch( $rel_type ) {
+            case 'lead':
+                $rel_data = $this->db->select('assigned, id, assigned as staff_id, id as lead_id')->where('id', $rel_id)->get(db_prefix().'leads')->row();
+                $this->load->library('merge_fields/leads_merge_fields');
+                break;
+            default:
+                # code... for other types of rel_type ( entity )
+                break;
+        }
+        $this->load->library('merge_fields/other_merge_fields');
+        
+
+        $merge_fields   = $this->get_merge_fields( $rel_type , $rel_data, $for_client = false );
+        foreach ( $merge_fields as $key => $val )
+        {
+
+            if( stripos($content, $key) !== false )
+                $content = str_ireplace($key, $val, $content);
+            else
+                $content = str_ireplace($key, '', $content);
+
+
+            if( stripos($subject, $key) !== false )
+                $subject = str_ireplace($key, $val, $subject);
+            else
+                $subject = str_ireplace($key, '', $subject);
+
+        }
+
+        //merge_fields personalisation End
 
         $smtp_setting_id = null;
 
