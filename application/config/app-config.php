@@ -54,7 +54,8 @@ define('APP_DB_PASSWORD', 'postgres');
  * The name of the database you want to connect to
  */
 //define('APP_DB_NAME', 'crm_perfex');
-define('APP_DB_NAME', 'crmibn_perxcrm_db');
+//define('APP_DB_NAME', 'crmibn_perxcrm_db');
+define('APP_DB_NAME', 'crmibn_perfex_oct');
 
 /**
  * @since  2.3.0

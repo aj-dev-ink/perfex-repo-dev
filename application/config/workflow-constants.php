@@ -309,15 +309,15 @@
 
     define('WFD_PREF_PROPERTY', 
         array(
-            'Expected Closure On'=>1,
-            'Actual Closure Date'=>2,
-            'Converted At'=>3,
+            //'Expected Closure On'=>1,
+            //'Actual Closure Date'=>2,
+            //'Converted At'=>3,
             'Created At'=>4,
-            'Updated At'=>5,
-            'Existing Lead Created On'=>6,
-            'Task Due On'=>7,
-            'Meeting Scheduled On'=>8,
-            'Latest Activity On'=>9
+            //'Updated At'=>5,
+            //'Existing Lead Created On'=>6,
+            //'Task Due On'=>7,
+            //'Meeting Scheduled On'=>8,
+            //'Latest Activity On'=>9
         )
     );
 

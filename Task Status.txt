@@ -8,7 +8,6 @@ Todo
 -- edit workflow( 3D )
 -- Select when to perform action( 2w )
 -- copy Field Value( 2D )
--- Delayed Action( 2D )
 -- validations
 -- Set action to be performed
 
@@ -243,3 +242,27 @@ helpers
 db::models::workflow
 Constants
 DB backup
+
+-----------------------------------------------------------
+RELEASED | WORKFLOW EMAIL with Lead Email & Designation Support | Template Personalisation
+-----------------------------------------------------------
+
+truncate table `tblworkflow`;
+truncate table `tblworkflow_condition`;
+truncate table `tblworkflow_delay`;
+truncate table `tblworkflow_schedule_condition`;
+truncate table `tblworkflow_webhook`;
+truncate table `tblworkflow_edit_field`;
+truncate table `tblworkflow_send_email`;
+truncate table `tblworkflow_processing_schedule`;
+
+_evaluateScheduleConditions // update tables for schedule cons
+_getScheduleDate // bassed on type of date selected get actual date value
+_add_processing_data
+_addCronProcessing
+
+remaining
+        //fetch workflow 
+        //check condition
+        //execute action
+        //condition check to schedule

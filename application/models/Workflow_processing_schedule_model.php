@@ -14,9 +14,11 @@ class Workflow_processing_schedule_model extends App_Model
      * @param mixed $data workflow_processing_schedule $_POST data
      */
     public function add($data) {
+       
         $this->db->insert(db_prefix() . 'workflow_processing_schedule', $data);
 
         $insert_id = $this->db->insert_id();
+
         if ($insert_id) {
             log_activity('New workflow processing schedule Added [ID: ' . $insert_id . ']');
             return $insert_id;
@@ -51,5 +53,17 @@ class Workflow_processing_schedule_model extends App_Model
         $this->db->where('id', $id);
         $this->db->delete(db_prefix() . 'workflow_processing_schedule');
         return $this->db->affected_rows() > 0;
+    }
+
+    public function cronProcess(){
+        $this->db->where('is_processed', false);
+        $this->db->where('scheduled_time <', date('Y-m-d H:i:s'));
+        $query = $this->db->get(db_prefix() . 'workflow_processing_schedule');
+
+        $result = $query->result_array();
+
+        foreach( $result as $arrProcessingSchedule ){
+            processWorkflowSchedule( $arrProcessingSchedule );
+        }
     }
 }

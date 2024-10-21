@@ -19,7 +19,7 @@
                         <div id="sectionContainerDelayed" class="section2 pb-5">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <?php echo render_input('pref_count', 'Time Preference', '', 'number'); ?>
+                                    <?php echo render_input('pref_count', 'Time Preference', '', 'number',  ['min' => '1']); ?>
                                 </div>
                                 <div class="col-md-2">
                                     <label for="name" class="control-label">&nbsp;</label>

@@ -558,13 +558,14 @@ function _createProcessSchedule( $arrWorkflow, $intEntityId ){
     //prepare time & repeats
 
     $objApp = &get_instance();
-    $objApp->load->model('workflow_delay');
+    $objApp->load->model('workflow_delay_model');
     $objWorkflowDelay = $objApp->workflow_delay_model->getWorkflowDelayByWorkFlowId( $arrWorkflow['id'] );
     if( $objWorkflowDelay ){
-        $baseScheduleDate = _getScheduleDate( $objWorkflowDelay, $intEntityId );
+        $baseScheduleDate = _getScheduleDate( $arrWorkflow, $objWorkflowDelay, $intEntityId );
         $sign = $objWorkflowDelay->is_before ? '+' : '-';
 
-        //$baseScheduleDate = "2024-10-11 12:30:00";
+//$baseScheduleDate = "2024-10-11 12:30:00";
+        //based on time pref add wait duration to base date
         $date = new DateTime( $baseScheduleDate );
         $startTime = null;
         switch( $objWorkflowDelay->pref_duration ) {
@@ -586,27 +587,64 @@ function _createProcessSchedule( $arrWorkflow, $intEntityId ){
             default:
                 # code...
                 break;
-        }
+        }//Now $startTime is added with wait duration
+        
+        //create single or multiple schedules based on repeat type , frequency OR end date
         $arrSchedules = [];
         if( $objWorkflowDelay->repeat_type == WFD_REPEAT_TYPE['Do not repeat'] ){
             $arrSchedules[] = $startTime;
         } else {
+            $repeatType = $objWorkflowDelay->repeat_type;
             if( $objWorkflowDelay->is_recurance ){
                 //frequency
-                $arrSchedules = _generateFixedSchedules( $startDate, $repeatType, $count );
+                $count = $objWorkflowDelay->frequency;
+                $arrSchedules = _generateFixedSchedules( $startTime, $repeatType, $count );
             } else {
                 //untill date
-                $arrSchedules = _generateSchedule( $startDate, $endDate, $repeatType );
+                $endDate = $objWorkflowDelay->until_date;
+                $arrSchedules = _generateSchedule( $startTime, $endDate, $repeatType );
             }
         }
 
         //insert these schedules to db now
+        $scheduleInsertIds = [];
+        $objApp->load->model('workflow_processing_schedule_model');
+        foreach( $arrSchedules as $scheduleTime ){
+            $arrData = [
+                'workflow_id'=>$arrWorkflow['id'],
+                'entity_type'=>$arrWorkflow['entity_type_id'],
+                'entity_id'=>$intEntityId,
+                'scheduled_time'=>$scheduleTime,
+                'is_processed'=>false
+            ];
+            $scheduleInsertIds[] = $objApp->workflow_processing_schedule_model->add( $arrData );
+        }
     }
 }
 
-function _getScheduleDate( $objWorkflowDelay, $intEntityId ){
+function _getScheduleDate( $arrWorkflow, $objWorkflowDelay, $intEntityId ){
     //implement
-    //delay_date_type
+    $delayDateType = $objWorkflowDelay->delay_date_type;
+    switch( $delayDateType ) {
+        case WFD_PREF_PROPERTY['Created At']:
+            switch( $arrWorkflow['entity_type_id'] ) {
+                case WF_ENTITY_TYPE['Lead']:
+                    $objApp = &get_instance();
+                    $objApp->load->model('leads_model');
+                    $objLeads = $objApp->leads_model->get( $intEntityId );
+                    return $objLeads->dateadded;
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+            break;
+        
+        default:
+            # code...
+            break;
+    }
 }
 
 function _generateSchedule($startDate, $endDate, $repeatType) {
@@ -617,18 +655,18 @@ function _generateSchedule($startDate, $endDate, $repeatType) {
     // Array to hold the generated schedule
     $schedule = [];
     
-    // Determine the interval based on the repeat type
+     // Determine the interval based on the repeat type
     switch($repeatType) {
-        case 'daily':
+        case WFD_REPEAT_TYPE['Daily']:
             $interval = new DateInterval('P1D'); // 1 day interval
             break;
-        case 'weekly':
+        case WFD_REPEAT_TYPE['Weekly']:
             $interval = new DateInterval('P1W'); // 1 week interval
             break;
-        case 'monthly':
+        case WFD_REPEAT_TYPE['Monthly']:
             $interval = new DateInterval('P1M'); // 1 month interval
             break;
-        case 'yearly':
+        case WFD_REPEAT_TYPE['Yearly']:
             $interval = new DateInterval('P1Y'); // 1 year interval
             break;
         default:
@@ -638,7 +676,6 @@ function _generateSchedule($startDate, $endDate, $repeatType) {
     // Iterate from the start date and generate occurrences until the end date
     while ($start <= $end) {
         $schedule[] = $start->format('Y-m-d H:i:s'); // Add the current date to the schedule
-        
         // Move to the next occurrence by adding the interval
         $start->add($interval);
     }
@@ -649,23 +686,25 @@ function _generateSchedule($startDate, $endDate, $repeatType) {
 
 function _generateFixedSchedules( $startDate, $repeatType, $count ) {
     // Convert the start date to a DateTime object
-    $start = new DateTime($startDate);
+
+    //$start = new DateTime($startDate);
+    $start = $startDate;
     
     // Array to hold the generated schedule
     $schedule = [];
     
     // Determine the interval based on the repeat type
     switch($repeatType) {
-        case 'daily':
+        case WFD_REPEAT_TYPE['Daily']:
             $interval = new DateInterval('P1D'); // 1 day interval
             break;
-        case 'weekly':
+        case WFD_REPEAT_TYPE['Weekly']:
             $interval = new DateInterval('P1W'); // 1 week interval
             break;
-        case 'monthly':
+        case WFD_REPEAT_TYPE['Monthly']:
             $interval = new DateInterval('P1M'); // 1 month interval
             break;
-        case 'yearly':
+        case WFD_REPEAT_TYPE['Yearly']:
             $interval = new DateInterval('P1Y'); // 1 year interval
             break;
         default:
@@ -679,6 +718,21 @@ function _generateFixedSchedules( $startDate, $repeatType, $count ) {
         // Move to the next occurrence by adding the interval
         $start->add($interval);
     }
-    
+
     return $schedule;
 }
+if (!function_exists('_processWorkflowSchedule')) {
+    function _processWorkflowSchedule( $arrProcessingSchedule ){
+        $CI = &get_instance();
+
+        //fetch workflow 
+        //check condition
+        //execute action
+
+        //Mark As Processed
+        $CI->db->where('id', $arrProcessingSchedule['id']);
+        $arrProcessingSchedule['is_processed'] = true;
+        $CI->db->update(db_prefix() . 'workflow_processing_schedule', $arrProcessingSchedule);
+    }
+}
+

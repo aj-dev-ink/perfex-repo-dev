@@ -93,6 +93,8 @@ class Cron_model extends App_Model
             $this->stop_task_timers();
             $this->non_billed_tasks_notification();
 
+            $this->process_workflow_schedule();
+
             /**
              * Finally send any emails in the email queue - if enabled and any
              */
@@ -157,6 +159,13 @@ class Cron_model extends App_Model
             }
             update_option('tasks_reminder_notification_last_notified_day', $today);
         }
+    }
+
+
+    public function process_workflow_schedule()
+    {
+        $this->load->model('workflow_processing_schedule_model');
+        $this->workflow_processing_schedule_model->cronProcess();
     }
 
     public function stop_task_timers()
